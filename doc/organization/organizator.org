@@ -1,0 +1,85 @@
+* Trabajo realizado cada día
+** Antes del <2009-09-25 vie>
+
+En este punto de inflexión del PFC, tengo que comenzar a hacer una
+recapitulación de lo hecho hasta ahora, para ver como voy a afrontar el PFC.
+
+Mi objetivo es terminarlo como sea antes de que empieze el mes de Diciembre, 
+ya que la convocatoria va desde el <2009-12-14 lun> hasta el <2009-12-18 vie>,
+y teniendo en cuenta el factor que hay que entregarlo una semana antes de 
+dicha convocatoria, y que probablemente haya mucha gente pendiente, hay que
+hacerlo lo antes posible. Es por eso que necesito algo de orden. Además, 
+esto me sirve como recordatorio de lo que he estado haciendo, problemas 
+encontrados y demás, para poder tenerlo todo agrupado a la hora de hacer la
+memoria del proyecto.
+
+A continuación voy a enumerar el estado actual del PFC:
+
++ Servidor SVN creado en local temporalmente, hasta que me habiliten la
+  forja en RedIris. Una vez me la habiliten, solicitaré que migren mi 
+  repositorio local para mantener todas las revisiones actuales.
++ Traducción del script en batch creado por Manuel, a Python haciendo uso
+  de PyCLIPS. Ahora no es necesario el núcleo original para la ejecución
+  del programa.
+
+** <2009-09-25 vie>
+*** <2009-09-25 vie 17:18> 
+
+Fin de la organización preeliminar de este fichero. Comienza el análisis de
+requisitos del sistema
+
+*** <2009-09-25 vie 18:18>
+
+Primer boceto de la ventana principal del PFC: file:../design_ui/mainWindow.dia
+Quizás un splash estaría bien, así como organizar las opciones en dos columnas.
+
+* ToDo-list
+** DONE [#A] Traducir nucleo original de CLIPS a Python haciendo uso de PyCLIPS
+** DONE [#B] Inscribirme al CUSL4					  :CUSL:
+** TODO [#A] Organizar los siguientes hitos y pasos a seguir	  :ORGANIZACION:
+   SCHEDULED: <2009-09-25 vie>
+   DEADLINE: <2009-09-25 vie>
+Para este paso tengo que tener claro que falta por hacer, crear una 
+organización clara del proyecto, del tiempo que tengo disponible, y llevar 
+un control de lo que hay que hacer, lo que está hecho y demás.
+** TODO [#A] Realizar el Análisis del sistema			      :ANALISIS:
+*** TODO [#A] Toma de requisitos funcionales
+    SCHEDULED: <2009-09-25 vie>
+    DEADLINE: <2009-09-27 dom>
+*** TODO [#A] Análisis del sistema
+    SCHEDULED: <2009-09-26 sáb>
+    DEADLINE: <2009-09-28 lun>
+*** TODO [#B] Análisis y diseño de la GUI
+** TODO [#B] Hacer los bocetos de los distintos menús que tendrá el sistema
+
+* Objetivos del PFC
+
+Para no perder la perspectiva en ningún momento voy a incluir esta lista
+para indicar los objetivos que debo/quiero cumplir con este proyecto.
+
+** Funcionales
+- [ ] Otorgar una interfaz amigable para las pruebas de los sistemas expertos 
+      diseñados e implementados e CLIPS por los usuarios.
+- [ ] Implementar sistemas de competiciones (configurables)
+- [ ] Pruebas de sistemas expertos: hacer jugar un sistema experto contra
+      varios, sacar estadísticas, y mostrar al usuario como de bueno es
+      el sistema experto que ha implementado.
+- [ ] Modo rápido de partida (sin mostrar toda la partida).
+- [ ] Posibilitar la ocultación de los valores de las fichas en el modo juego.
+- [ ] Modo de prueba interactiva, es decir, jugar contra tu sistema experto.
+- [ ] Sistema de almacenamiento de partidas.
+- [ ] [OPCIONAL] Interfaz dinámica de edición de formaciones
+
+** Transversales
+- [ ] Código escrito en inglés.
+- [ ] Internacionalizable.
+- [ ] Diseño orientado a objetos.
+- [ ] Modulable para futuras ampliaciones.
+- [ ] Documentación al día (preparada para Doxygen).
+
+* Cosas que preguntarle a Manolo
+- [ ] Mostrarle el boceto de la UI. ¿Hacer una barra de menus repitiendo las
+      opciones?
+
+* Ideas sobre la marcha
+- [ ] Ventanita de splash

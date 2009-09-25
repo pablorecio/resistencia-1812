@@ -1,0 +1,100 @@
+<?xml version="1.0"?>
+<project name="Resistencia en C&#xE1;diz: 1812" company="" manager="Pablo Recio Quijano" phase="" project-start="20090720T000000Z" mrproject-version="2" calendar="1">
+  <properties/>
+  <phases/>
+  <calendars>
+    <day-types>
+      <day-type id="0" name="Obra realiz&#xE1;ndose" description="Un d&#xED;a de trabajo predeterminado"/>
+      <day-type id="1" name="Jornada de descanso" description="Un d&#xED;a predeterminado de descanso"/>
+      <day-type id="2" name="Usar base" description="Usar d&#xED;a del calendario base"/>
+      <day-type id="3" name="AlQuimia y clases" description=""/>
+      <day-type id="4" name="Fin de Semana" description=""/>
+    </day-types>
+    <calendar id="1" name="Predeterminado">
+      <default-week mon="0" tue="3" wed="3" thu="0" fri="0" sat="4" sun="4"/>
+      <overridden-day-types>
+        <overridden-day-type id="0">
+          <interval start="1530" end="2100"/>
+        </overridden-day-type>
+        <overridden-day-type id="4">
+          <interval start="0900" end="1300"/>
+          <interval start="1500" end="1700"/>
+        </overridden-day-type>
+      </overridden-day-types>
+      <days/>
+    </calendar>
+  </calendars>
+  <tasks>
+    <task id="1" name="Requisitos previos" note="Estudio preeliminar del proyecto:&#10;&#10;* Objetivos fundamentales&#10;* Requis&#xED;tos b&#xE1;sicos&#10;* Elecci&#xF3;n del Lenguaje de Programaci&#xF3;n&#10;* B&#xFA;squeda de herramientas y librer&#xED;as adecuadas&#10;" work="99000" start="20090720T000000Z" end="20090726T160000Z" work-start="20090720T153000Z" percent-complete="100" priority="0" type="normal" scheduling="fixed-work">
+      <constraint type="must-start-on" time="20090720T000000Z"/>
+    </task>
+    <task id="2" name="Estudio del n&#xFA;cleo &quot;Batalla del Guadalete&quot;" note="* An&#xE1;lisis del n&#xFA;cleo escrito en CLIPS sobre el que&#10;   parto para el PFC&#10;* Primera versi&#xF3;n en python que traduce el fichero &#10;   batch" work="39600" start="20090726T160000Z" end="20090801T153000Z" work-start="20090726T160000Z" percent-complete="99" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="1" type="FS"/>
+      </predecessors>
+    </task>
+    <task id="3" name="Aprendizaje de python" note="" work="712800" start="20090726T160000Z" end="20090921T173000Z" work-start="20090726T160000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <task id="4" name="Estudio preeliminar de Python" note="* Aprender las bases del lenguaje de&#10;   programaci&#xF3;n Python" work="118800" start="20090726T160000Z" end="20090813T180000Z" work-start="20090726T160000Z" percent-complete="100" priority="0" type="normal" scheduling="fixed-work">
+        <predecessors>
+          <predecessor id="1" predecessor-id="1" type="FS"/>
+        </predecessors>
+      </task>
+      <task id="5" name="Bases de python" note="* Hacer ejemplos y pruebas en Python para adaptarme&#10;   al lenguaje, con las distintas librer&#xED;as a utilizar&#10;* Desarrollo de UIs con Glade, y su enlazado con ficheros&#10;   python" work="594000" start="20090813T180000Z" end="20090921T173000Z" work-start="20090813T180000Z" percent-complete="100" priority="0" type="normal" scheduling="fixed-work">
+        <predecessors>
+          <predecessor id="1" predecessor-id="4" type="FS"/>
+        </predecessors>
+      </task>
+    </task>
+    <task id="6" name="Desarrollo general" note="" work="475200" start="20090924T000000Z" end="20091025T162500Z" work-start="20090924T153000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="3" type="FS"/>
+      </predecessors>
+      <task id="7" name="An&#xE1;lisis y dise&#xF1;o del sistema" note="" work="178200" start="20090924T000000Z" end="20091005T175500Z" work-start="20090924T153000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <task id="8" name="An&#xE1;lisis de requisitos" note="" work="59400" start="20090924T000000Z" end="20090926T163000Z" work-start="20090924T153000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+          <constraint type="must-start-on" time="20090924T000000Z"/>
+        </task>
+        <task id="9" name="Dise&#xF1;o de la GUI" note="" work="39600" start="20090926T163000Z" end="20091002T200000Z" work-start="20090926T163000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+          <predecessors>
+            <predecessor id="1" predecessor-id="8" type="FS"/>
+          </predecessors>
+        </task>
+        <task id="10" name="Dise&#xF1;o del sistema" note="" work="79200" start="20090927T163000Z" end="20091005T175500Z" work-start="20090927T163000Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+          <predecessors>
+            <predecessor id="1" predecessor-id="8" type="FS" lag="86400"/>
+          </predecessors>
+        </task>
+      </task>
+      <task id="11" name="Codificaci&#xF3;n y pruebas" note="" work="297000" start="20091005T175500Z" end="20091025T162500Z" work-start="20091005T175500Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+        <predecessors>
+          <predecessor id="1" predecessor-id="7" type="FS"/>
+        </predecessors>
+      </task>
+    </task>
+    <task id="12" name="Desarrollo de la memoria" note="" work="198000" start="20091025T162500Z" end="20091108T122500Z" work-start="20091025T162500Z" percent-complete="0" priority="0" type="normal" scheduling="fixed-work">
+      <predecessors>
+        <predecessor id="1" predecessor-id="6" type="FS"/>
+      </predecessors>
+    </task>
+    <task id="13" name="Entrega de Octubre" note="" work="0" start="20091026T000000Z" end="20091026T000000Z" work-start="20091026T153000Z" percent-complete="0" priority="0" type="milestone" scheduling="fixed-work">
+      <constraint type="must-start-on" time="20091026T000000Z"/>
+    </task>
+    <task id="14" name="Entrega de Noviembre" note="" work="0" start="20091123T000000Z" end="20091123T000000Z" work-start="20091123T153000Z" percent-complete="0" priority="0" type="milestone" scheduling="fixed-work">
+      <constraint type="must-start-on" time="20091123T000000Z"/>
+    </task>
+  </tasks>
+  <resource-groups/>
+  <resources>
+    <resource id="1" name="Pablo Recio Quijano" short-name="riku" type="1" units="0" email="pablo.recioquijano@alum.uca.es" note="" std-rate="6"/>
+  </resources>
+  <allocations>
+    <allocation task-id="12" resource-id="1" units="100"/>
+    <allocation task-id="11" resource-id="1" units="100"/>
+    <allocation task-id="10" resource-id="1" units="70"/>
+    <allocation task-id="9" resource-id="1" units="50"/>
+    <allocation task-id="8" resource-id="1" units="100"/>
+    <allocation task-id="5" resource-id="1" units="100"/>
+    <allocation task-id="4" resource-id="1" units="50"/>
+    <allocation task-id="2" resource-id="1" units="50"/>
+    <allocation task-id="1" resource-id="1" units="100"/>
+  </allocations>
+</project>
