@@ -48,6 +48,11 @@ tontería tener que añadir un .glade para cada dialogo.
 
 A ver si hoy me da tiempo a tener la navegación por todos los menus (una leche)
 
+Al final del dia, lo único que tengo es el menu principal, el diálogo de about,
+settings y quick game. De todas formas me parece que la primera versión solo
+va a tener eso. El resto lo implementaré cuando sea capaz de hacer jugar al
+tablero.
+
 * ToDo-list
 ** DONE [#A] Traducir nucleo original de CLIPS a Python haciendo uso de PyCLIPS
 ** DONE [#B] Inscribirme al CUSL4					  :CUSL:
@@ -71,11 +76,26 @@ un control de lo que hay que hacer, lo que está hecho y demás.
 * Interfaz
 ** Menu principal
 *** Partida rápida
+**** Equipo A
+- Seleccionar sistema experto
+- Seleccionar formación
+**** Equipo B
+- Seleccionar sistema experto
+- Seleccionar formación
+**** Configuraciones
+- Número de turnos
+- Partida rápida
+- No guardar la partida
+- Esconder los valores de las piezas
 *** Competiciones
 *** Gestor de sistemas expertos
 *** Laboratorio
 *** Revisión de partidas
 *** Configuración
+- Idioma
+- Ruta para almacenar las partidas
+- Ruta para almacenar los SS.EE.
+
 * Objetivos del PFC
 
 Para no perder la perspectiva en ningún momento voy a incluir esta lista
@@ -106,4 +126,4 @@ para indicar los objetivos que debo/quiero cumplir con este proyecto.
       opciones?
 
 * Ideas sobre la marcha
-1- [ ] Ventanita de splash
+- [ ] Ventanita de splash
