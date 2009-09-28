@@ -33,11 +33,17 @@ requisitos del sistema
 Primer boceto de la ventana principal del PFC: file:../design_ui/mainWindow.dia
 Quizás un splash estaría bien, así como organizar las opciones en dos columnas.
 
+** <2009-09-26 sáb>
+    CLOCK: [2009-09-26 sáb 14:26]--[2009-09-26 sáb 14:38] =>  0:12
+    Comienzo a diseñar con Glade la ventana principal. A ver como queda.
+    Voy a sacar dos versiones a ver como quedan :)
+    <2009-09-26 sáb 14:38> Parón para comer
+
 * ToDo-list
 ** DONE [#A] Traducir nucleo original de CLIPS a Python haciendo uso de PyCLIPS
 ** DONE [#B] Inscribirme al CUSL4					  :CUSL:
-** TODO [#A] Organizar los siguientes hitos y pasos a seguir	  :ORGANIZACION:
-   SCHEDULED: <2009-09-25 vie>
+** TODO [#A] Organizar los siguientes hitos y pasos a seguir   :ORGANIZACION:
+   SCHEDULED: <2009-09-25 vie> 
    DEADLINE: <2009-09-25 vie>
 Para este paso tengo que tener claro que falta por hacer, crear una 
 organización clara del proyecto, del tiempo que tengo disponible, y llevar 
@@ -82,4 +88,4 @@ para indicar los objetivos que debo/quiero cumplir con este proyecto.
       opciones?
 
 * Ideas sobre la marcha
-- [ ] Ventanita de splash
+1- [ ] Ventanita de splash
