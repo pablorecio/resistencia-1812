@@ -39,6 +39,15 @@ Quizás un splash estaría bien, así como organizar las opciones en dos columna
     Voy a sacar dos versiones a ver como quedan :)
     <2009-09-26 sáb 14:38> Parón para comer
 
+** <2009-09-28 lun>
+
+Realizada la primera versión del menu principal, así como el diálogo "About"
+En principio debería generar un fichero .glade para cada ventana. Sin embargo,
+los diálogos predefinidos los voy a meter en el main, ya que me parece una
+tontería tener que añadir un .glade para cada dialogo.
+
+A ver si hoy me da tiempo a tener la navegación por todos los menus (una leche)
+
 * ToDo-list
 ** DONE [#A] Traducir nucleo original de CLIPS a Python haciendo uso de PyCLIPS
 ** DONE [#B] Inscribirme al CUSL4					  :CUSL:
@@ -58,6 +67,15 @@ un control de lo que hay que hacer, lo que está hecho y demás.
 *** TODO [#B] Análisis y diseño de la GUI
 ** TODO [#B] Hacer los bocetos de los distintos menús que tendrá el sistema
 
+** TODO [#C] Probar Doxygen con Python
+* Interfaz
+** Menu principal
+*** Partida rápida
+*** Competiciones
+*** Gestor de sistemas expertos
+*** Laboratorio
+*** Revisión de partidas
+*** Configuración
 * Objetivos del PFC
 
 Para no perder la perspectiva en ningún momento voy a incluir esta lista

@@ -1,25 +1,43 @@
  #!/usr/bin/env python
 
 import sys
+sys.path.append(".")
 import gtk
+import settings_dialog
   
 class Resistencia:
+    """
+    @brief Main class of the application 'Resistencia en Cadiz: 1812'.
+
+    This class allows to start the program, and connect all events of the
+    main window
+    """
     def on_mainWindow_destroy(self, widget, data=None):
         gtk.main_quit()
 
     def on_btn_quit_clicked(self, widget, data=None):
         gtk.main_quit()
+
+    def on_btn_about_clicked(self, widget):
+        self.about.connect('response', lambda d, r: d.hide())
+        self.about.set_transient_for(self.window)
+        self.about.show()
+
+    def on_btn_settings_clicked(self, widget):
+        settings_dial = settings_dialog.settingsDialog(self.window)
+        settings_dial.settings.run()
         
     def __init__(self):
         "Constructor of the object"
         builder = gtk.Builder()
-        builder.add_from_file("v1.xml") 
+        builder.add_from_file("main.glade") 
         
         self.window = builder.get_object("mainWindow")
-        builder.connect_signals(self)       
+        self.about = builder.get_object("aboutdialog1")
+        builder.connect_signals(self)
     
 if __name__ == "__main__":
     "Main function"
     editor = Resistencia()
-    editor.window.show() #this is gtk.gdk.window, not a gtk.window
+    editor.window.show()
     gtk.main()
