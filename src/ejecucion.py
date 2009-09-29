@@ -54,13 +54,13 @@ def startGame():
     traducirF.LoadFunctions(clips)
     traducirM.LoadFunctions(clips)
     
-    clips.Load("teams" + teamA + ".clp")
-    clips.Load("teams" + teamB + ".clp")
+    clips.Load("teams/equipo" + teamA + ".clp")
+    clips.Load("teams/equipo" + teamB + ".clp")
     
     fA.LoadFunctions(clips)
-    clips.Load("teams" + teamA + ".clp")
+    clips.Load("teams/reglas" + teamA + ".clp")
     fB.LoadFunctions(clips)
-    clips.Load("teams" + teamB + ".clp")
+    clips.Load("teams/reglas" + teamB + ".clp")
     
     clips.Reset()
     
@@ -106,6 +106,8 @@ def generateFileName():
 
 def renameOutputFile(des):
     src = "resultado.txt"
+    f = open(src,"a")
+    f.write("fin\n")
     print "src: " + src
     print "des: " + des
     os.rename(src, des)
@@ -116,4 +118,10 @@ if __name__ == "__main__":
     outputFile = generateFileName()
     print outputFile
     renameOutputFile(outputFile)
-    parseOutput.parseFile(outputFile)
+    entireGame = parseOutput.parseFile(outputFile)
+    for i in entireGame:
+        print i
+        raw_input("Pulse una tecla")
+    #print entireGame[len(entireGame)-1]
+    
+        

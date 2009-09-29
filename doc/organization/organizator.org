@@ -48,10 +48,19 @@ tontería tener que añadir un .glade para cada dialogo.
 
 A ver si hoy me da tiempo a tener la navegación por todos los menus (una leche)
 
-Al final del dia, lo único que tengo es el menu principal, el diálogo de about,
-settings y quick game. De todas formas me parece que la primera versión solo
-va a tener eso. El resto lo implementaré cuando sea capaz de hacer jugar al
-tablero.
+** <2009-09-29 mar>
+
+Dado que ya hay una interfaz preeliminar para los menús, voy a intentar hacer una interfaz básica para las partidas en si.
+Es un paso fundamental realmente, ya que necesito lo antes posible una interfaz que me permita trabajar con consola
+lo menos posible.
+
+Así que empiezo las pruebas con pygame para hacerme con la librería.
+
+<2009-09-29 mar 19:35> De puta madre, acabo de lograr en branches que funcione
+la clase Board que he definido para generar la surface de pygame con el tablero.
+Sin embargo, falta funcionalidad para esa clase, además también me hace falta
+revisar la clase Matrix, que no estoy yo muy convencido. Investigaré un poco
+a ver si la puedo hacer más intuitiva
 
 * ToDo-list
 ** DONE [#A] Traducir nucleo original de CLIPS a Python haciendo uso de PyCLIPS
@@ -73,29 +82,31 @@ un control de lo que hay que hacer, lo que está hecho y demás.
 ** TODO [#B] Hacer los bocetos de los distintos menús que tendrá el sistema
 
 ** TODO [#C] Probar Doxygen con Python
+** TODO [#A] Revisar clase Matrix
 * Interfaz
 ** Menu principal
 *** Partida rápida
-**** Equipo A
-- Seleccionar sistema experto
-- Seleccionar formación
-**** Equipo B
-- Seleccionar sistema experto
-- Seleccionar formación
-**** Configuraciones
-- Número de turnos
-- Partida rápida
-- No guardar la partida
-- Esconder los valores de las piezas
 *** Competiciones
 *** Gestor de sistemas expertos
 *** Laboratorio
 *** Revisión de partidas
 *** Configuración
-- Idioma
-- Ruta para almacenar las partidas
-- Ruta para almacenar los SS.EE.
-
+* Estructura de ficheros
+** file:../../../branches Branches de prueba
+*** file:../../../branches/pygame-tests Algunas pruebas con pygame
+- file:../../../branches/pygame-tests/pygame-board.py
+** file:../../../tags Tags del proyecto
+*** file:../../../tags/nucleo-guadalete-original Nucleo original del proyecto
+** file:../../../trunk Rama principal de desarrollo
+*** file:../../../trunk/doc Documentación del proyecto
+*** file:../../../trunk/src Fuentes del proyecto
+- file:../../../trunk/src/ejecucion.py
+- file:../../../trunk/src/matrixBoard.py
+- file:../../../trunk/src/parseOutput.py
+**** file:../../../trunk/src/gui Pruebas con la UI
+- file:../../../trunk/src/gui/gui-v1.py
+- file:../../../trunk/src/gui/settings_dialog.py
+- file:../../../trunk/src/gui/quick_game_dialog.py
 * Objetivos del PFC
 
 Para no perder la perspectiva en ningún momento voy a incluir esta lista

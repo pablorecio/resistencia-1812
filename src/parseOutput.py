@@ -11,31 +11,46 @@ tiempo
 ...
 ...
 
-And so on. Each line has the values of an individual piece, such as 
-in what team works, the ID number, etc...
+And so on until 'fin' at the end of the fle. Each line has the values
+of an individual piece, such as in what team works, the ID number, etc...
 """
 
 import matrixBoard
+
+def fillMatrix():
+    """
+    """
+    board = matrixBoard.Matrix(8,8)
+    for i in range(8*8):
+        x = (i/8)+1
+        y = (i%8)+1
+        board.setitem(x,y,'    ')
+
+    return board
+    
+
 
 def parseFile(srcFile):
     "The return of this function is a list with N boards, where N is the number of turns of the game. This way, another module can read the list for a properly output"
     f = open(srcFile)
 
     line = "0" #line value not null for the loop
-
-    board = matrixBoard.Matrix(8,8)
+    
     values = {}
     entireGame = []
     counter = 0
 
-    board = matrixBoard.Matrix(8,8)
     while line != "":
-        line = f.readline() 
-        if (line == "tiempo\n"): #If we are in a new turn
-            entireGame.append(board) #include the board on the game
-            counter += 1
-            del board
-            board = matrixBoard.Matrix(8,8) #restart the board from 0
+        line = f.readline()
+        if (line == "tiempo\n" or line == "fin\n"): #If we are in a new turn
+            try: board
+            except NameError:
+                board = fillMatrix()
+            else:
+                entireGame.append(board) #include the board on the game
+                counter += 1
+                del board
+                board = fillMatrix() #restart the board from 0
         else:
             if (line != "\n" and len(line) > 5):
                 pos_e = line.find("e")
@@ -54,7 +69,7 @@ def parseFile(srcFile):
                 
                 values[id] = val
                 
-                board.setitem(int(y),int(x),id)
+                board.setitem(int(y),int(x),'['+e+val+']')
                 
     f.close()
 
