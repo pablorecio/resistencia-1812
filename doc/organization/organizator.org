@@ -62,10 +62,34 @@ Sin embargo, falta funcionalidad para esa clase, además también me hace falta
 revisar la clase Matrix, que no estoy yo muy convencido. Investigaré un poco
 a ver si la puedo hacer más intuitiva
 
+** <2009-09-30 mié>
+
+Tras las tareitas de PF, toca seguir con el PFC. Ahora mismo llevo 3 frentes abiertos:
+
+- Libguadalete, la API que se comunica con el auténtico nucleo del S.E. Tengo que hacer el nucleo amigable,
+  sin que pierda funcionalidades, y dando el soporte necesario para las diversas tareas. Esto probablemente
+  sea la tarea más dura de todo el PFC, ya que tendré que indagar en CLIPS, y como tiene montado Manolo el
+  nucleo original.
+- Menús. La parte de la GUI con PyGTK + Glade. No tiene demasiada ciencia, y ahora mismo tengo lo más básico,
+  pero me sirve para una primera iteración del sistema.
+- Tablero. Interfaz del juego en sí realizada con pygame, que muestra el juego.
+
+La cosa es ¿con que me centro? Habrá que ordenar por prioridades, veamos:
+
+- Sin duda los menus de GTK, dado el estado actual, tienen poca prioridad. Hay unos mínimos establecidos en la UI,
+  y lo que queda son detalles secundarios. Lo primero es hacer correr el sistema, eso está claro.
+- La duda es, ¿qué tiene más prioridad ahora mismo? ¿tablero ó libguadalete? Ahora mismo, libguadalete está muy
+  incompleto, pero al menos es capaz de jugar una partida entre dos S.E. vacios y generar los ficheros. Por ahora, eso
+  debería bastarme.
+ 
+Así que el siguiente paso en el PFC es avanzar en la UI de pygame.
+
+<2009-09-30 mié 18:07> Tablero iterado entero en pygame tras la ejecución de una partida. Ahora a modularlo todo mejor
+
 * ToDo-list
 ** DONE [#A] Traducir nucleo original de CLIPS a Python haciendo uso de PyCLIPS
 ** DONE [#B] Inscribirme al CUSL4					  :CUSL:
-** TODO [#A] Organizar los siguientes hitos y pasos a seguir   :ORGANIZACION:
+** DONE [#A] Organizar los siguientes hitos y pasos a seguir	  :ORGANIZACION:
    SCHEDULED: <2009-09-25 vie> 
    DEADLINE: <2009-09-25 vie>
 Para este paso tengo que tener claro que falta por hacer, crear una 
@@ -138,3 +162,7 @@ para indicar los objetivos que debo/quiero cumplir con este proyecto.
 
 * Ideas sobre la marcha
 - [ ] Ventanita de splash
+- [ ] En futuras iteraciones, podría cambiar el entorno de juego, y en vez de usar 
+      pygame, empotrar el tablero en una ventana GTK como lo hace
+      gnome-games con el ajedrez por ejemplo. Eso quizás le de un aspecto más
+      completo al sistema.
