@@ -131,6 +131,7 @@ un control de lo que hay que hacer, lo que está hecho y demás.
 - file:../../../trunk/src/gui/gui-v1.py
 - file:../../../trunk/src/gui/settings_dialog.py
 - file:../../../trunk/src/gui/quick_game_dialog.py
+
 * Objetivos del PFC
 
 Para no perder la perspectiva en ningún momento voy a incluir esta lista
@@ -155,7 +156,7 @@ para indicar los objetivos que debo/quiero cumplir con este proyecto.
 - [ ] Diseño orientado a objetos.
 - [ ] Modulable para futuras ampliaciones.
 - [ ] Documentación al día (preparada para Doxygen).
-
+      
 * Cosas que preguntarle a Manolo
 - [ ] Mostrarle el boceto de la UI. ¿Hacer una barra de menus repitiendo las
       opciones?
@@ -166,3 +167,12 @@ para indicar los objetivos que debo/quiero cumplir con este proyecto.
       pygame, empotrar el tablero en una ventana GTK como lo hace
       gnome-games con el ajedrez por ejemplo. Eso quizás le de un aspecto más
       completo al sistema.
+
+
+-------------------------------------------
+
+* Bloques o componentes del sistema
+** Libguadalete
+*** Funciones
+Otorgar una API clara para la interacción con el nucleo en CLIPS de 'La 
+batalla del Guadalete'. 
