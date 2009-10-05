@@ -176,3 +176,25 @@ para indicar los objetivos que debo/quiero cumplir con este proyecto.
 *** Funciones
 Otorgar una API clara para la interacción con el nucleo en CLIPS de 'La 
 batalla del Guadalete'. 
+
+
+* Algunos HowTo's
+** Cargar fuente con pygame					:FUENTE::PYGAME:
+   1) import pygame.font
+   2) Creamos objeto de tipo SysFont: fuente = pygame.font.SysFont(name, tam,bold,italic)
+      + name -> Nombre de la fuente del sistema. Ojo, puede que la fuente no
+	esté instalada, así que usar una común
+      + tam -> Tamaño de la fuente. Puede ser 44 o algo así para una ficha 60x60
+      + bold e italic -> Booleanos para indicar si queremos negrita y cursiva
+   3) Creamos una surface con el texto: 
+      texto = fuente.render(text, antialias, color), donde:
+      + text -> Cadena con el texto a renderizar
+      + antialias -> Para hacer antialiasing (darle valor 1)
+      + color -> típica tupla con los valores decimales del color 
+   4) Si queremos centrar el texto en la surface donde lo vamos a copiar,
+      hacemos el siguiente comando:
+      textpos = texto.get_rect(centerx=background.get_width()/2, centery= background.get_width()/2)
+      El cual nos devuelve un rect para blitear en la superficie que queramos
+   5) Si background es la superficie donde queremos blitear:
+      background.blit(texto, textpos)
+   
