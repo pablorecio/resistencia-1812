@@ -104,9 +104,11 @@ un control de lo que hay que hacer, lo que está hecho y demás.
     DEADLINE: <2009-09-28 lun>
 *** TODO [#B] Análisis y diseño de la GUI
 ** TODO [#B] Hacer los bocetos de los distintos menús que tendrá el sistema
-
 ** TODO [#C] Probar Doxygen con Python
-** TODO [#A] Revisar clase Matrix
+** TODO [#A] Reestructurar fichero de organización
+   Organizar el fichero de organización para tener una estructura más clara
+** DONE [#A] Revisar clase Matrix
+   CLOSED: [2009-10-06 mar 09:35]
 * Interfaz
 ** Menu principal
 *** Partida rápida
