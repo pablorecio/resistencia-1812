@@ -103,8 +103,10 @@ un control de lo que hay que hacer, lo que está hecho y demás.
     SCHEDULED: <2009-09-26 sáb>
     DEADLINE: <2009-09-28 lun>
 *** TODO [#B] Análisis y diseño de la GUI
-** TODO [#B] Hacer los bocetos de los distintos menús que tendrá el sistema
-** TODO [#C] Probar Doxygen con Python
+** DONE [#B] Hacer los bocetos de los distintos menús que tendrá el sistema
+   CLOSED: [2009-10-06 mar 16:38]
+** DONE [#C] Probar Doxygen con Python
+   CLOSED: [2009-10-06 mar 16:38]
 ** TODO [#A] Reestructurar fichero de organización
    Organizar el fichero de organización para tener una estructura más clara
 ** DONE [#A] Revisar clase Matrix
