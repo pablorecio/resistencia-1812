@@ -1,4 +1,29 @@
-* Trabajo realizado cada día
+* Tareas
+** Organización [0/1]
+*** TODO Añadir enlaces a la sección 'Estructura del PFC'
+** Análisis y diseño [0/3]
+*** TODO Requisitos del sistema 
+*** TODO Análisis del sistema
+*** TODO Diseño del sistema
+** Implementación [2/5]
+*** DONE Primera versión de la UI con GTK			      :PyGTK:
+    CLOSED: [2009-10-06 mar 23:24]
+*** DONE Clase 'Piece'						    :TABLERO:
+    CLOSED: [2009-10-06 mar 23:22]
+*** WORKING Clase 'Board'					    :TABLERO:
+    DEADLINE: <2009-10-16 vie>
+*** TODO Clase 'Game'						    :TABLERO:
+*** TODO Cargar cualquier S.E. como equipo A ó B	       :libguadalete:
+** Documentación [0/2]
+*** TODO Generar fichero Doxyfile para Python			    :DOXYGEN:
+*** TODO Organizar la memoria del PFC
+** Entrega [0/1]
+*** TODO Montar transparencias con Beamer		       :PRESENTACION:
+** Otros [0/1]
+*** TODO Paquete Debian de PyClips
+
+
+* Trabajo diario
 ** Antes del <2009-09-25 vie>
 
 En este punto de inflexión del PFC, tengo que comenzar a hacer una
@@ -85,104 +110,13 @@ La cosa es ¿con que me centro? Habrá que ordenar por prioridades, veamos:
 Así que el siguiente paso en el PFC es avanzar en la UI de pygame.
 
 <2009-09-30 mié 18:07> Tablero iterado entero en pygame tras la ejecución de una partida. Ahora a modularlo todo mejor
+** <2009-10-06 mar>
 
-* ToDo-list
-** DONE [#A] Traducir nucleo original de CLIPS a Python haciendo uso de PyCLIPS
-** DONE [#B] Inscribirme al CUSL4					  :CUSL:
-** DONE [#A] Organizar los siguientes hitos y pasos a seguir	  :ORGANIZACION:
-   SCHEDULED: <2009-09-25 vie> 
-   DEADLINE: <2009-09-25 vie>
-Para este paso tengo que tener claro que falta por hacer, crear una 
-organización clara del proyecto, del tiempo que tengo disponible, y llevar 
-un control de lo que hay que hacer, lo que está hecho y demás.
-** TODO [#A] Realizar el Análisis del sistema			      :ANALISIS:
-*** TODO [#A] Toma de requisitos funcionales
-    SCHEDULED: <2009-09-25 vie>
-    DEADLINE: <2009-09-27 dom>
-*** TODO [#A] Análisis del sistema
-    SCHEDULED: <2009-09-26 sáb>
-    DEADLINE: <2009-09-28 lun>
-*** TODO [#B] Análisis y diseño de la GUI
-** DONE [#B] Hacer los bocetos de los distintos menús que tendrá el sistema
-   CLOSED: [2009-10-06 mar 16:38]
-** DONE [#C] Probar Doxygen con Python
-   CLOSED: [2009-10-06 mar 16:38]
-** TODO [#A] Reestructurar fichero de organización
-   Organizar el fichero de organización para tener una estructura más clara
-** DONE [#A] Revisar clase Matrix
-   CLOSED: [2009-10-06 mar 09:35]
-* Interfaz
-** Menu principal
-*** Partida rápida
-*** Competiciones
-*** Gestor de sistemas expertos
-*** Laboratorio
-*** Revisión de partidas
-*** Configuración
-* Estructura de ficheros
-** file:../../../branches Branches de prueba
-*** file:../../../branches/pygame-tests Algunas pruebas con pygame
-- file:../../../branches/pygame-tests/pygame-board.py
-** file:../../../tags Tags del proyecto
-*** file:../../../tags/nucleo-guadalete-original Nucleo original del proyecto
-** file:../../../trunk Rama principal de desarrollo
-*** file:../../../trunk/doc Documentación del proyecto
-*** file:../../../trunk/src Fuentes del proyecto
-- file:../../../trunk/src/ejecucion.py
-- file:../../../trunk/src/matrixBoard.py
-- file:../../../trunk/src/parseOutput.py
-**** file:../../../trunk/src/gui Pruebas con la UI
-- file:../../../trunk/src/gui/gui-v1.py
-- file:../../../trunk/src/gui/settings_dialog.py
-- file:../../../trunk/src/gui/quick_game_dialog.py
+Terminada la clase 'Piece', [[../../../branches/abstraction-layer-pygame/piece.py][piece.py]], que abstrae la construcción de una pieza
+del tablero. Con esta clase podemos construir una pieza a partir de su imagen,
+valor, equipo etc... y luego generar la surface dibujable en pygame.
 
-* Objetivos del PFC
-
-Para no perder la perspectiva en ningún momento voy a incluir esta lista
-para indicar los objetivos que debo/quiero cumplir con este proyecto.
-
-** Funcionales
-- [ ] Otorgar una interfaz amigable para las pruebas de los sistemas expertos 
-      diseñados e implementados e CLIPS por los usuarios.
-- [ ] Implementar sistemas de competiciones (configurables)
-- [ ] Pruebas de sistemas expertos: hacer jugar un sistema experto contra
-      varios, sacar estadísticas, y mostrar al usuario como de bueno es
-      el sistema experto que ha implementado.
-- [ ] Modo rápido de partida (sin mostrar toda la partida).
-- [ ] Posibilitar la ocultación de los valores de las fichas en el modo juego.
-- [ ] Modo de prueba interactiva, es decir, jugar contra tu sistema experto.
-- [ ] Sistema de almacenamiento de partidas.
-- [ ] [OPCIONAL] Interfaz dinámica de edición de formaciones
-
-** Transversales
-- [ ] Código escrito en inglés.
-- [ ] Internacionalizable.
-- [ ] Diseño orientado a objetos.
-- [ ] Modulable para futuras ampliaciones.
-- [ ] Documentación al día (preparada para Doxygen).
-      
-* Cosas que preguntarle a Manolo
-- [ ] Mostrarle el boceto de la UI. ¿Hacer una barra de menus repitiendo las
-      opciones?
-
-* Ideas sobre la marcha
-- [ ] Ventanita de splash
-- [ ] En futuras iteraciones, podría cambiar el entorno de juego, y en vez de usar 
-      pygame, empotrar el tablero en una ventana GTK como lo hace
-      gnome-games con el ajedrez por ejemplo. Eso quizás le de un aspecto más
-      completo al sistema.
-
-
--------------------------------------------
-
-* Bloques o componentes del sistema
-** Libguadalete
-*** Funciones
-Otorgar una API clara para la interacción con el nucleo en CLIPS de 'La 
-batalla del Guadalete'. 
-
-
-* Algunos HowTo's
+* HowTo's
 ** Cargar fuente con pygame					:FUENTE::PYGAME:
    1) import pygame.font
    2) Creamos objeto de tipo SysFont: fuente = pygame.font.SysFont(name, tam,bold,italic)
@@ -201,4 +135,40 @@ batalla del Guadalete'.
       El cual nos devuelve un rect para blitear en la superficie que queramos
    5) Si background es la superficie donde queremos blitear:
       background.blit(texto, textpos)
-   
+
+
+* Objetivos del PFC
+
+Estas listas son básicamente para no perder una perspectiva sobre lo que
+pretendo con el PFC. Además me sirve de 'rúbrica' del trabajo realizado hasta
+ahora.
+
+** Funcionales [0/8]
+   - [ ] Otorgar una interfaz amigable para las pruebas de los sistemas expertos 
+	 diseñados e implementados e CLIPS por los usuarios.
+   - [ ] Implementar sistemas de competiciones (configurables)
+   - [ ] Pruebas de sistemas expertos: hacer jugar un sistema experto contra
+	 varios, sacar estadísticas, y mostrar al usuario como de bueno es
+	 el sistema experto que ha implementado.
+   - [ ] Modo rápido de partida (sin mostrar toda la partida).
+   - [ ] Posibilitar la ocultación de los valores de las fichas en el modo juego.
+   - [ ] Modo de prueba interactiva, es decir, jugar contra tu sistema experto.
+   - [ ] Sistema de almacenamiento de partidas.
+   - [ ] [OPCIONAL] Interfaz dinámica de edición de formaciones
+
+** Transversales [0/6]
+   - [ ] Código escrito en inglés.
+   - [ ] Internacionalizable.
+   - [ ] Diseño orientado a objetos.
+   - [ ] Modulable para futuras ampliaciones.
+   - [ ] Documentación al día (preparada para Doxygen).
+   - [ ] Fácil distribución en diversas plataformas (paquetes debian, .exe, etc)
+
+
+* Estructura del PFC (ficheros)
+* Dudas para Manolo
+* Ideas
+** Quitar pygame
+En futuras iteraciones, podría cambiar el entorno de juego, y en vez de usar 
+pygame, empotrar el tablero en una ventana GTK como lo hace gnome-games con 
+el ajedrez por ejemplo. Eso quizás le de un aspecto más completo al sistema.
