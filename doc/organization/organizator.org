@@ -5,13 +5,13 @@
 *** TODO Requisitos del sistema 
 *** TODO Análisis del sistema
 *** TODO Diseño del sistema
-** Implementación [2/5]
+** Implementación [3/5]
 *** DONE Primera versión de la UI con GTK			      :PyGTK:
     CLOSED: [2009-10-06 mar 23:24]
 *** DONE Clase 'Piece'						    :TABLERO:
     CLOSED: [2009-10-06 mar 23:22]
-*** WORKING Clase 'Board'					    :TABLERO:
-    DEADLINE: <2009-10-16 vie>
+*** DONE Clase 'Board'						       :TABLERO:
+    DEADLINE: <2009-10-16 vie> CLOSED: [2009-10-07 mié 18:37]
 *** TODO Clase 'Game'						    :TABLERO:
 *** TODO Cargar cualquier S.E. como equipo A ó B	       :libguadalete:
 ** Documentación [0/2]
@@ -115,6 +115,13 @@ Así que el siguiente paso en el PFC es avanzar en la UI de pygame.
 Terminada la clase 'Piece', [[../../../branches/abstraction-layer-pygame/piece.py][piece.py]], que abstrae la construcción de una pieza
 del tablero. Con esta clase podemos construir una pieza a partir de su imagen,
 valor, equipo etc... y luego generar la surface dibujable en pygame.
+
+** <2009-10-07 mié>
+
+Comienzo a trabajar en la clase Board, para poder pintar el tablero entero.
+
+Lista la clase Board. El siguiente paso es una clase Game que reciba el array
+de la partida y pueda mostrarlas, o incluso iterar por ellas.
 
 * HowTo's
 ** Cargar fuente con pygame					:FUENTE::PYGAME:
