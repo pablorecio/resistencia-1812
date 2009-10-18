@@ -143,6 +143,7 @@ de la partida y pueda mostrarlas, o incluso iterar por ellas.
    5) Si background es la superficie donde queremos blitear:
       background.blit(texto, textpos)
 
+** Invertir 
 
 * Objetivos del PFC
 
