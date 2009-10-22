@@ -34,6 +34,8 @@ import traducirM
 import fA
 import fB
 
+import mirroring
+
 class LibGuadalete(object):
     def __init__(self, teamA, teamB, teams_path = '../teams'):
         self.teamA = teamA
@@ -56,13 +58,17 @@ class LibGuadalete(object):
         traducirM.LoadFunctions(clips)
 
         #print self.teams_path + "/equipo" + self.teamA + ".clp"
+        temp_team = mirroring.mirroring_team(self.teams_path + "/equipo" + self.teamB + ".clp")
         clips.Load(self.teams_path + "/equipo" + self.teamA + ".clp")
-        clips.Load(self.teams_path + "/equipo" + self.teamB + ".clp")
+        clips.Load(temp_team)
+        os.remove(temp_team)
 
         fA.LoadFunctions(clips)
         clips.Load(self.teams_path + "/reglas" + self.teamA + ".clp")
+        temp_rules = mirroring.mirroring_rules(self.teams_path + "/reglas" + self.teamB + ".clp")
         fB.LoadFunctions(clips)
-        clips.Load(self.teams_path + "/reglas" + self.teamB + ".clp")
+        clips.Load(temp_rules)
+        os.remove(temp_rules)
 
         clips.Reset()
 
