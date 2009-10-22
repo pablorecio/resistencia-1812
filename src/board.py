@@ -34,9 +34,26 @@ class Board(object):
     def get_surface(self):
         size = (self.board_size*self.piece_size,)*2
         surface = pygame.surface.Surface(size).convert()
+        aux_board = _reverse_board(self.board_state)
         for i in range(self.board_size):
             for j in range(self.board_size):
                 point = (j*self.piece_size, i*self.piece_size)
-                surface.blit(self.keys[self.board_state[i][j]],point)
+                surface.blit(self.keys[aux_board[i][j]],point)
 
         return surface
+
+def _reverse_board(board):
+    tmp_board = []
+    n = len(board)
+    
+    for i in range(n):
+        aux = []
+        for j in range(n):
+            aux.append(0)
+        tmp_board.append(aux)
+
+    for i in range(n):
+        for j in range(n):
+            tmp_board[n-(i+1)][n-(j+1)] = board[i][j]
+
+    return tmp_board
