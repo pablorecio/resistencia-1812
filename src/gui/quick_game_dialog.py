@@ -1,13 +1,16 @@
 import sys
 import os.path
 import gtk
+sys.path.append("../guada-board")
+sys.path.append("./guada-board")
+import guada_board
 
 class quickGameDialog:
     def __init__(self, parent):
         builder = gtk.Builder()
-        builder.add_from_file("quickGame.glade")
+        builder.add_from_file("./gui/glade/quickGame.glade")
 
-        def_path = os.path.realpath('../teams')
+        def_path = os.path.realpath('./teams')
         print def_path
         builder.get_object('file_chooser_es_a').set_current_folder(def_path)
         builder.get_object('file_chooser_team_a').set_current_folder(def_path)
@@ -41,22 +44,29 @@ class quickGameDialog:
         except NameError:
             print 'No has inicializado el SE A'
         else:
+            self.es_team_a = self.es_team_a[7:]
             print self.es_team_a
             
         try: self.es_team_b
         except NameError:
             print 'No has inicializado el SE B'
         else:
+            self.es_team_b = self.es_team_b[7:]
             print self.es_team_b
             
         try: self.team_team_a
         except NameError:
             print 'No has inicializado el SE A'
         else:
+            self.team_team_a = self.team_team_a[7:]
             print self.team_team_a
             
         try: self.team_team_b
         except NameError:
             print 'No has inicializado el SE B'
         else:
+            self.team_team_b = self.team_team_b[7:]
             print self.team_team_b
+
+        guada_board.run((self.es_team_a,self.team_team_a),
+                        (self.es_team_b,self.team_team_b))

@@ -38,6 +38,8 @@ import mirroring
 
 class LibGuadalete(object):
     def __init__(self, teamA, teamB, teams_path = '../teams'):
+        print teamA
+        print teamB
         self.teamA = teamA
         self.teamB = teamB
         self.teams_path = teams_path
@@ -58,14 +60,14 @@ class LibGuadalete(object):
         traducirM.LoadFunctions(clips)
 
         #print self.teams_path + "/equipo" + self.teamA + ".clp"
-        temp_team = mirroring.mirroring_team(self.teams_path + "/equipo" + self.teamB + ".clp")
-        clips.Load(self.teams_path + "/equipo" + self.teamA + ".clp")
+        temp_team = mirroring.mirroring_team(self.teamB[1])
+        clips.Load(self.teamA[1])
         clips.Load(temp_team)
         os.remove(temp_team)
 
         fA.LoadFunctions(clips)
-        clips.Load(self.teams_path + "/reglas" + self.teamA + ".clp")
-        temp_rules = mirroring.mirroring_rules(self.teams_path + "/reglas" + self.teamB + ".clp")
+        clips.Load(self.teamA[0])
+        temp_rules = mirroring.mirroring_rules(self.teamB[0])
         fB.LoadFunctions(clips)
         clips.Load(temp_rules)
         os.remove(temp_rules)
@@ -106,7 +108,8 @@ class LibGuadalete(object):
             sec = str(t.second)
     
         des = str(t.year) + "-" + month + "-" + day + "_"
-        des += hour + ":" + min + ":" + sec + "_" + self.teamA + "-vs-" + self.teamB
+        #des += hour + ":" + min + ":" + sec + "_" + self.teamA + "-vs-" + self.teamB
+        des += hour + ":" + min + ":" + sec
         des += ".txt"
 
         return des

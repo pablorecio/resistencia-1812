@@ -8,8 +8,10 @@ sys.path.append("./libguadalete")
 import libguadalete
 import game
 
-def main():
-    lib = libguadalete.LibGuadalete("A","B","./teams")
+def run(teamA, teamB):
+    print teamA
+    print teamB
+    lib = libguadalete.LibGuadalete(teamA,teamB)
     out_file = lib.run_game()
 
     entire_game = lib.parseFile(out_file)
@@ -49,8 +51,3 @@ def main():
                     surface.convert()
                     screen.blit(surface,(0,0))
                     pygame.display.flip()
-
-    
-
-if __name__ == '__main__':
-    main()

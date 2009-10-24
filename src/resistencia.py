@@ -1,7 +1,7 @@
  #!/usr/bin/env python
 
 import sys
-sys.path.append(".")
+sys.path.append("./gui")
 import gtk
 import settings_dialog
 import quick_game_dialog
@@ -35,11 +35,11 @@ class Resistencia:
     def __init__(self):
         "Constructor of the object"
         builder = gtk.Builder()
-        builder.add_from_file("main.glade") 
+        builder.add_from_file("./gui/glade/main.glade") 
         
         self.window = builder.get_object("mainWindow")
         self.about = builder.get_object("aboutdialog1")
-        builder.connect_signals(self)
+        builder.connect_signals(self)    
     
 if __name__ == "__main__":
     "Main function"
