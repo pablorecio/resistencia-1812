@@ -4,7 +4,7 @@
   <!-- interface-naming-policy project-wide -->
   <object class="GtkDialog" id="quickGameDialog">
     <property name="border_width">5</property>
-    <property name="icon">./favicon.ico</property>
+    <property name="icon">favicon.png</property>
     <property name="type_hint">normal</property>
     <property name="has_separator">False</property>
     <signal name="close" handler="on_quickGameDialog_close"/>
@@ -49,8 +49,9 @@
                                   </packing>
                                 </child>
                                 <child>
-                                  <object class="GtkFileChooserButton" id="filechooserbutton1">
+                                  <object class="GtkFileChooserButton" id="file_chooser_es_a">
                                     <property name="visible">True</property>
+                                    <signal name="file_set" handler="on_file_chooser_es_a_file_set"/>
                                   </object>
                                   <packing>
                                     <property name="expand">False</property>
@@ -80,8 +81,9 @@
                                   </packing>
                                 </child>
                                 <child>
-                                  <object class="GtkComboBox" id="combobox1">
+                                  <object class="GtkFileChooserButton" id="file_chooser_team_a">
                                     <property name="visible">True</property>
+                                    <signal name="file_set" handler="on_file_chooser_team_a_file_set"/>
                                   </object>
                                   <packing>
                                     <property name="expand">False</property>
@@ -140,8 +142,10 @@
                                   </packing>
                                 </child>
                                 <child>
-                                  <object class="GtkFileChooserButton" id="filechooserbutton2">
+                                  <object class="GtkFileChooserButton" id="file_chooser_es_b">
                                     <property name="visible">True</property>
+                                    <property name="create_folders">False</property>
+                                    <signal name="file_set" handler="on_file_chooser_es_b_file_set"/>
                                   </object>
                                   <packing>
                                     <property name="expand">False</property>
@@ -171,8 +175,9 @@
                                   </packing>
                                 </child>
                                 <child>
-                                  <object class="GtkComboBox" id="combobox2">
+                                  <object class="GtkFileChooserButton" id="file_chooser_team_b">
                                     <property name="visible">True</property>
+                                    <signal name="file_set" handler="on_file_chooser_team_b_file_set"/>
                                   </object>
                                   <packing>
                                     <property name="expand">False</property>
@@ -338,7 +343,7 @@
             <property name="layout_style">end</property>
             <child>
               <object class="GtkButton" id="btn_cancel">
-                <property name="label" translatable="yes">gtk-cancel</property>
+                <property name="label">gtk-cancel</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
@@ -353,11 +358,12 @@
             </child>
             <child>
               <object class="GtkButton" id="btn_apply">
-                <property name="label" translatable="yes">gtk-apply</property>
+                <property name="label">gtk-apply</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="use_stock">True</property>
+                <signal name="clicked" handler="on_btn_apply_clicked"/>
               </object>
               <packing>
                 <property name="expand">False</property>

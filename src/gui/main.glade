@@ -7,7 +7,7 @@
     <property name="window_position">center</property>
     <property name="default_width">300</property>
     <property name="default_height">450</property>
-    <property name="icon">./favicon.ico</property>
+    <property name="icon">favicon.png</property>
     <signal name="destroy" handler="on_mainWindow_destroy"/>
     <child>
       <object class="GtkVBox" id="vbox1">
@@ -115,7 +115,7 @@
                 <property name="layout_style">spread</property>
                 <child>
                   <object class="GtkButton" id="btn_about">
-                    <property name="label" translatable="yes">gtk-about</property>
+                    <property name="label">gtk-about</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
@@ -131,7 +131,7 @@
                 </child>
                 <child>
                   <object class="GtkButton" id="btn_quit">
-                    <property name="label" translatable="yes">gtk-quit</property>
+                    <property name="label">gtk-quit</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
