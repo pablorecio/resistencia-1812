@@ -1,10 +1,23 @@
- #!/usr/bin/env python
+#!/usr/bin/python
 
 import sys
 sys.path.append("./gui")
 import gtk
+import gtk.glade
 import settings_dialog
 import quick_game_dialog
+
+import locale
+import gettext
+
+APP = 'resistencia'
+DIR = 'po'
+
+gettext.textdomain(APP)
+gettext.bindtextdomain(APP, DIR)
+gtk.glade.textdomain(APP)
+gtk.glade.bindtextdomain(APP, DIR)
+_ = gettext.gettext
   
 class Resistencia:
     """
@@ -45,4 +58,5 @@ if __name__ == "__main__":
     "Main function"
     editor = Resistencia()
     editor.window.show()
+    print _("Loading main window")
     gtk.main()

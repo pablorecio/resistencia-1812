@@ -7,7 +7,7 @@
     <property name="title" translatable="yes">Settings - Cadiz deffense: 1812</property>
     <property name="default_width">450</property>
     <property name="default_height">150</property>
-    <property name="icon">settingsDialog.glade</property>
+    <property name="icon">../../images/favicon.png</property>
     <property name="type_hint">normal</property>
     <property name="has_separator">False</property>
     <signal name="close" handler="on_settingsDialog_close"/>
