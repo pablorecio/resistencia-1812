@@ -23,62 +23,26 @@ import re
 team_path_tmp_file = './equipoTemporal.clp'
 rule_path_tmp_file = './reglasTemporal.clp'
 
-def _process_line(line):
-    i = line.find("(") + 1
-    elements = []
-
-    while i != len(line) - 2:
-        tmp1 = line.find("(",i)
-        tmp2 = line.find(")",i) + 1
-        elem = line[tmp1:tmp2]
-        elements.append(elem)
-        i = tmp2
-
-    return elements
-
-def _filter_line(line):
-    for i in range(len(line)): #simply left the re-id
-        if re.search('(equipo "A")',line[i]):
-            line[i] = '(equipo "B")'
-        if re.search('(pos-x .)',line[i]):
-            line[i] = '(pos-x ' + _extract_x(line[i]) + ')'
-        if re.search('(pos-y 1)',line[i]):
-            line[i] = '(pos-y 8)'
-        if re.search('(pos-y 2)',line[i]):
-            line[i] = '(pos-y 7)'
-    return line
-
-def _extract_x(pos):
-    n = pos[len(pos)-2]
-
-    return str(int(n) - (-7 + 2 * (int(n) -1)))
-
-def _get_line(elementos):
-    sal = '(ficha-r'
-    for i in elementos:
-        print i
-        if i == '':
-            sal = sal + ')'
-        else:
-            sal = sal + ' ' + i
-    sal = sal + ")\n"
-    print sal
-    return sal
+def _reverse_index(i):
+    return i - (-7 + 2 * (i - 1))
 
 def mirroring_team(src_file):
     f_team = open(src_file,"r")
     f_temp = open(team_path_tmp_file, "w")
 
     for l in f_team:
-        if l[0] != ';' and len(l) > 30: #Assume it's a ficha-r definition
-            piece = _process_line(l)
-            filtered = _filter_line(piece)
-            f_temp.write(_get_line(filtered))
-        else:
-            if re.search("deffacts",l):
-                f_temp.write("(deffacts fichas-B\n")
-            else:
-                f_temp.write(l)
+        print l
+        l = l.replace('fichas-A', 'fichas-B')
+        l = l.replace('(equipo "A")', '(equipo "B")')
+        #l = l.replace('(pos-y 1)', '(pos-y 8)')
+        #l = l.replace('(pos-y 2)', '(pos-y 7)')
+        y = l.find('(pos-y') + 7
+        if y > 30:
+            l = l.replace('(pos-y ' + l[y] + ')', '(pos-y ' + str(_reverse_index(int(l[y]))) + ')')
+        x = l.find('(pos-x') + 7
+        if x > 30:
+            l = l.replace('(pos-x ' + l[x] + ')', '(pos-x ' + str(_reverse_index(int(l[x]))) + ')')
+        f_temp.write(l)
     
     return team_path_tmp_file
 
