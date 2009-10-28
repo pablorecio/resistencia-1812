@@ -81,7 +81,7 @@ def LoadFunctions(clips): #Maybe add number of turns, dimension, etc
     # dimension and modules control.
     #----------------------------------
     # Variables. Now are statics, but in a future maybe will be
-    # customizable, so is more generical this way
+    # customizable, so it is more generical this way
     num_turns = 200
     dimension = 8
     turn = 'A'
@@ -93,8 +93,8 @@ def LoadFunctions(clips): #Maybe add number of turns, dimension, etc
     deffacts_body  = "(tiempo-inicial " + str(num_turns) + ")"
     deffacts_body += "(dimension " + str(dimension) + ")"
     deffacts_body += '(turno "' + turn + '")'
-    deffacts_body += 'base "A" ' + str(base_a) + ')'
-    deffacts_body += 'base "B" ' + str(base_b) + ')'
+    deffacts_body += '(base "A" ' + str(base_a) + ')'
+    deffacts_body += '(base "B" ' + str(base_b) + ')'
     deffacts_body += '(modulos INFORMAR TRADUCIRF EQUIPO-A MOVER INFORMAR TRADUCIRF EQUIPO-B TRADUCIRM MOVER)'
     # Building the Deffact
     opciones_juego = clips.BuildDeffacts(deffacts_name, deffacts_body)
@@ -106,10 +106,95 @@ def LoadFunctions(clips): #Maybe add number of turns, dimension, etc
     # INFORMAR ATAQUE y DEFENSA to realize movements
     #----------------------------------
     # Module name
-    mod_main_name = "MAIN"
+    mod_name = "MAIN"
     # Module body
-    mod_main_body  = "(export deftemplate initial-fact ficha ficha-r dimension tiempo mueve turno tiempo-inicial)"
-    mod_main_body += "(export deffunction ?ALL)"
+    mod_body  = "(export deftemplate initial-fact ficha ficha-r dimension tiempo mueve turno tiempo-inicial)"
+    mod_body += "(export deffunction ?ALL)"
     # Building the module
-    mod_main = clips.BuildModule(mod_main_name, mod_main_body)
+    mod_main = clips.BuildModule(mod_name, mod_body)
+    #----------------------------------
+
+    #----------------------------------
+    # Rule that initialize the time, so we can store actual time
+    # and start time
+    #----------------------------------
+    # Module mod_main
+    # Rule name
+    rule_name = 'inicia-tiempo'
+    # Rule precontents
+    rule_prec  = '(declare (salience 99))'
+    rule_prec += '(not (tiempo-iniciado))'
+    rule_prec += '(tiempo-inicial ?ti)'
+    # =>
+    # Rule body 
+    rule_body  = '(assert (tiempo-iniciado))'
+    rule_body += '(assert (tiempo ?ti))'
+    # Building the rule
+    inicia_tiempo = mod_main.BuildRule(rule_name, rule_prec, rule_body)
+    #----------------------------------
+
+    #----------------------------------
+    # Rule that open the output file to write and close it, so we know it's empty
+    #----------------------------------
+    # Module mod_main
+    # Rule name
+    rule_name = 'borra-fich'
+    # Rule precontents
+    rule_prec  = '(declare (salience 100))'
+    rule_prec += '(not (fichero-abierto))'
+    # =>
+    # Rule body 
+    rule_body  = '(printout t crlf "BORRANDO FICHERO" crlf)'
+    rule_body += '(assert (fichero-abierto))'
+    rule_body += '(open "temporal.txt" fich "w")'
+    rule_body += '(close fich)'
+    # Building the rule
+    borra_fich = mod_main.BuildRule(rule_name, rule_prec, rule_body)
+    #----------------------------------
+
+    #----------------------------------
+    # Rule that makes time to step, and uses module INFORMAR
+    # to show on the output file
+    #----------------------------------
+    # Module mod_main
+    # Rule name
+    rule_name = 'control-y-tiempo'
+    # Rule precontents
+    rule_prec  = '?c <- (tiempo ?t&~0)'
+    rule_prec += '?orden <- (modulos INFORMAR $?r)'
+    ### rule_prec += '(ficha-r (equipo "A") (puntos 1))'
+    ### rule_prec += '(ficha-r (equipo "B") (puntos 1))'
+    # =>
+    # Rule body
+    rule_body  = '(retract ?c)'
+    rule_body += '(assert (tiempo (- ?t 1)))'
+    rule_body += '(retract ?orden)'
+    rule_body += '(assert (modulos $?r INFORMAR))'
+    rule_body += '(printout t "Pasamos al modulo INFORMAR." crlf)'
+    rule_body += '(printout t "Tiempo " ?t crlf)'
+    ### rule_body += '(readline)'
+    rule_body += '(focus INFORMAR)'
+    control_y_tiempo = mod_main.BuildRule(rule_name, rule_prec, rule_body)
+    #----------------------------------
+
+    #----------------------------------
+    # Rule that handles the calling for the modules
+    # and rules that does not consumes turn
+    #----------------------------------
+    # Module mod_main
+    # Rule name
+    rule_name = 'control-sin-tiempo'
+    # Rule precontents
+    rule_prec  = '?c <- (tiempo ?t&~0)'
+    rule_prec += '?orden <- (modulos ?m&~INFORMAR $?r)'
+    rule_prec += '(ficha-r (equipo "A") (puntos 1))'
+    rule_prec += '(ficha-r (equipo "B") (puntos 1))'
+    # =>
+    # Rule body
+    rule_body  = '(retract ?orden)'
+    rule_body += '(printout t " Modulo->" ?m " ")'
+    rule_body += '(assert (modulos $?r ?m))'
+    rule_body += '(focus ?m)'
+    # Building the rule
+    control_sin_tiempo = mod_main.BuildRule(rule_name, rule_prec, rule_body)
     #----------------------------------

@@ -78,6 +78,9 @@ class LibGuadalete(object):
         clips.PrintModules()
 
         clips.Run()
+        t = clips.StdoutStream.Read()
+
+        print t
 
     def __generateFileName(self):
         t = datetime.datetime.now()
