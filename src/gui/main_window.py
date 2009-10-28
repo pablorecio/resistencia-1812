@@ -29,7 +29,6 @@ class Resistencia:
     def on_btn_quick_game_clicked(self, widget):
         quick_game = quick_game_dialog.quickGameDialog(self.window)
         quick_game.quick_game.run()
-        print 'Terminada la ejecucion'
         
     def __init__(self):
         "Constructor of the object"

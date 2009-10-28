@@ -3,8 +3,8 @@ def LoadFunctions(clips):
                                      "(import MAIN deftemplate initial-fact ficha-r dimension tiempo) (import MAIN deffunction ?ALL)")
 
     informacion = mod_informar.BuildRule("informacion",
-                                         "(ficha-r (equipo ?e) (num ?n) (puntos ?p) (pos-x ?x) (pos-y ?y) (descubierta ?d)) (tiempo ?t) (not (impresa ?n ?t))",
-                                         '(assert (impresa ?n ?t)) (open "temporal.txt" fich "a") (a-fichero-jugador ?e ?n ?p ?x ?y ?d) (close fich)')
+                                         "(ficha-r (equipo ?e) (num ?n) (puntos ?p) (pos-x ?x) (pos-y ?y) (descubierta ?d)) (tiempo ?t) (not (impresa ?e ?n ?t))",
+                                         '(assert (impresa ?e ?n ?t)) (open "temporal.txt" fich "a") (a-fichero-jugador ?e ?n ?p ?x ?y ?d) (close fich)')
 
     inicial = mod_informar.BuildRule("inicial",
                                      "(declare (salience 100)) (tiempo ?t) (not (iniciado ?t)) (dimension ?dim)",

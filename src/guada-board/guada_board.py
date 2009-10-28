@@ -37,7 +37,8 @@ def run(teamA, teamB):
         time_passed = clock.tick(50)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                return
+                pygame.display.quit()
+                return 
             if event.type == pygame.KEYDOWN:
                 if event.key == 275:
                     res_game.next_turn()

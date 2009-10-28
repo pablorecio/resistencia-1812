@@ -180,3 +180,32 @@ ahora.
 En futuras iteraciones, podría cambiar el entorno de juego, y en vez de usar 
 pygame, empotrar el tablero en una ventana GTK como lo hace gnome-games con 
 el ajedrez por ejemplo. Eso quizás le de un aspecto más completo al sistema.
+* Reuniones con Manolo
+** <2009-10-27 mar>
+   - Poner los corchetes o señalizar que fichas están ocultas
+   - Eliminar 'Gestor de sistemas expertos'. Si da tiempo añadir un editor
+     visual de formaciones.
+*** Bugs arreglados
+    - Quitada restricción de unica ficha en el fichero de salida, permitiendo
+      claves dobles
+    - Arreglado log de salida identificando de que equipo era la ficha que movia  
+
+
+* Salidas de error:
+
+Traceback (most recent call last):
+  File "./gui/quick_game_dialog.py", line 95, in on_btn_apply_clicked
+    self.load_board()
+  File "./gui/quick_game_dialog.py", line 99, in load_board
+    (self.es_team_b,self.team_team_b))
+  File "./guada-board/guada_board.py", line 15, in run
+    out_file = lib.run_game()
+  File "./libguadalete/libguadalete.py", line 126, in run_game
+    self.__startGame()
+  File "./libguadalete/libguadalete.py", line 63, in __startGame
+    temp_team = mirroring.mirroring_team(self.teamB[1])
+  File "./libguadalete/mirroring.py", line 41, in mirroring_team
+    l = l.replace('(pos-y ' + l[y] + ')', '(pos-y ' + str(_reverse_index(int(l[y]))) + ')')
+ValueError: invalid literal for int() with base 10: '?'
+
+Al cargar el fichero de JavierS
