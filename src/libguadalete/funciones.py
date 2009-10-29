@@ -110,9 +110,9 @@ def LoadFunctions(clips):
     # Function parameters
     fun_para  = '?n1 ?n2'
     # Function body
-    fun_body  = '(if (< ?n1 ?n2) then'
-    fun_body +=   '?n1'
-    fun_body +=   'else'
+    fun_body  = '(if (< ?n1 ?n2) then '
+    fun_body +=   '?n1 '
+    fun_body +=   'else '
     fun_body +=   '?n2)'
     # Building the function
     minimo = clips.BuildFunction(fun_name, fun_para, fun_body)
@@ -164,9 +164,9 @@ def LoadFunctions(clips):
     # Function parameters
     fun_para  = '?descubierto'
     # Function body
-    fun_body  = '(if (= 0 ?descubierto) then'
-    fun_body +=   '"?"'
-    fun_body +=   'else'
+    fun_body  = '(if (= 0 ?descubierto) then '
+    fun_body +=   '"?" '
+    fun_body +=   'else '
     fun_body +=   '" ")'
     # Building the function
     valor = clips.BuildFunction(fun_name, fun_para, fun_body)
@@ -205,10 +205,10 @@ def LoadFunctions(clips):
     # Function parameters
     fun_para  = '?ti ?ta'
     # Function body
-    fun_body  = '(if (= (mod (- ?ti ?ta) 2) 1) then'
-    fun_body +=     '"A"'
-    fun_body +=     'else'
-    fun_body +=     '"B")'
+    fun_body  = '(if (= (mod (- ?ti ?ta) 2) 1) then '
+    fun_body +=     '"A" '
+    fun_body +=     'else '
+    fun_body +=     '"B") '
     # Building the function
     turno = clips.BuildFunction(fun_name, fun_para, fun_body)
     # ----------------------------------
