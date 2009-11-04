@@ -209,3 +209,7 @@ Traceback (most recent call last):
 ValueError: invalid literal for int() with base 10: '?'
 
 Al cargar el fichero de JavierS
+* Para el manual:
+  - Botones de stock: en GNOME han decidido no mostrar los botones de stock, 
+    y por ejemplo en la 9.10 hay que usar gconf-editor 
+/desktop/gnome/interface/{buttons_have_icons,menus_have_icons}
