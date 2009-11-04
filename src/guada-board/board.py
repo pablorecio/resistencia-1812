@@ -29,7 +29,7 @@ class Board(object):
                 if (self.keys.has_key(state[i][j]) == False):
                     value = abs(state[i][j])
                     team = state[i][j] / value
-                    self.keys[state[i][j]] = piece.Piece(value,team,60,images[team]).get_surface().convert()
+                    self.keys[state[i][j]] = piece.Piece(value,0,60,images[team]).get_surface().convert()
 
     def get_surface(self):
         size = (self.board_size*self.piece_size,)*2
@@ -54,6 +54,6 @@ def _reverse_board(board):
 
     for i in range(n):
         for j in range(n):
-            tmp_board[n-(i+1)][n-(j+1)] = board[i][j]
+            tmp_board[n-(i+1)][j] = board[i][j]
 
     return tmp_board

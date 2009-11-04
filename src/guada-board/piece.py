@@ -9,7 +9,8 @@ class Piece(object):
     It is a simple class, you only have to create the object and you can get a drawdable
     surface with the piece and the number with its value.
     """
-    def __init__(self, value = 0, team = 0, size = 60, img_path = './images/piece-default.png',
+    def __init__(self, value = 0, covered = 0, size = 60,
+                 img_path = './images/piece-default.png',
                  font = './fonts/LiberationMono-Bold.ttf'):
         """
         @brief Init method for the class <i>Piece</i>. This method simply initialize
@@ -17,20 +18,16 @@ class Piece(object):
         @param self The actual object that calls this method
         @param value Piece numeric value. This value determines the strength of the
         piece. But here doesn't matter this, it's only the value putted on the piece
-        @param team Integer with the team that owns this piece. It can be 0 if there is
-        no team (so it will be a default piece), 1 or -1. No more values allowed
+        @param covered Integer that shows if the piece is covered (0) or uncovered (1)
         @param size Size of the tile.
         @param img_path Path to the piece image.
         """
-        assert (team >= -1 and team <= 1), 'Failed to load piece. Team value not allowed'
 
         self.value = value
         self.img_path = img_path
         self.size = size
-        self.team = team
+        self.covered = covered
         self.font = font
-
-        self.key = value * ((-1)**(team+1)) 
 
     def get_value(self):
         """
@@ -45,18 +42,6 @@ class Piece(object):
         @return Integer with the size of the piece
         """
         return self.size;
-
-    def get_key(self):
-        """
-        This method gets te key of this piece. The key is builded in
-        the initialization:
-        <li>0 if it's a default piece</li>
-        <li><i>value</i> if it's a piece of the team A</li>
-        <li>-<i>value</i> if it's a piece of the team B</li>
-        @return An integer with the key of this piece
-        """
-        return self.key;
-        
 
     def get_surface(self):
         """
@@ -75,11 +60,15 @@ class Piece(object):
             color = (255,)*3 #White
             border_color = (0,)*3 #Black
         
-            border = pygame.font.Font(self.font, 44)
-            insider = pygame.font.Font(self.font, 40)
-        
-            border_text = border.render(str(self.value), 1, border_color)
-            insider_text = insider.render(str(self.value), 1, color)
+            border = pygame.font.Font(self.font, 34)
+            insider = pygame.font.Font(self.font, 32)
+
+            if self.covered == 0:
+                border_text = border.render('['+str(self.value)+']', 1, border_color)
+                insider_text = insider.render('['+str(self.value)+']', 1, color)
+            else:
+                border_text = border.render(str(self.value), 1, border_color)
+                insider_text = insider.render(str(self.value), 1, color)
         
             textpos = insider_text.get_rect(centerx=surface.get_width()/2, centery=surface.get_width()/2)
             
