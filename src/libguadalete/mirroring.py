@@ -34,8 +34,6 @@ def mirroring_team(src_file):
         print l
         l = l.replace('fichas-A', 'fichas-B')
         l = l.replace('(equipo "A")', '(equipo "B")')
-        #l = l.replace('(pos-y 1)', '(pos-y 8)')
-        #l = l.replace('(pos-y 2)', '(pos-y 7)')
         y = l.find('(pos-y') + 7
         if y > 30:
             l = l.replace('(pos-y ' + l[y] + ')', '(pos-y ' + str(_reverse_index(int(l[y]))) + ')')
@@ -53,9 +51,6 @@ def mirroring_rules(src_file):
     f_temp = open(rule_path_tmp_file, "w")
 
     for l in f_rule:
-        #res = l.find("EQUIPO-A")
-        #if res != -1:
-        #    l[res+7] = 'B'
         f_temp.write(l.replace("EQUIPO-A", "EQUIPO-B"))
         
 

@@ -7,7 +7,7 @@ class Board(object):
     """
     """
     def __init__(self, state, teamA_piece, teamB_piece, default_piece,
-                 piece_size = 60, board_size = 8):
+                 piece_size = 60, board_size = 8, value_max = 6):
         """
         """
         assert(len(state) == board_size)
@@ -19,6 +19,7 @@ class Board(object):
         self.board_size = board_size
         self.keys = {}
         self.keys[0] = piece.Piece(0,0,60,default_piece).get_surface().convert()
+        self.value_max = value_max
 
         images = {}
         images[1] = teamA_piece
@@ -29,7 +30,11 @@ class Board(object):
                 if (self.keys.has_key(state[i][j]) == False):
                     value = abs(state[i][j])
                     team = state[i][j] / value
-                    self.keys[state[i][j]] = piece.Piece(value,0,60,images[team]).get_surface().convert()
+                    covered = 0
+                    if value > value_max:
+                        value = value - value_max
+                        covered = 1
+                    self.keys[state[i][j]] = piece.Piece(value,covered,60,images[team]).get_surface().convert()
 
     def get_surface(self):
         size = (self.board_size*self.piece_size,)*2

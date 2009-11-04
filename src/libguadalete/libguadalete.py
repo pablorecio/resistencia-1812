@@ -37,12 +37,25 @@ import fB
 import mirroring
 
 class LibGuadalete(object):
+    """
+    This class provides an abstraction layer that allows run a simulation of 'La batalla del Guadalete',
+    generating a file that can be parsered easily.
+    @todo It's necessary to ad a lot of funcionality on this module, like human vs computer. 
+    """
     def __init__(self, teamA, teamB, teams_path = '../teams'):
-        print teamA
-        print teamB
+        """
+        Class <code>LibGuadalete</code> constructor. Just assign variables.
+        @param self Object that will be initialized
+        @param teamA Tuple with paths to the rule file and formation file for the A team.
+        @param teamB Tuple with paths to the rule file and formation file for the B team.
+        @param teams_path Path to the directory that teams are stored by default
+        """
+        #print teamA
+        #print teamB
         self.teamA = teamA
         self.teamB = teamB
         self.teams_path = teams_path
+        self.max_value = 6
 
     def __startGame(self):
         clips.Clear()
@@ -126,6 +139,10 @@ class LibGuadalete(object):
         os.rename(src, des)
 
     def run_game(self):
+        """
+        Method that make the expert systems play the game, and generate the output file.
+        @return String with the path to the output file
+        """
         self.__startGame()
         des = self.__generateFileName()
         self.__renameOutputFile(des)
@@ -162,7 +179,13 @@ class LibGuadalete(object):
         return m  
 
     def parseFile(self,srcFile):
-        "The return of this function is a list with N boards, where N is the number of turns of the game. This way, another module can read the list for a properly output"
+        """
+        This function allows to parse an output file generated on a simulation, and generate
+        a data structure more computer readable.
+        @param srcFile File with a game played.
+        @return A list with the boards for every single turn on a game.
+        @todo See if it's the right place for this function
+        """
         f = open(srcFile)
 
         line = "0" #line value not null for the loop
@@ -201,9 +224,9 @@ class LibGuadalete(object):
                     values[id] = val
 
                     if e == 'A':
-                        board[int(y) - 1][int(x) - 1] = int(val)
+                        board[int(y) - 1][int(x) - 1] = int(val) + (int(d)*self.max_value)
                     else:
-                        board[int(y) - 1][int(x) - 1] = int(val) - 2*int(val)
+                        board[int(y) - 1][int(x) - 1] = int(val) - 2*int(val) - (int(d)*self.max_value)
                 
         f.close()
 
