@@ -25,6 +25,8 @@
                                 % los algunos estilos más avanzados.
 \usepackage{./estilos/comandos} % Algunos comandos personalizados
 
+\usepackage{./estilos/pygments}
+
 \graphicspath{{./imagenes/}} % Indicamos la ruta donde se encuentran
                              % las imagenes, para ahorrarnos la ruta
                              % completa, y solo modificar aquí si en
@@ -57,6 +59,9 @@
 
 \mainmatter % Contenido en si ...
 
+\chapter{Introducción}
+\input{introduccion.tex}
+
 \chapter{Motivación y contexto del proyecto}
 \input{motivaciones_contexto.tex}
 
@@ -74,6 +79,7 @@
 \nocite{giar98}
 \nocite{mitt04}
 \nocite{pdf:auctex}
+\nocite{web:pep8}
 \bibliographystyle{plain}
 \bibliography{bibliografia}
 
