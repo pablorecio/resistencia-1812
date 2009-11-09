@@ -122,6 +122,12 @@ class LibGuadalete(object):
             sec = "0" + str(t.second)
         else:
             sec = str(t.second)
+
+        i_a = self.teamA[1].search(".clp")
+        i_b = self.teamB[1].search(".clp")
+        
+        teamA = (self.teamA[1])[6:i_a]
+        teamB = (self.teamB[1])[6:i_b]
     
         des = str(t.year) + "-" + month + "-" + day + "_"
         #des += hour + ":" + min + ":" + sec + "_" + self.teamA + "-vs-" + self.teamB
