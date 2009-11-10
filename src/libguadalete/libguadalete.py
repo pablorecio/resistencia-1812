@@ -123,15 +123,17 @@ class LibGuadalete(object):
         else:
             sec = str(t.second)
 
-        i_a = self.teamA[1].search(".clp")
-        i_b = self.teamB[1].search(".clp")
+        i_a = self.teamA[1].find("/equipo")
+        i_b = self.teamB[1].find("/equipo")
+        j_a = self.teamA[1].find(".clp")
+        j_b = self.teamB[1].find(".clp")
         
-        teamA = (self.teamA[1])[6:i_a]
-        teamB = (self.teamB[1])[6:i_b]
+        teamA = (self.teamA[1])[i_a+7:j_a]
+        teamB = (self.teamB[1])[i_b+7:j_b]
     
         des = str(t.year) + "-" + month + "-" + day + "_"
-        #des += hour + ":" + min + ":" + sec + "_" + self.teamA + "-vs-" + self.teamB
-        des += hour + ":" + min + ":" + sec
+        des += hour + ":" + min + ":" + sec + "_" + teamA + "-vs-" + teamB
+        #des += hour + ":" + min + ":" + sec
         des += ".txt"
 
         return des
