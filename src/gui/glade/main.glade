@@ -189,7 +189,9 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</property>
-    <property name="authors">Pablo Recio Quijano</property>
+    <property name="authors">Desarrollador y director: Pablo Recio Quijano
+Nucleo original: Manuel Palomo Duarte</property>
+    <property name="artists">Gr&#xE1;ficos por Noelia Sales Montes</property>
     <property name="logo">../../images/logo.png</property>
     <child internal-child="vbox">
       <object class="GtkVBox" id="dialog-vbox1">
