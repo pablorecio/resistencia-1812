@@ -190,6 +190,9 @@ el ajedrez por ejemplo. Eso quizás le de un aspecto más completo al sistema.
       claves dobles
     - Arreglado log de salida identificando de que equipo era la ficha que movia  
 
+** <2009-11-09 lun>
+   Para probar jugador vs IA, habría que eliminar el módulo del equipo B, y
+   añadir reglas para el insertado de movimientos
 
 * Salidas de error:
 
