@@ -1,0 +1,2 @@
+LiberationMono -> GPL: https://fedorahosted.org/liberation-fonts/
+Zekton -> GPL: http://www.gnome-look.org/content/show.php/Zekton?content=50553
