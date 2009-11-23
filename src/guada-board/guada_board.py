@@ -10,15 +10,17 @@ sys.path.append("./libguadalete")
 import libguadalete
 import game
 
-#-------- Sizes declarations -----------------
+#-------- Sizes and positions declarations ---
 screen_size = (760,560)
+frame_size = (230,47)
+
 board_ub = (10,10)
-frame_A = (10,500)
-piece_frame_A = (17,506)
-text_frame_A = (57,506)
-frame_B = (251,500)
-piece_frame_B = (258,506)
-text_frame_B = (298,206)
+frame_A_pos = (510,255)
+#piece_frame_A = (17,506)
+#text_frame_A = (57,506)
+frame_B_pos = (510,198)
+piece_frame = (6,6)
+text_frame = (45,6)
 #----------------------------------------------
 # ------ Colors -------------------------------
 font_name_color = (0,0,0)
@@ -35,14 +37,20 @@ path_font_names = 'fonts/zektonbi.ttf'
 
 def generate_background_surface(surfaces):
     surface = pygame.Surface(screen_size)
+    srfc_frame_A = pygame.Surface(frame_size)
+    srfc_frame_B = pygame.Surface(frame_size)
+
+    srfc_frame_A.blit(surfaces['frame'],(0,0))
+    srfc_frame_A.blit(surfaces['piece_A'], piece_frame)
+    srfc_frame_A.blit(surfaces['name_team_A'], text_frame)
+
+    srfc_frame_B.blit(surfaces['frame'],(0,0))
+    srfc_frame_B.blit(surfaces['piece_B'], piece_frame)
+    srfc_frame_B.blit(surfaces['name_team_B'], text_frame)
     
     surface.blit(surfaces['background'],(0,0))
-    surface.blit(surfaces['frame'], frame_A)
-    surface.blit(surfaces['frame'], frame_B)
-    surface.blit(surfaces['piece_A'], piece_frame_A)
-    surface.blit(surfaces['piece_B'], piece_frame_B)
-    surface.blit(surfaces['name_team_A'], text_frame_A)
-    surface.blit(surfaces['name_team_B'], text_frame_B)
+    surface.blit(srfc_frame_A, frame_A_pos)
+    surface.blit(srfc_frame_B, frame_B_pos)
 
     return surface
 
