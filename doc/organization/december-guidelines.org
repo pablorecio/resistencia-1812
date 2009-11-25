@@ -1,0 +1,36 @@
+Para darle un último empujón, voy a marcar una serie de hitos a corto plazo.
+Si consigo ir cumpliendo estos hitos, podré asumir que me dará tiempo a 
+al menos intentar presentar el PFC en la convocatoria de Diciembre. Esto
+significa que el dia <2009-12-09 mié> tiene que estar totalmente terminado,
+tanto memoria como aplicación.
+
+* <2009-11-26 jue> [0/2]
+** TODO Implementar las opciones del diálogo de 'Partida rápida' [0/4]
+   - [ ] Número de turnos
+   - [ ] No guardar la partida
+   - [ ] Partida rápida
+   - [ ] Esconder los valores de las piezas
+** TODO Implementar las opciones del diálogo 'Configuración' [0/2]
+   - [ ] Rutas para ficheros
+   - [ ] Idioma
+
+* <2009-11-27 vie> [0/3]
+** TODO Repasar estandar en el código fuente
+** TODO Script de instalación
+   Siguiendo el estandar de Buildist para construir el fichero setup.py
+** TODO Script para la extracción de las cadenas
+   Tanto en los ficheros .glade como en .py, para que sean susceptibles
+   de traducción.
+
+* <2009-11-28 sáb> [0/3]
+** TODO Terminar últimas opciones de la interfaz gráfica del tablero
+   Básicamente añadir los botones de movimiento, hacer la ventana de splash
+   y mostrar quien ha ganado.
+** TODO Leer partidas antiguas para su visualización.
+   Integrarlo también en el menú GTK
+** TODO Análisis y diseño de la primera iteración
+
+* <2009-11-29 dom> [0/1]
+** TODO Montar el sistema de torneos, al menos a nivel de consola.
+* <2009-11-30 lun> [0/1]
+** TODO Poder jugar jugador vs s.e. al menos a nivel de consola

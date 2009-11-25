@@ -5,7 +5,7 @@
   <object class="GtkWindow" id="mainWindow">
     <property name="title" translatable="yes">Cadiz deffense: 1812</property>
     <property name="window_position">center</property>
-    <property name="default_width">300</property>
+    <property name="default_width">299</property>
     <property name="default_height">450</property>
     <property name="icon">../../images/favicon.png</property>
     <signal name="destroy" handler="on_mainWindow_destroy"/>
@@ -20,6 +20,7 @@
             <child>
               <object class="GtkVButtonBox" id="vbuttonbox1">
                 <property name="visible">True</property>
+                <property name="orientation">vertical</property>
                 <property name="layout_style">spread</property>
                 <child>
                   <object class="GtkButton" id="btn_quick_game">
