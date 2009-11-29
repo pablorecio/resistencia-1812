@@ -3,7 +3,9 @@ import os.path
 import gtk
 sys.path.append("../guada-board")
 sys.path.append("./guada-board")
+
 import guada_board
+import configure
 
 class quickGameDialog:    
     def __init__(self, parent):
@@ -15,7 +17,7 @@ class quickGameDialog:
         builder = gtk.Builder()
         builder.add_from_file("./gui/glade/quickGame.glade")
 
-        def_path = os.path.realpath('./teams')
+        def_path = configure.load_configuration()['se_path']
         builder.get_object('file_chooser_es_a').set_current_folder(def_path)
         builder.get_object('file_chooser_team_a').set_current_folder(def_path)
         builder.get_object('file_chooser_es_b').set_current_folder(def_path)

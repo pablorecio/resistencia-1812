@@ -36,6 +36,8 @@ import fB
 
 import mirroring
 
+import configure
+
 class LibGuadalete(object):
     """
     This class provides an abstraction layer that allows run a simulation of 'La batalla del Guadalete',
@@ -136,7 +138,9 @@ class LibGuadalete(object):
         #des += hour + ":" + min + ":" + sec
         des += ".txt"
 
-        return des
+        base_path = configure.load_configuration()['games_path']
+
+        return base_path + '/' + des
 
     def __renameOutputFile(self,des):
         src = "resultado.txt"

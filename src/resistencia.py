@@ -2,12 +2,16 @@
 
 import sys
 sys.path.append("./gui")
+
 import gtk
 import gtk.glade
-import main_window
-
 import locale
 import gettext
+
+import main_window
+import configure
+
+configure.load_configuration()
 
 APP = 'resistencia'
 DIR = 'po'
@@ -17,6 +21,7 @@ gettext.bindtextdomain(APP, DIR)
 gtk.glade.textdomain(APP)
 gtk.glade.bindtextdomain(APP, DIR)
 _ = gettext.gettext
+
   
 def main():
     "Main function"

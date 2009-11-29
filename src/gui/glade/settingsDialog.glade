@@ -81,7 +81,7 @@
                             <property name="visible">True</property>
                             <property name="orientation">vertical</property>
                             <child>
-                              <object class="GtkFileChooserButton" id="filechooserbutton1">
+                              <object class="GtkFileChooserButton" id="file_chs_prev_games">
                                 <property name="visible">True</property>
                                 <property name="action">select-folder</property>
                               </object>
@@ -120,7 +120,7 @@
                             <property name="visible">True</property>
                             <property name="orientation">vertical</property>
                             <child>
-                              <object class="GtkFileChooserButton" id="filechooserbutton2">
+                              <object class="GtkFileChooserButton" id="file_chs_se">
                                 <property name="visible">True</property>
                                 <property name="action">select-folder</property>
                               </object>
