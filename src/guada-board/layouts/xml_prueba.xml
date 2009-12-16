@@ -38,4 +38,32 @@
 
     <!-- labels y todo eso -->
   </label>
+
+  <label name="action_buttons" type="buttons">
+    <propierty name="action_buttons_size" type="size">
+      <value id="weight">260</value>
+      <value id="height">50</value>
+    </propierty>
+    <propierty name="action_buttons_position" type="position">
+      <value id="x">120</value>
+      <value id="y">500</value>
+    </propierty>
+
+    <label_child name="first_button" type="button">
+      <propierty name="first_button_size" type="size">
+	<value id="weight">50</value>
+	<value id="height">50</value>
+      </propierty>
+      <propierty name="first_button_position" type="position">
+	<value id="x">0</value>
+	<value id="y">0</value>
+      </propierty>
+      <propierty name="first_button_images" type="button_images">
+	<value id="default">./images/flecha_izquierda2.png</value>
+	<value id="above">./images/flecha_izquierda2.png</value>
+	<value id="pressed">./images/flecha_izquierda2.png</value>
+      </propierty>
+    </label_child>
+
+  </label>
 </window-board>
