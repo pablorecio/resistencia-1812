@@ -1,0 +1,89 @@
+<?xml version="1.0" ?>
+<window-board>
+  <background src="./images/fondo.png" />
+  <font src="./fonts/zektonbi.ttf" />
+  <favicon src="./images/favicon.png" />
+  <font-color r="0" g="0" b="0" />
+  <size  weight="760" height="560" />
+
+  <frame id="board" type="din_surface">
+    <position x="10" y="10" />
+    <size weight="480" height="480" />
+  </frame>
+
+  <frame id="labels">
+    <position x="510" y="198" />
+    <size weight="230" height="104" />
+
+    <label id="team_A">
+      <background src="./images/marco.png" />
+      <position x="0" y="57" />
+      <size weight="230" height="47" />
+      <sublabel id="img_A" type="surface">
+	<position x="6" y="6" />
+	<size weight="35" height="35" />
+      </sublabel>
+      <sublabel id="name_A" type="text">
+	<position x="45" y="6" />
+      </sublabel>
+    </label>
+
+    <label id="team_B">
+      <background src="./images/marco.png" />
+      <position x="0" y="0" />
+      <size weight="230" height="47" />
+      <sublabel id="img_B" type="surface">
+	<position x="6" y="6" />
+	<size weight="35" height="35" />
+      </sublabel>
+      <sublabel id="name_B" type="text">
+	<position x="45" y="6" />
+      </sublabel>
+    </label>
+  </frame>
+
+  <frame id="action_buttons">
+    <position x="120" y="500" />
+    <size weight="260" height="50" />
+
+    <label id="first_button">
+      <position x="0" y="0" />
+      <size weight="50" height="50" />
+      <button default="./images/flecha_izquierda2.png"
+	      above="./images/flecha_izquierda2.png"
+	      pressed="./images/flecha_izquierda2.png" />
+    </label>
+
+    <label id="previous_button">
+      <position x="70" y="0" />
+      <size weight="50" height="50" />
+      <button default="./images/flecha_izquierda1.png"
+	      above="./images/flecha_izquierda1.png"
+	      pressed="./images/flecha_izquierda1.png" />
+    </label>
+
+    <label id="next_button">
+      <position x="140" y="0" />
+      <size weight="50" height="50" />
+      <button default="./images/flecha_derecha1.png"
+	      above="./images/flecha_derecha1.png"
+	      pressed="./images/flecha_derecha1.png" />
+    </label>
+
+    <label id="last_button">
+      <position x="210" y="0" />
+      <size weight="50" height="50" />
+      <button default="./images/flecha_derecha2.png"
+	      above="./images/flecha_derecha2.png"
+	      pressed="./images/flecha_derecha2.png" />
+    </label>
+  </frame>
+
+  <frame id="exit_button">
+    <position x="650" y="500" />
+    <size weight="50" height="50" />
+    <button default="./images/salir.png"
+	    above="./images/salir.png"
+	    pressed="./images/salir.png" />
+  </frame>
+</window-board>

@@ -1,0 +1,41 @@
+<?xml version="1.0" ?>
+<window-board>
+  <propierty name="title" type="string">Resistencia en Cádiz: 1812</propierty>
+  <propierty name="background" type="image">./images/fondo.png</propierty>
+  <propierty name="favicon" type="image">./images/favicon.png</propierty>
+  <propierty name="font_type" type="font">./fonts/zektonbi.ttf</propierty>
+  <propierty name="font_size" type="int">22</propierty>
+  <propierty name="font_color" type="color">
+    <value id="r">0</value>
+    <value id="g">0</value>
+    <value id="b">0</value>
+  </propierty>
+  <propierty name="window_size" type="size">
+    <value id="weight">760</value>
+    <value id="height">560</value>
+  </propierty>
+
+  <label name="board" type="dynamic_surface">
+    <propierty name="board_size" type="size">
+      <value id="weight">480</value>
+      <value id="height">480</value>
+    </propierty>
+    <propierty name="board_position" type="position">
+      <value id="x">10</value>
+      <value id="y">10</value>
+    </propierty>
+  </label>
+
+  <label name="players_names" type="names">
+    <propierty name="names_size" type="size">
+      <value id="weight">230</value>
+      <value id="height">104</value>
+    </propierty>
+    <propierty name="names_position" type="position">
+      <value id="x">510</value>
+      <value id="y">198</value>
+    </propierty>
+
+    <!-- labels y todo eso -->
+  </label>
+</window-board>
