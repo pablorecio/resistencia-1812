@@ -27,6 +27,50 @@ import pygame.font
 
 import xml_layout_functions as functions
 
+# To clarify this, here is a little schema of the list 'self.elements'
+# after reading the XML file:
+#
+# - 'title'
+# - 'background'
+# - 'favicon'
+# - 'font_type'
+# - 'font_syze'
+# - 'font_color'
+# - 'window_syze'
+# - 'board'
+#   |- 'board_size'
+#   |- 'board_position'
+# - 'players_names'
+#   |- 'names_background'
+#   |- 'names_size'
+#   |- 'names_position'
+#   |- 'inside_Labels'
+#      |- 'piece_position'
+#      |- 'name_position'
+# - 'action_buttons'
+#   |- 'action_buttons_size'
+#   |- 'action_buttons_postion'
+#   |- 'first_button'
+#      |- 'first_button_size'
+#      |- 'first_button_position'
+#      |- 'first_button_images'
+#   |- 'second_button'
+#      |- 'second_button_size'
+#      |- 'second_button_position'
+#      |- 'second_button_images'
+#   |- 'third_button'
+#      |- 'third_button_size'
+#      |- 'third_button_position'
+#      |- 'third_button_images'
+#   |- 'fourth_button'
+#      |- 'fourth_button_size'
+#      |- 'fourth_button_position'
+#      |- 'fourth_button_images'
+# - 'exit_button'
+#   |- 'exit_button_size'
+#   |- 'exit_button_position'
+#   |- 'exit_button_images'
+
 class Layout(object):
     def __init__(self, xml_layout_document):
         self.elements = {}

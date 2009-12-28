@@ -27,6 +27,7 @@
   </label>
 
   <label name="players_names" type="names">
+    <propierty name="names_background" type="image">./images/marco.png</propierty>
     <propierty name="names_size" type="size">
       <value id="weight">230</value>
       <value id="height">104</value>
@@ -36,7 +37,16 @@
       <value id="y">198</value>
     </propierty>
 
-    <!-- labels y todo eso -->
+    <label_child name="inside_labels" type="in_label">
+      <propierty name="piece_position" type="position">
+	<value id="x">6</value>
+	<value id="y">6</value>
+      </propierty>
+      <propierty name="name_position" type="position">
+	<value id="x">45</value>
+	<value id="y">6</value>
+      </propierty>
+    </label_child>
   </label>
 
   <label name="action_buttons" type="buttons">
@@ -65,5 +75,68 @@
       </propierty>
     </label_child>
 
+    <label_child name="second_button" type="button">
+      <propierty name="second_button_size" type="size">
+	<value id="weight">50</value>
+	<value id="height">50</value>
+      </propierty>
+      <propierty name="second_button_position" type="position">
+	<value id="x">70</value>
+	<value id="y">0</value>
+      </propierty>
+      <propierty name="second_button_images" type="button_images">
+	<value id="default">./images/flecha_izquierda1.png</value>
+	<value id="above">./images/flecha_izquierda1.png</value>
+	<value id="pressed">./images/flecha_izquierda1.png</value>
+      </propierty>
+    </label_child>
+
+    <label_child name="third_button" type="button">
+      <propierty name="third_button_size" type="size">
+	<value id="weight">50</value>
+	<value id="height">50</value>
+      </propierty>
+      <propierty name="third_button_position" type="position">
+	<value id="x">140</value>
+	<value id="y">0</value>
+      </propierty>
+      <propierty name="third_button_images" type="button_images">
+	<value id="default">./images/flecha_derecha1.png</value>
+	<value id="above">./images/flecha_derecha1.png</value>
+	<value id="pressed">./images/flecha_derecha1.png</value>
+      </propierty>
+    </label_child>
+
+    <label_child name="fourth_button" type="button">
+      <propierty name="fourth_button_size" type="size">
+	<value id="weight">50</value>
+	<value id="height">50</value>
+      </propierty>
+      <propierty name="fourth_button_position" type="position">
+	<value id="x">210</value>
+	<value id="y">0</value>
+      </propierty>
+      <propierty name="fourth_button_images" type="button_images">
+	<value id="default">./images/flecha_derecha2.png</value>
+	<value id="above">./images/flecha_derecha2.png</value>
+	<value id="pressed">./images/flecha_derecha2.png</value>
+      </propierty>
+    </label_child>
+  </label>
+
+  <label name="exit_button" type="button">
+      <propierty name="exit_button_size" type="size">
+	<value id="weight">50</value>
+	<value id="height">50</value>
+      </propierty>
+      <propierty name="exit_button_position" type="position">
+	<value id="x">650</value>
+	<value id="y">500</value>
+      </propierty>
+      <propierty name="exit_button_images" type="button_images">
+	<value id="default">./images/salir.png</value>
+	<value id="above">./images/salir.png</value>
+	<value id="pressed">./images/selir.png</value>
+      </propierty>    
   </label>
 </window-board>

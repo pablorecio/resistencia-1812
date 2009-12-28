@@ -23,13 +23,27 @@ import sys
 
 from xml.dom import minidom
 
-
 def _parse_propierty_string(node):
     data = node.firstChild.data
     data = data.replace("\n",'')
     data = data.replace(' ' , '')
 
     return data
+
+def _parse_childs(node):
+    childs = node.childNodes
+
+    erase_childs_end_of_line(childs)
+    propierties = {}
+
+    for propierty in childs:
+        tag = propierty.tagName
+        attr = propierty.getAttribute('type')
+        function_call = 'parse_' + tag + '_' + attr
+        function_call += '(propierty)'
+        propierties[propierty.getAttribute('name')] = eval(function_call)
+
+    return propierties
 
 def erase_childs_end_of_line(node):
     for child in node:
@@ -41,6 +55,12 @@ def parse_propierty_image(node):
 
 def parse_propierty_font(node):
     return _parse_propierty_string(node)
+
+def parse_propierty_string(node):
+    return _parse_propierty_string(node)
+
+def parse_propierty_int(node):
+    return int(_parse_propierty_string(node))
 
 def parse_propierty_color(node):
     childs = node.childNodes
@@ -89,6 +109,32 @@ def parse_propierty_size(node):
     
     return (weight,height)
 
+def parse_propierty_button_images(node):
+    childs = node.childNodes
+
+    erase_childs_end_of_line(childs)
+    
+    for child in childs:
+        if child.hasAttribute('id'):
+            attr = child.getAttribute('id')
+            if attr == 'default':
+                aux = child.firstChild.data
+                aux.replace("\n", '')
+                aux.replace(' ', '')
+                default = aux
+            if attr == 'above':
+                aux = child.firstChild.data
+                aux.replace("\n", '')
+                aux.replace(' ', '')
+                above = aux
+            if attr == 'pressed':
+                aux = child.firstChild.data
+                aux.replace("\n", '')
+                aux.replace(' ', '')
+                pressed = aux
+    
+    return (default,above,pressed)
+
 def parse_propierty_position(node):
     childs = node.childNodes
 
@@ -111,14 +157,20 @@ def parse_propierty_position(node):
     return (x,y)
 
 def parse_label_dynamic_surface(node):
-    childs = node.childNodes
+    return _parse_childs(node)
 
-    erase_childs_end_of_line(childs)
-    propierties = {}
+def parse_label_names(node):
+    return _parse_childs(node)
 
-    for propierty in childs:
-        function_call = 'parse_propierty_' + propierty.getAttribute('type')
-        function_call += '(propierty)'
-        propierties[propierty.getAttribute('name')] = eval(function_call)
+def parse_label_buttons(node):
+    return _parse_childs(node)
 
-    return propierties
+def parse_label_button(node):
+    return _parse_childs(node)
+
+def parse_label_child_in_label(node): #labels with the player's name
+    return _parse_childs(node)
+
+def parse_label_child_button(node):
+    return _parse_childs(node)
+    
