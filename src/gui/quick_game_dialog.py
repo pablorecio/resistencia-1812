@@ -97,5 +97,5 @@ class quickGameDialog:
             self.load_board()
 
     def load_board(self):
-        guada_board.run((self.es_team_a,self.team_team_a),
-                        (self.es_team_b,self.team_team_b))
+        guada_board.run(((self.es_team_a,self.team_team_a), './images/piece-orange.png'),
+                        ((self.es_team_b,self.team_team_b), './images/piece-violete.png'))

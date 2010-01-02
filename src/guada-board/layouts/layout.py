@@ -46,6 +46,7 @@ import xml_layout_functions as functions
 #   |- 'names_position'
 #   |- 'inside_Labels'
 #      |- 'piece_position'
+#      |- 'piece_size'
 #      |- 'name_position'
 #      |- 'label_A_position'
 #      |- 'label_B_position'
@@ -74,7 +75,7 @@ import xml_layout_functions as functions
 #   |- 'exit_button_images'
 
 class Layout(object):
-    def __init__(self, xml_layout_document, player_A, player_B, initial_board):
+    def __init__(self, xml_layout_document):
         self._color_key = (255,0,255)
         self.elements = {}
         docxml = minidom.parse(xml_layout_document)
@@ -90,6 +91,12 @@ class Layout(object):
             
             x = eval('functions.parse_' + tag + '_' + attr + '(element)')
             self.elements[element.getAttribute('name')] = x
+        
+        self.window_size = self.elements['window_size']
+        self.window_title = self.elements['window_title']
+
+    def init(self, player_A, player_B, initial_board):
+        self.favicon = pygame.image.load(self.elements['favicon'])
 
         self.player_A = player_A
         self.player_B = player_B
@@ -100,13 +107,15 @@ class Layout(object):
         self._create_buttons()
 
         self._static_background = self._get_static_surface()
+        
 
-    def _create_labels(self):
+    def _create_labels(self): #redimensionar las fichas
+        piece_size = self.elements['players_names']['inside_labels']['piece_size']
         label_A = pygame.image.load(self.elements['players_names']['names_background']).convert()
         label_B = pygame.image.load(self.elements['players_names']['names_background']).convert()
 
-        piece_A = pygame.image.load(self.player_A[0])
-        piece_B = pygame.image.load(self.player_B[0])
+        piece_A = pygame.transform.scale(pygame.image.load(self.player_A[0]), piece_size)
+        piece_B = pygame.transform.scale(pygame.image.load(self.player_B[0]), piece_size)
 
         name_font = pygame.font.Font(self.elements['font_type'], 22)
 
@@ -125,7 +134,7 @@ class Layout(object):
 
     def _create_buttons(self):
         button_exit_path = self.elements['exit_button']['exit_button_images']
-        button_left_2_path = self.elements['action_buttons']['first_button']['fitst_button_images']
+        button_left_2_path = self.elements['action_buttons']['first_button']['first_button_images']
         button_left_1_path = self.elements['action_buttons']['second_button']['second_button_images']
         button_right_1_path = self.elements['action_buttons']['third_button']['third_button_images']
         button_right_2_path = self.elements['action_buttons']['fourth_button']['fourth_button_images']
@@ -161,8 +170,8 @@ class Layout(object):
     
     def _draw_labels(self):
         labels_size = self.elements['players_names']['names_size']
-        label_A_pos = self.elements['players_names']['inside_labels']['label_A_pos']
-        label_B_pos = self.elements['players_names']['inside_labels']['label_B_pos']
+        label_A_pos = self.elements['players_names']['inside_labels']['label_A_position']
+        label_B_pos = self.elements['players_names']['inside_labels']['label_B_position']
         
         labels = pygame.Surface(labels_size)
         labels.set_colorkey(self._color_key)
@@ -174,29 +183,25 @@ class Layout(object):
         return labels
     
     def _draw_exit_button(self, status=0):
-        exit_button_imgs = self.buttons['button_exit']
-        
-        exit_button = pygame.image.load(exit_button_imgs[status])
-        
-        return exit_button
+        return self.buttons['button_exit'][status]
 
     def _draw_buttons(self, status=None):
         buttons_size = self.elements['action_buttons']['action_buttons_size']
-        button_1_path = self.buttons['button_left_2'][0]
-        button_2_path = self.buttons['button_left_1'][0]
-        button_3_path = self.buttons['button_right_1'][0]
-        button_4_path = self.buttons['button_right_2'][0]
+        button_1 = self.buttons['button_left_2'][0]
+        button_2 = self.buttons['button_left_1'][0]
+        button_3 = self.buttons['button_right_1'][0]
+        button_4 = self.buttons['button_right_2'][0]
         
         buttons = []
         
-        buttons.append(pygame.image.load(button_1_path), self.elements['action_buttons']['first_button']['first_button_position'])
-        buttons.append(pygame.image.load(button_2_path), self.elements['action_buttons']['second_button']['second_button_position'])
-        buttons.append(pygame.image.load(button_3_path), self.elements['action_buttons']['third_button']['third_button_position'])
-        buttons.append(pygame.image.load(button_4_path), self.elements['action_buttons']['fourth_button']['fourth_button_position'])
+        buttons.append((button_1, self.elements['action_buttons']['first_button']['first_button_position']))
+        buttons.append((button_2, self.elements['action_buttons']['second_button']['second_button_position']))
+        buttons.append((button_3, self.elements['action_buttons']['third_button']['third_button_position']))
+        buttons.append((button_4, self.elements['action_buttons']['fourth_button']['fourth_button_position']))
         
         buttons_srfc = pygame.Surface(buttons_size)
-        buttons_srfc.set_colorkey(self._set_color_key)
-        buttons_srfc.fill(self._set_color_key)
+        buttons_srfc.set_colorkey(self._color_key)
+        buttons_srfc.fill(self._color_key)
         
         for button in buttons:
             buttons_srfc.blit(button[0],button[1])
@@ -205,9 +210,17 @@ class Layout(object):
         
     def change_board(self, board):
         self.board = board
+
+    def get_favicon(self):
+        return self.favicon
+
+    def get_window_size(self):
+        return self.window_size
+
+    def get_window_title(self):
+        return self.window_title
         
     def _get_static_surface(self):
-        board_position = self.elements['board']['board_position']
         label_position = self.elements['players_names']['names_position']
         
         back_surface = pygame.Surface(self.elements['window_size'])
@@ -222,7 +235,8 @@ class Layout(object):
 
     def get_surface(self, mouse = None):
         exit_position = self.elements['exit_button']['exit_button_position']
-        buttons_position = self.elements['actions_buttons']['action_buttons_position']
+        buttons_position = self.elements['action_buttons']['action_buttons_position']
+        board_position = self.elements['board']['board_position']
 
         final_surface = pygame.Surface(self.elements['window_size'])
 
@@ -230,7 +244,7 @@ class Layout(object):
         buttons = self._draw_buttons()
 
         final_surface.blit(self._static_background,(0,0))
-        final_surface.blit(board, board_position)
+        final_surface.blit(self.board, board_position)
         final_surface.blit(exit_button, exit_position)
         final_surface.blit(buttons, buttons_position)
 
