@@ -46,6 +46,14 @@
 	<value id="x">45</value>
 	<value id="y">6</value>
       </propierty>
+      <propierty name="label_A_position" type="position">
+	<value id="x">0</value>
+	<value id="y">57</value>
+      </propierty>
+      <propierty name="label_B_position" type="position">
+	<value id="x">0</value>
+	<value id="y">0</value>
+      </propierty>
     </label_child>
   </label>
 
