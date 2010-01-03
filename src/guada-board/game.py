@@ -41,3 +41,19 @@ class Game(object):
                                       self.teamA_piece, self.teamB_piece, 
                                       self.default_piece, self.piece_size,
                                       self.board_size)
+
+    def first_turn(self):
+        self.turn = 0
+
+        self.state =  board.Board(self.entire_game[self.turn],
+                                  self.teamA_piece, self.teamB_piece, 
+                                  self.default_piece, self.piece_size,
+                                  self.board_size)
+
+    def last_turn(self):
+        self.turn = self.num_turn - 1
+
+        self.state =  board.Board(self.entire_game[self.turn],
+                                  self.teamA_piece, self.teamB_piece, 
+                                  self.default_piece, self.piece_size,
+                                  self.board_size)

@@ -9,7 +9,7 @@
 
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 # GNU General Public License for more details.
 
 # You should have received a copy of the GNU General Public License
@@ -94,6 +94,8 @@ class Layout(object):
         
         self.window_size = self.elements['window_size']
         self.window_title = self.elements['window_title']
+        self.state = {'button_exit': 0, 'button_left_2': 0, 'button_left_1': 0,
+                      'button_right_1': 0, 'button_right_2': 0}
 
     def init(self, player_A, player_B, initial_board):
         self.favicon = pygame.image.load(self.elements['favicon'])
@@ -106,7 +108,10 @@ class Layout(object):
         self._create_labels()
         self._create_buttons()
 
+        self._buttons_rects = self._generate_buttons_rects()
+
         self._static_background = self._get_static_surface()
+        self._buttons_rects
         
 
     def _create_labels(self): #redimensionar las fichas
@@ -182,15 +187,15 @@ class Layout(object):
 
         return labels
     
-    def _draw_exit_button(self, status=0):
-        return self.buttons['button_exit'][status]
+    def _draw_exit_button(self):
+        return self.buttons['button_exit'][self.state['button_exit']]
 
-    def _draw_buttons(self, status=None):
+    def _draw_buttons(self):
         buttons_size = self.elements['action_buttons']['action_buttons_size']
-        button_1 = self.buttons['button_left_2'][0]
-        button_2 = self.buttons['button_left_1'][0]
-        button_3 = self.buttons['button_right_1'][0]
-        button_4 = self.buttons['button_right_2'][0]
+        button_1 = self.buttons['button_left_2'][self.state['button_left_2']]
+        button_2 = self.buttons['button_left_1'][self.state['button_left_1']]
+        button_3 = self.buttons['button_right_1'][self.state['button_right_1']]
+        button_4 = self.buttons['button_right_2'][self.state['button_right_2']]
         
         buttons = []
         
@@ -219,6 +224,49 @@ class Layout(object):
 
     def get_window_title(self):
         return self.window_title
+
+    def _get_absolute_position(self, pos1, pos2):
+        return (pos1[0] + pos2[0], pos1[1] + pos2[1])
+
+    def _generate_buttons_rects(self):
+        surface = pygame.Surface(self.window_size)
+
+        button_exit = self.buttons['button_exit'][0]
+        button_1 = self.buttons['button_left_2'][0]
+        button_2 = self.buttons['button_left_1'][0]
+        button_3 = self.buttons['button_right_1'][0]
+        button_4 = self.buttons['button_right_2'][0]
+
+        exit_button_pos = self.elements['exit_button']['exit_button_position']
+        action_buttons_pos = self.elements['action_buttons']['action_buttons_position']
+
+        left_2_button_pos = self.elements['action_buttons']['first_button']['first_button_position']
+        left_2_button_pos = self._get_absolute_position(action_buttons_pos,
+                                                        left_2_button_pos)
+
+        left_1_button_pos = self.elements['action_buttons']['second_button']['second_button_position']
+        left_1_button_pos = self._get_absolute_position(action_buttons_pos,
+                                                        left_1_button_pos)
+
+        right_1_button_pos = self.elements['action_buttons']['third_button']['third_button_position']
+        right_1_button_pos = self._get_absolute_position(action_buttons_pos,
+                                                         right_1_button_pos)
+
+        right_2_button_pos = self.elements['action_buttons']['fourth_button']['fourth_button_position']
+        right_2_button_pos = self._get_absolute_position(action_buttons_pos,
+                                                         right_2_button_pos)
+
+        rects = {}
+        rects['button_exit'] = surface.blit(button_exit, exit_button_pos)
+        rects['button_left_2'] = surface.blit(button_1, left_2_button_pos)
+        rects['button_left_1'] = surface.blit(button_2, left_1_button_pos)
+        rects['button_right_1'] = surface.blit(button_3, right_1_button_pos)
+        rects['button_right_2'] = surface.blit(button_4, right_2_button_pos)
+
+        return rects
+
+    def get_buttons_rects(self):
+        return self._buttons_rects
         
     def _get_static_surface(self):
         label_position = self.elements['players_names']['names_position']
@@ -240,6 +288,11 @@ class Layout(object):
 
         final_surface = pygame.Surface(self.elements['window_size'])
 
+        if mouse:
+            self.state[mouse[0]] = mouse[1]
+        else:
+            for index in self.state:
+                self.state[index] = 0
         exit_button = self._draw_exit_button()
         buttons = self._draw_buttons()
 

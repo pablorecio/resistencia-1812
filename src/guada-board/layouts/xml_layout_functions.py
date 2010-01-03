@@ -23,7 +23,7 @@ import sys
 
 from xml.dom import minidom
 
-def _parse_propierty_string(node):
+def _parse_propierty_data_string(node):
     data = node.firstChild.data
     data = data.replace("\n",'')
     data = data.replace(' ' , '')
@@ -51,16 +51,22 @@ def erase_childs_end_of_line(node):
             node.remove(child)
 
 def parse_propierty_image(node):
-    return _parse_propierty_string(node)
+    return _parse_propierty_data_string(node)
 
 def parse_propierty_font(node):
-    return _parse_propierty_string(node)
+    return _parse_propierty_data_string(node)
 
 def parse_propierty_string(node):
-    return _parse_propierty_string(node)
+    return _parse_propierty_data_string(node)
+
+def parse_propierty_title_string(node):
+    data = node.firstChild.data
+    data = data.replace("\n",'')
+
+    return data
 
 def parse_propierty_int(node):
-    return int(_parse_propierty_string(node))
+    return int(_parse_propierty_data_string(node))
 
 def parse_propierty_color(node):
     childs = node.childNodes
