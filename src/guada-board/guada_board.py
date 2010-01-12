@@ -5,63 +5,21 @@ import pygame
 import pygame.font
 import board
 
+from os import path
 import sys
 sys.path.append("./libguadalete")
 sys.path.append("./guada-board/layouts")
 import libguadalete
+import file_parser
 import layout
 import game
 
-def extract_name(team):
-    i = team[0].find("/reglas")
-    j = team[0].find(".clp")
-
-    return (team[0])[i+7:j]
-
-def get_collision(point, rects):
-    res = ''
-    for index in rects:
-        rect = rects[index]
-        if rect.collidepoint(point):
-            res = index
-            break
-
-    return res
-
-def _get_turn(game, xml_layout, mouse=None):
-    surface = game.draw_board()
-    surface.convert()
-    xml_layout.change_board(surface)
-
-    return xml_layout.get_surface(mouse)
-
-def next_turn(game, xml_layout, mouse=None):
-    game.next_turn()
-    return _get_turn(game, xml_layout, mouse)
-
-def previous_turn(game, xml_layout, mouse=None):
-    game.previous_turn()
-    return _get_turn(game, xml_layout, mouse)
-
-def first_turn(game, xml_layout, mouse=None):
-    game.first_turn()
-    return _get_turn(game, xml_layout, mouse)
-
-def last_turn(game, xml_layout, mouse=None):
-    game.last_turn()
-    return _get_turn(game, xml_layout, mouse)
-
-def run(teamA, teamB, path_piece_default='./images/piece-default.png', xml_file='./guada-board/layouts/xml_prueba.xml'):
-    lib = libguadalete.LibGuadalete(teamA[0],teamB[0])
-    out_file = lib.run_game()
-
-    entire_game = lib.parseFile(out_file)
+def _load_game_from_file(src_file, teamA, teamB, path_piece_default, xml_file):
+    entire_game = file_parser.parse_file(src_file)
     
     pygame.init()
 
     background_surfaces = {}
-    name_team_A = extract_name(teamA[0])
-    name_team_B = extract_name(teamB[0])
 
     xml_layout = layout.Layout(xml_file)
     
@@ -73,7 +31,7 @@ def run(teamA, teamB, path_piece_default='./images/piece-default.png', xml_file=
 
     img_board = res_game.draw_board().convert()
     
-    xml_layout.init((teamA[1], name_team_A), (teamB[1], name_team_B), img_board)
+    xml_layout.init((teamA[1], teamA[0]), (teamB[1], teamB[0]), img_board)
     rects = xml_layout.get_buttons_rects()
 
     print rects
@@ -137,3 +95,72 @@ def run(teamA, teamB, path_piece_default='./images/piece-default.png', xml_file=
                             surface = last_turn(res_game, xml_layout, (res, 1))
                             screen.blit(surface,(0,0))
                             pygame.display.flip()
+
+def extract_name(team):
+    i = team[0].find("/reglas")
+    j = team[0].find(".clp")
+
+    return (team[0])[i+7:j]
+
+def extract_names_from_file(src_file):
+    useless, file_name = path.split(src_file)
+
+    nameA_i = 20
+    nameA_j = file_name.find('-vs-')
+    nameB_i = nameA_j + 4
+    nameB_j = file_name.find('.txt')
+
+    return (file_name[nameA_i:nameA_j], file_name[nameB_i:nameB_j])
+
+def get_collision(point, rects):
+    res = ''
+    for index in rects:
+        rect = rects[index]
+        if rect.collidepoint(point):
+            res = index
+            break
+
+    return res
+
+def _get_turn(game, xml_layout, mouse=None):
+    surface = game.draw_board()
+    surface.convert()
+    xml_layout.change_board(surface)
+
+    return xml_layout.get_surface(mouse)
+
+def next_turn(game, xml_layout, mouse=None):
+    game.next_turn()
+    return _get_turn(game, xml_layout, mouse)
+
+def previous_turn(game, xml_layout, mouse=None):
+    game.previous_turn()
+    return _get_turn(game, xml_layout, mouse)
+
+def first_turn(game, xml_layout, mouse=None):
+    game.first_turn()
+    return _get_turn(game, xml_layout, mouse)
+
+def last_turn(game, xml_layout, mouse=None):
+    game.last_turn()
+    return _get_turn(game, xml_layout, mouse)
+
+def run(teamA, teamB, path_piece_default='./images/piece-default.png', xml_file='./guada-board/layouts/xml_prueba.xml'):
+    lib = libguadalete.LibGuadalete(teamA[0],teamB[0])
+    out_file = lib.run_game()
+    name_team_A = extract_name(teamA[0])
+    name_team_B = extract_name(teamB[0])
+    _load_game_from_file(out_file, (name_team_A, teamA[1]),
+                         (name_team_B, teamB[1]), path_piece_default, xml_file)
+
+def run_from_file(src_file,
+                  teamA=('equipoA', './images/piece-orange.png'),
+                  teamB=('equipoB', './images/piece-violete.png'),
+                  path_piece_default='./images/piece-default.png',
+                  xml_file='./guada-board/layouts/xml_prueba.xml'):
+    nameA, nameB = extract_names_from_file(src_file)
+    teamA = (nameA, teamA[1])
+    teamB = (nameB, teamB[1])
+    _load_game_from_file(src_file, teamA, teamB, path_piece_default, xml_file)
+
+    
