@@ -2,7 +2,7 @@ El objetivo de este fichero de planificación es llevar un control estricto
 de las tareas que faltan por realizar, de forma que me vaya /obligando/ 
 a ir cumpliendo los objetivos.
 
-* Corto plazo [1/6]
+* Corto plazo [2/6]
 Este apartado sirve para indicar tareas pequeñas que puedo realizar en
 una ó dos tardes, de forma que me sirva para tener una visión un poco más
 concreta del trabajo que me queda por hacer.
@@ -15,8 +15,8 @@ concreta del trabajo que me queda por hacer.
    de los fuentes de un proyecto. De esta forma puedo tener actualizado
    dicho diagrama sin demasiado esfuerzo.
 
-** TODO Visor de partidas antiguas
-   SCHEDULED: <2010-01-12 mar> DEADLINE: <2010-01-13 mié>
+** DONE Visor de partidas antiguas
+   SCHEDULED: <2010-01-12 mar> DEADLINE: <2010-01-13 mié> CLOSED: [2010-01-12 mar 23:45]
    Aunque parezca mentira, aun no tengo implementado un visor de partidas
    antiguas. Simplemente se encargará de leer un fichero de partida y
    mostrar el visor normal de partidas. Creo que solamente es crear el 
