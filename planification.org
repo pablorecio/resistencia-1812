@@ -1,0 +1,92 @@
+El objetivo de este fichero de planificación es llevar un control estricto
+de las tareas que faltan por realizar, de forma que me vaya /obligando/ 
+a ir cumpliendo los objetivos.
+
+* Corto plazo [1/6]
+Este apartado sirve para indicar tareas pequeñas que puedo realizar en
+una ó dos tardes, de forma que me sirva para tener una visión un poco más
+concreta del trabajo que me queda por hacer.
+
+** DONE Fichero de organización
+   Recursivo :)
+** TODO Diagrama de clases UML
+   SCHEDULED: <2010-01-15 vie> DEADLINE: <2010-01-19 mar>
+   Buscar alguna herramienta que me pueda generar diagramas UML a partir
+   de los fuentes de un proyecto. De esta forma puedo tener actualizado
+   dicho diagrama sin demasiado esfuerzo.
+
+** TODO Visor de partidas antiguas
+   SCHEDULED: <2010-01-12 mar> DEADLINE: <2010-01-13 mié>
+   Aunque parezca mentira, aun no tengo implementado un visor de partidas
+   antiguas. Simplemente se encargará de leer un fichero de partida y
+   mostrar el visor normal de partidas. Creo que solamente es crear el 
+   diálogo con Glade (un selector de ficheros, omg) y cargar con alguna 
+   bandera libguadalete.
+** TODO Notificar ganador
+   SCHEDULED: <2010-01-13 mié> DEADLINE: <2010-01-15 vie>
+   Por un fallo de diseño no tengo posibilidad (directa) de conocer el 
+   resultado de una partida. Habrá que modificar libguadalete para que 
+   pueda devolver dicho resultado.
+** TODO Opciones que faltan en el cargador de partida [0/4]
+   SCHEDULED: <2010-01-16 sáb> DEADLINE: <2010-01-23 sáb>
+*** TODO Partida rápida
+    Este modo sirve para mostrar solo el resultado de la partida, sin
+    dibujar nada con =pygame=
+*** TODO No registrar la partida
+    Simplemente que no se almacene el fichero de la partida
+*** TODO Ocultar valores de las fichas
+    Una opción para ocultar *realmente* el valor de las fichas cuanto 
+    este valor no esté descubierto. Seguramente habrá que tocar a nivel 
+    de =guada-board=, modificando la clase =Piece=
+*** TODO Número de turnos 
+    Pues eso
+** TODO Screencast
+* Medio / largo plazo [0/2]
+En este apartado voy a indicar tareas importantes que hay que realizar, pero
+que requieren más tiempo para hacerlas.
+
+** TODO Estructura de datos adecuada para competiciones
+   DEADLINE: <2010-01-23 sáb>
+   Uno de los puntos más importantes de la aplicación son las competiciones.
+   Es primordial buscar una buena estructura de datos que me permita
+   organizar y mantener de forma accesible la información relativa a dichas
+   competiciones.
+** TODO Métodos para manejar la información de los campeonates
+   Una vez tengamos la estructura de datos, hay que realizar los métodos 
+   para poder acceder y manejar la información de los campeonatos. A primera
+   vista harán falta métodos para:
+   + Acceder a jornadas / sesiones
+   + Acceder a partidos individuales
+   + Obtener clasificaciones de cada jornada ó globales
+   + Iterar dentro del campeonato
+
+* Documentación de código [0/4]
+Este sub-apartado servirá para ir marcando que tengo que ir revisando
+para documentar, tanto interna (explicación de código) como a nivel de
+documentación para el desarrollo.
+
+** TODO libguadalete [0/10]
+   - [ ] [[./src/libguadalete/f1.py][f1.py]]
+   - [ ] [[./src/libguadalete/fA.py][fA.py]]
+   - [ ] [[./src/libguadalete/fB.py][fB.py]]
+   - [ ] [[./src/libguadalete/funciones.py][funciones.py]]
+   - [ ] [[./src/libguadalete/libguadalete.py][libguadalete.py]]
+   - [ ] [[./src/libguadalete/mirroring.py][mirroring.py]]
+   - [ ] [[./src/libguadalete/mover.py][mover.py]]
+   - [ ] [[./src/libguadalete/texto.py][texto.py]]
+   - [ ] [[./src/libguadalete/traducirF.py][traducirF.py]]
+   - [ ] [[./src/libguadalete/traducirM.py][traducirM.py]]
+
+** TODO guada-board [0/5]
+   - [ ] [[./src/guada-board/board.py][board.py]]
+   - [ ] [[./src/guada-board/game.py][game.py]]
+   - [ ] [[./src/guada-board/guada-board.py][guada-board.py]]
+   - [ ] [[./src/guada-board/piece.py][piece.py]]
+   - [ ] [[./src/guada-board/layouts][layouts]]
+** TODO gui [0/3]
+   - [ ] [[./src/gui/main_window.py][main_window.py]]
+   - [ ] [[./src/gui/quick_game_dialog.py][quick_game_dialog.py]]
+   - [ ] [[./src/gui/settings_dialog.py][settings_dialog.py]]
+** TODO otros [0/2]
+   - [ ] [[./src/configure.py][configure.py]]
+   - [ ] [[./src/resistencia.py][resistencia.py]]
