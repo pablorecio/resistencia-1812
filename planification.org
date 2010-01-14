@@ -2,7 +2,7 @@ El objetivo de este fichero de planificación es llevar un control estricto
 de las tareas que faltan por realizar, de forma que me vaya /obligando/ 
 a ir cumpliendo los objetivos.
 
-* Corto plazo [1/6]
+* Corto plazo [3/7]
 Este apartado sirve para indicar tareas pequeñas que puedo realizar en
 una ó dos tardes, de forma que me sirva para tener una visión un poco más
 concreta del trabajo que me queda por hacer.
@@ -15,18 +15,21 @@ concreta del trabajo que me queda por hacer.
    de los fuentes de un proyecto. De esta forma puedo tener actualizado
    dicho diagrama sin demasiado esfuerzo.
 
-** TODO Visor de partidas antiguas
+** DONE Visor de partidas antiguas
    SCHEDULED: <2010-01-12 mar> DEADLINE: <2010-01-13 mié>
    Aunque parezca mentira, aun no tengo implementado un visor de partidas
    antiguas. Simplemente se encargará de leer un fichero de partida y
    mostrar el visor normal de partidas. Creo que solamente es crear el 
    diálogo con Glade (un selector de ficheros, omg) y cargar con alguna 
    bandera libguadalete.
-** TODO Notificar ganador
+** DONE Notificar ganador
    SCHEDULED: <2010-01-13 mié> DEADLINE: <2010-01-15 vie>
    Por un fallo de diseño no tengo posibilidad (directa) de conocer el 
    resultado de una partida. Habrá que modificar libguadalete para que 
    pueda devolver dicho resultado.
+** TODO Mostrar ganador al terminar una partida
+   SCHEDULED: <2010-01-17 dom> DEADLINE: <2010-01-19 mar>
+   Que pueda mostrar el resultado de la partida via =pygame=
 ** TODO Opciones que faltan en el cargador de partida [0/4]
    SCHEDULED: <2010-01-16 sáb> DEADLINE: <2010-01-23 sáb>
 *** TODO Partida rápida
@@ -65,10 +68,11 @@ Este sub-apartado servirá para ir marcando que tengo que ir revisando
 para documentar, tanto interna (explicación de código) como a nivel de
 documentación para el desarrollo.
 
-** TODO libguadalete [0/10]
+** TODO libguadalete [0/11]
    - [ ] [[./src/libguadalete/f1.py][f1.py]]
    - [ ] [[./src/libguadalete/fA.py][fA.py]]
    - [ ] [[./src/libguadalete/fB.py][fB.py]]
+   - [ ] [[./src/libguadalete/file_parser.py][file_parser.py]]
    - [ ] [[./src/libguadalete/funciones.py][funciones.py]]
    - [ ] [[./src/libguadalete/libguadalete.py][libguadalete.py]]
    - [ ] [[./src/libguadalete/mirroring.py][mirroring.py]]
