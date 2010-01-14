@@ -22,7 +22,7 @@ import os
 
 max_value = 6
 
-def __fillMatrix(x=8, y=8, value=0):
+def __fill_matrix(x=8, y=8, value=0):
     m = []
     for i in range(x):
         f = []
@@ -30,7 +30,25 @@ def __fillMatrix(x=8, y=8, value=0):
             f.append(value)
         m.append(f)
         
-    return m  
+    return m
+
+def __find_element_matrix(board, e):
+    sum = 0
+    for l in board:
+        sum += l.count(e)
+
+    return not sum == 0
+
+def __define_winner(board):
+    king_A = __find_element_matrix(board, 1)
+    king_B = __find_element_matrix(board, -1)
+
+    if (king_A and king_B) or (not king_A and not king_B):
+        return 0
+    elif king_A:
+        return 1
+    else:
+        return -1
 
 def parse_file(src_file):
     """
@@ -45,7 +63,7 @@ def parse_file(src_file):
     line = "0" #line value not null for the loop
     
     values = {}
-    entireGame = []
+    entire_game = []
     counter = 0
     
     while line != "":
@@ -53,12 +71,12 @@ def parse_file(src_file):
         if (line == "tiempo\n" or line == "fin\n"): #If we are in a new turn
             try: board
             except NameError:
-                board = __fillMatrix()
+                board = __fill_matrix()
             else:
-                entireGame.append(board) #include the board on the game
+                entire_game.append(board) #include the board on the game
                 counter += 1
                 del board
-                board = __fillMatrix() #restart the board from 0
+                board = __fill_matrix() #restart the board from 0
         else:
             if (line != "\n" and len(line) > 5):
                 pos_e = line.find("e")
@@ -83,4 +101,5 @@ def parse_file(src_file):
                     board[int(y) - 1][int(x) - 1] = int(val) - 2*int(val) - (int(d)*max_value)
                 
     f.close()
-    return entireGame
+    winner = __define_winner(entire_game[len(entire_game)-1])
+    return entire_game, winner

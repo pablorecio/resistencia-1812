@@ -51,7 +51,7 @@ class Resistencia:
         quick_game.quick_game.run()
 
     def on_btn_file_chooser_apply_clicked(self, widget):
-        self.previous_games_file_chooser_handler():
+        self.previous_games_file_chooser_handler()
         self.previous_games_chooser.hide()
 
     def on_btn_file_chooser_close_clicked(self, widget):

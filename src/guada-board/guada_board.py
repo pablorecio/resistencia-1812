@@ -15,7 +15,15 @@ import layout
 import game
 
 def _load_game_from_file(src_file, teamA, teamB, path_piece_default, xml_file):
-    entire_game = file_parser.parse_file(src_file)
+    entire_game, winner = file_parser.parse_file(src_file)
+
+    if winner == 0:
+        print 'Empate'
+    elif winner == 1:
+        print 'Ganó ' + teamA[0]
+    else:        
+        print 'Ganó ' + teamB[0]
+
     
     pygame.init()
 
@@ -33,8 +41,6 @@ def _load_game_from_file(src_file, teamA, teamB, path_piece_default, xml_file):
     
     xml_layout.init((teamA[1], teamA[0]), (teamB[1], teamB[0]), img_board)
     rects = xml_layout.get_buttons_rects()
-
-    print rects
     
     pygame.display.set_icon(xml_layout.get_favicon())
 
