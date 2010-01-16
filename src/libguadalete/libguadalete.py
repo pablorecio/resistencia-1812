@@ -94,8 +94,16 @@ class LibGuadalete(object):
 
         clips.Run()
         t = clips.StdoutStream.Read()
+        f = clips.FactList()
+
+        last_fact = f[len(f)-1].PPForm()
+        prev_last_fact = f[len(f)-2].PPForm()
+
+        winner = self.__define_winner(last_fact, prev_last_fact)
 
         print t
+
+        return winner
 
     def __generateFileName(self):
         t = datetime.datetime.now()
@@ -150,13 +158,30 @@ class LibGuadalete(object):
         print "des: " + des
         os.rename(src, des)
 
+    def __define_winner(self, last_fact, prev_last_fact):
+        i_l = last_fact.find('(rey-')
+        i_p = prev_last_fact.find('(rey-')
+        print last_fact + ' -> ' + str(i_l)
+        print prev_last_fact + ' -> ' + str(i_p)
+
+        if (i_l == -1 and i_p == -1) or (not(i_l == -1) and not(i_p == -1)):
+            return 0
+        else:
+            t = last_fact[i_l + 5]
+            print t
+            if t == 'B':
+                return 1
+            elif t == 'A':
+                return -1
+            
+
     def run_game(self):
         """
         Method that make the expert systems play the game, and generate the output file.
         @return String with the path to the output file
         """
-        self.__startGame()
+        winner = self.__startGame()
         des = self.__generateFileName()
         self.__renameOutputFile(des)
 
-        return des
+        return des, winer

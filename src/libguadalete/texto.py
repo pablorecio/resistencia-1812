@@ -42,10 +42,10 @@ def LoadFunctions(clips):
     # Rule precontents
     rule_prec  = '(ficha-r (equipo ?e) (num ?n) (puntos ?p) (pos-x ?x) (pos-y ?y) (descubierta ?d))'
     rule_prec += '(tiempo ?t)'
-    rule_prec += '(not (impresa ?e ?n ?t))'
+    rule_prec += '(not (impresa ?e ?n ?t ?p))'
     # =>
     # Rule body
-    rule_body  = '(assert (impresa ?e ?n ?t))'
+    rule_body  = '(assert (impresa ?e ?n ?t ?p))'
     rule_body += '(open "temporal.txt" fich "a")'
     rule_body += '(a-fichero-jugador ?e ?n ?p ?x ?y ?d)'
     rule_body += '(close fich)'
@@ -180,6 +180,7 @@ def LoadFunctions(clips):
     # =>
     # Rule body
     rule_body  = '(printout t "Rey del equipo A muerto" crlf)'
+    rule_body += '(assert (rey-A-muerto))'
     rule_body += '(rename "temporal.txt" "resultado.txt")'
     # Building the rule
     fin_sin_rey1 = mod_informar.BuildRule(rule_name, rule_prec, rule_body)
@@ -195,6 +196,7 @@ def LoadFunctions(clips):
     # =>
     # Rule body
     rule_body  = '(printout t "Rey del equipo B muerto" crlf)'
+    rule_body += '(assert (rey-B-muerto))'
     rule_body += '(rename "temporal.txt" "resultado.txt")'
     # Building the rule
     fin_sin_rey2 = mod_informar.BuildRule(rule_name, rule_prec, rule_body)
