@@ -65,9 +65,9 @@ def _get_pairing(elements):
 
 def _generate_back_round(elements):
     """
-    This function returns a list of reversed matchs. If a contest has the rounds
-    assigned like [(1, 6), (2, 5), (3, 4)], will generete the reverse round as
-    [(6, 1), (5, 2), (4, 3)]
+    This function returns a list of reversed matchs. If a contest has the
+    rounds assigned like [(1, 6), (2, 5), (3, 4)], will generete the reverse
+    round as [(6, 1), (5, 2), (4, 3)]
     """
     matchs = []
     x = len(elements)

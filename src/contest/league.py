@@ -18,6 +18,18 @@
 # Copyright (C) 2010, Pablo Recio Quijano
 #----------------------------------------------------------------------
 
+import sys
+import time
+sys.path.append('../libguadalete')
+sys.path.append('../guada-board')
+sys.path.append('../guada-board/layouts')
+sys.path.append('..')
+
+import os
+import datetime
+import random
+
+import configure
 import pairing
 import round
 
@@ -25,7 +37,38 @@ def _extract_name(team):
     i = team[0].find("/reglas")
     j = team[0].find(".clp")
 
-    return (team[0])[i+7:j]    
+    return (team[0])[i+7:j]
+
+def _generate_tournament_file_name():
+    t = datetime.datetime.now()
+
+    if (t.month < 10):
+        month = "0" + str(t.month)
+    else:
+        month = str(t.month)
+            
+    if (t.day < 10):
+        day = "0" + str(t.day)
+    else:
+        day = str(t.day)
+
+    if (t.hour < 10):
+        hour = "0" + str(t.hour)
+    else:
+        hour = str(t.hour)
+    
+    if (t.minute < 10):
+        min = "0" + str(t.minute)
+    else:
+        min = str(t.minute)
+    
+    des = 'tournament_' + str(t.year) + "-" + month + "-"
+    des += day + "_" + hour + ":" + min
+    des += ".txt"
+    
+    base_path = configure.load_configuration()['games_path']
+    
+    return base_path + '/' + des
 
 def _generate_key_names(teams):
     d = {}
@@ -62,8 +105,10 @@ class League(object):
         self.matchs = pairing.make_pairings(self.keys, back_round)
 
         self.rounds = []
+        self.tournament_file_name = _generate_tournament_file_name()
         for jorn in self.matchs:
-            self.rounds.append(round.Round(jorn, self.translator))
+            self.rounds.append(round.Round(jorn, self.translator,
+                                           self.tournament_file_name))
 
         self.puntuations_by_round = []
         self.puntuations = {}
@@ -86,6 +131,14 @@ class League(object):
             self.puntuations_by_round.append(p)
             _merge_puntuations(self.puntuations, p)
 
+            f_log = open(self.tournament_file_name, 'a')
+            f_log.write('Ronda ' + str(self.actual_round+1) + ":\n")
+            f_log.close()
+            r.log_tournament(True)
+            f_log = open(self.tournament_file_name, 'a')
+            f_log.write('-------------------------------' + "\n")
+            f_log.close()
+
             self.actual_round = self.actual_round + 1
             self.league_completed = (self.actual_round == self.number_of_rounds)
 
@@ -98,9 +151,30 @@ class League(object):
             name = i[0]
             punt = i[1]
 
-            long_name = len(name)
+            if not name == 'aux_ghost_team':
+                long_name = len(name)
+                
+                num_sep = 29 - long_name
 
-            num_sep = 29 - long_name
-
-            print name + ' ' + '-'*num_sep + str(punt)
+                print name + ' ' + '-'*num_sep + ' ' + str(punt)
             
+
+if __name__ == "__main__":
+
+    teams = [('../teams/reglasRafa.clp', '../teams/equipoRafa.clp'),
+             ('../teams/reglasJavierS.clp', '../teams/equipoJavierS.clp'),
+             ('../teams/reglasPabloRecio.clp','../teams/equipoPabloRecio.clp'),
+             ('../teams/reglasRosunix.clp', '../teams/equipoRosunix.clp'),
+             ('../teams/reglasGent0oza.clp', '../teams/equipoGent0oza.clp'),
+             ('../teams/reglasAbrahan.clp', '../teams/equipoAbrahan.clp'),
+             ('../teams/reglasPalomo.clp', '../teams/equipoPalomo.clp'),
+             ('../teams/reglasNoelia.clp', '../teams/equipoNoelia.clp')]
+
+    l = League(teams, True)
+
+    while not l.league_completed:
+        l.play_round()
+        l.print_actual_puntuations()
+
+        time.sleep(10)
+    

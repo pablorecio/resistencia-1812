@@ -38,12 +38,13 @@ class RoundError(Error):
 
 class Round(object):
 
-    def __init__(self, matchs, translator):
+    def __init__(self, matchs, translator, log_file):
         self.round = [] #Formed by tuples ((teamA, teamB), played, result)
         for match in matchs:
             self.round.append((match, False, 0))
 
         self.completed = False
+        self.log_file = log_file
         self.next_game = 0
         self.number_games = len(self.round)
         self.translator = translator
@@ -71,6 +72,27 @@ class Round(object):
         else:
             raise RoundError('Not all games played')
 
+    def log_tournament(self, full=False):
+        if self.completed:
+            f_log = open(self.log_file, 'a')
+            for match in self.round:
+                teamA = match[0][0]
+                teamB = match[0][1]
+                s = teamA + ' - ' + teamB
+                n = 50 - len(s)
+                res = ''
+                if match[2] == 0:
+                    res = 'X'
+                elif match[2] == 1:
+                    res = '1'
+                else: #match[2] == -1:
+                    res = '2'
+
+                f_log.write(s + ' ' + '-'*n + '-' + res + "\n")
+            f_log.close()
+        else:
+            raise RoundError('Not all games played')
+
     def get_puntuation(self):
         results = {}
         if self.completed:
@@ -94,10 +116,19 @@ class Round(object):
     def play_match(self):
         teamA_key = self.round[self.next_game][0][0]
         teamB_key = self.round[self.next_game][0][1]
-        teamA = (self.translator[teamA_key], pieceA)
-        teamB = (self.translator[teamB_key], pieceB)
+        teamA = None
+        teamB = None
         
-        result = guada_board.run(teamA, teamB, fast=True)
+        result = 0
+        if (not teamA_key == 'aux_ghost_team') and (not teamB_key == 'aux_ghost_team'):
+            teamA = (self.translator[teamA_key], pieceA)
+            teamB = (self.translator[teamB_key], pieceB)
+            result = guada_board.run(teamA, teamB, fast=True)
+        else:
+            if teamA_key == 'aux_ghost_team':
+                result = -1
+            else: #teamB_key == 'aux_ghost_team':
+                result = 1
 
         print "The result of the game '" + teamA_key + "' - '"+ teamB_key + "' was:"
         if result == 0:

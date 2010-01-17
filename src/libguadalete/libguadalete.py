@@ -76,14 +76,18 @@ class LibGuadalete(object):
 
         #print self.teams_path + "/equipo" + self.teamA + ".clp"
         temp_team = mirroring.mirroring_team(self.teamB[1])
+        print 'Loading ' + self.teamA[1]
         clips.Load(self.teamA[1])
+        print 'Loading ' + self.teamB[1]
         clips.Load(temp_team)
         os.remove(temp_team)
 
         fA.LoadFunctions(clips)
+        print 'Loading ' + self.teamA[0]
         clips.Load(self.teamA[0])
         temp_rules = mirroring.mirroring_rules(self.teamB[0])
         fB.LoadFunctions(clips)
+        print 'Loading ' + self.teamB[0]
         clips.Load(temp_rules)
         os.remove(temp_rules)
 
