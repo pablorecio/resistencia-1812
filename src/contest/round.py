@@ -19,6 +19,8 @@
 #----------------------------------------------------------------------
 
 import guada_board
+pieceA = './images/piece-orange.png'
+pieceB = './images/piece-violete.png'
 
 class Error(Exception):
     """Base class for exceptions in this module."""
@@ -38,12 +40,12 @@ class Round(object):
 
     def __init__(self, matchs, translator):
         self.round = [] #Formed by tuples ((teamA, teamB), played, result)
-        for match as matchs:
+        for match in matchs:
             self.round.append((match, False, 0))
 
         self.completed = False
         self.next_game = 0
-        self.number_games = len(round)
+        self.number_games = len(self.round)
         self.translator = translator
         
     def get_result(self, id_game):
@@ -85,21 +87,35 @@ class Round(object):
                 elif result == -1:
                     results[teamA] = 0
                     results[teamB] = 3
-            result results:
+            return results
         else:
             raise RoundError('Not all games played')
 
     def play_match(self):
-        teamA = self.round[next_game][0][0]
-        teamB = self.round[next_game][0][1]
-        result = 0#plays the game that pointer self.actual says
-        self.round[next_game][1] = True
-        self.round[next_game][2] = result
+        teamA_key = self.round[self.next_game][0][0]
+        teamB_key = self.round[self.next_game][0][1]
+        teamA = (self.translator[teamA_key], pieceA)
+        teamB = (self.translator[teamB_key], pieceB)
+        
+        result = guada_board.run(teamA, teamB, fast=True)
+
+        print "The result of the game '" + teamA_key + "' - '"+ teamB_key + "' was:"
+        if result == 0:
+            print 'Draw'
+        elif result == 1:
+            print teamA_key + ' won'
+        elif result == -1:
+            print teamB_key + ' won'
+
+        self.round[self.next_game] = (self.round[self.next_game][0], True, result)
+        
+        #self.round[self.next_game][1] = True
+        #self.round[self.next_game][2] = result
 
         self.next_game = self.next_game + 1
         self.completed = (self.next_game == self.number_games)
 
-        return (self.round[next_game-1][0], self.round[next_game-1][2])
+        return (self.round[self.next_game-1][0], self.round[self.next_game-1][2])
 
     def is_complete(self):
         return self.completed

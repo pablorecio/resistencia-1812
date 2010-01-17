@@ -83,7 +83,7 @@ def _load_game_from_file(src_file, teamA, teamB, path_piece_default, xml_file):
                 if event.button == 1 and res != '':
                     if res == 'button_exit':
                         pygame.display.quit()
-                        return
+                        return winner
                     else:
                         if res == 'button_left_2':
                             surface = first_turn(res_game, xml_layout, (res, 1))
@@ -153,14 +153,13 @@ def last_turn(game, xml_layout, mouse=None):
 
 def run(teamA, teamB, fast = False, path_piece_default='./images/piece-default.png', xml_file='./guada-board/layouts/xml_prueba.xml'):
     lib = libguadalete.LibGuadalete(teamA[0],teamB[0])
-    out_file = lib.run_game()
+    out_file, winner = lib.run_game()
     if not fast:
         name_team_A = extract_name(teamA[0])
         name_team_B = extract_name(teamB[0])
         _load_game_from_file(out_file, (name_team_A, teamA[1]),
                              (name_team_B, teamB[1]), path_piece_default, xml_file)
-
-    
+    return winner    
 
 def run_from_file(src_file,
                   teamA=('equipoA', './images/piece-orange.png'),
@@ -170,6 +169,8 @@ def run_from_file(src_file,
     nameA, nameB = extract_names_from_file(src_file)
     teamA = (nameA, teamA[1])
     teamB = (nameB, teamB[1])
-    _load_game_from_file(src_file, teamA, teamB, path_piece_default, xml_file)
+    winner = _load_game_from_file(src_file, teamA, teamB, path_piece_default, xml_file)
+
+    return winner
 
     
