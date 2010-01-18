@@ -30,9 +30,9 @@ concreta del trabajo que me queda por hacer.
 ** TODO Mostrar ganador al terminar una partida
    SCHEDULED: <2010-01-17 dom> DEADLINE: <2010-01-19 mar>
    Que pueda mostrar el resultado de la partida via =pygame=
-** TODO Opciones que faltan en el cargador de partida [0/4]
+** TODO Opciones que faltan en el cargador de partida [1/4]
    SCHEDULED: <2010-01-16 sáb> DEADLINE: <2010-01-23 sáb>
-*** TODO Partida rápida
+*** DONE Partida rápida
     Este modo sirve para mostrar solo el resultado de la partida, sin
     dibujar nada con =pygame=
 *** TODO No registrar la partida
@@ -44,11 +44,11 @@ concreta del trabajo que me queda por hacer.
 *** TODO Número de turnos 
     Pues eso
 ** TODO Screencast
-* Medio / largo plazo [0/2]
+* Medio / largo plazo [1/2]
 En este apartado voy a indicar tareas importantes que hay que realizar, pero
 que requieren más tiempo para hacerlas.
 
-** TODO Estructura de datos adecuada para competiciones
+** DONE Estructura de datos adecuada para competiciones
    DEADLINE: <2010-01-23 sáb>
    Uno de los puntos más importantes de la aplicación son las competiciones.
    Es primordial buscar una buena estructura de datos que me permita

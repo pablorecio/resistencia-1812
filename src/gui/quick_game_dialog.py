@@ -41,7 +41,12 @@ class quickGameDialog:
         self.error_team_b = builder.get_object("error_no_team_b")
         self.error_team_b.connect('response', lambda d, r: d.hide())
         self.error_team_b.set_transient_for(self.quick_game)
-                #---------------
+
+        self.result_dialog = builder.get_object("dlg_result")
+        self.result_dialog.connect('response', lambda d, r: d.hide())
+        self.result_dialog.set_transient_for(self.quick_game)
+        #---------------
+        self.fast_game = False
         builder.connect_signals(self)
         
     def on_quickGameDialog_close(self, widget, data=None):
@@ -58,6 +63,9 @@ class quickGameDialog:
 
     def on_file_chooser_team_b_file_set(self, widget, data=None):
         self.team_team_b = widget.get_uri()
+
+    def on_check_fastgame_toggled(self, widget):
+        self.fast_game = widget.get_active()
 
     def on_btn_cancel_clicked(self, widget, data=None):
         self.quick_game.hide()
@@ -97,5 +105,17 @@ class quickGameDialog:
             self.load_board()
 
     def load_board(self):
-        guada_board.run(((self.es_team_a,self.team_team_a), './images/piece-orange.png'),
-                        ((self.es_team_b,self.team_team_b), './images/piece-violete.png'))
+        winner = guada_board.run(((self.es_team_a,self.team_team_a), './images/piece-orange.png'),
+                                 ((self.es_team_b,self.team_team_b), './images/piece-violete.png'),
+                                 self.fast_game)
+        if self.fast_game:
+            result = ''
+            if winner == 0:
+                result = 'Empate'
+            elif winner == 1:
+                result = 'Gana ' + self.es_team_a
+            else:
+                result = 'Gana ' + self.es_team_b
+                
+            self.result_dialog.format_secondary_text(result)
+            self.result_dialog.run()

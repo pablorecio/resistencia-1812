@@ -184,4 +184,4 @@ class LibGuadalete(object):
         des = self.__generateFileName()
         self.__renameOutputFile(des)
 
-        return des, winer
+        return des, winner
