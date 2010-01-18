@@ -39,18 +39,19 @@ import mirroring
 import configure
 
 class LibGuadalete(object):
-    """
-    This class provides an abstraction layer that allows run a simulation of 'La batalla del Guadalete',
-    generating a file that can be parsered easily.
-    @todo It's necessary to ad a lot of funcionality on this module, like human vs computer. 
+    """Main class of the wrapper module for clips scripts
+    
+    This class provides an abstraction layer that allows to run a
+    simulation of 'La batalla del Guadalete', generating a file
+    that can be parsered easily.
     """
     def __init__(self, teamA, teamB, teams_path = '../teams'):
-        """
-        Class <code>LibGuadalete</code> constructor. Just assign variables.
-        @param self Object that will be initialized
-        @param teamA Tuple with paths to the rule file and formation file for the A team.
-        @param teamB Tuple with paths to the rule file and formation file for the B team.
-        @param teams_path Path to the directory that teams are stored by default
+        """Class initializator.
+
+        Keywords arguments:
+        teamA -- Tuple with paths to the rule file and formation file for the A team.
+        teamB -- Tuple with paths to the rule file and formation file for the B team.
+        teams_path -- Path to the directory that teams are stored by default
         """
         #print teamA
         #print teamB
@@ -60,6 +61,11 @@ class LibGuadalete(object):
         self.max_value = 6
 
     def __startGame(self):
+        """Intialize rules and facts of the main environment.
+
+        This function loads differents modules and create an environment that provides
+        the proper context where a game can be played.
+        """
         clips.Clear()
         
         clips.EngineConfig.Strategy = clips.RANDOM_STRATEGY
@@ -76,6 +82,8 @@ class LibGuadalete(object):
 
         #print self.teams_path + "/equipo" + self.teamA + ".clp"
         temp_team = mirroring.mirroring_team(self.teamB[1])
+        #create a temporally file that mirror the formation of B team,
+        #because it's written thinking in A team
         clips.Load(self.teamA[1])
         clips.Load(temp_team)
         os.remove(temp_team)
@@ -83,17 +91,15 @@ class LibGuadalete(object):
         fA.LoadFunctions(clips)
         clips.Load(self.teamA[0])
         temp_rules = mirroring.mirroring_rules(self.teamB[0])
+        #same thing that for the formation, but this time using the rules
         fB.LoadFunctions(clips)
         clips.Load(temp_rules)
         os.remove(temp_rules)
 
-        clips.Reset()
+        clips.Reset() #restart the environment
 
-        clips.PrintFacts()
-        clips.PrintModules()
-
-        clips.Run()
-        t = clips.StdoutStream.Read()
+        clips.Run() #start the simulation
+        t = clips.StdoutStream.Read() #print the output
         f = clips.FactList()
 
         last_fact = f[len(f)-1].PPForm()
@@ -106,6 +112,10 @@ class LibGuadalete(object):
         return winner
 
     def __generateFileName(self):
+        """This function generate a proper filename for the game log
+
+        Return a string like 'game_YYYY-MM-DD_hh:mm:ss_teamA-vs-teamB.txt'
+        """
         t = datetime.datetime.now()
 
         if (t.month < 10):
@@ -141,9 +151,8 @@ class LibGuadalete(object):
         teamA = (self.teamA[1])[i_a+7:j_a]
         teamB = (self.teamB[1])[i_b+7:j_b]
     
-        des = str(t.year) + "-" + month + "-" + day + "_"
+        des = 'game_' + str(t.year) + "-" + month + "-" + day + "_"
         des += hour + ":" + min + ":" + sec + "_" + teamA + "-vs-" + teamB
-        #des += hour + ":" + min + ":" + sec
         des += ".txt"
 
         base_path = configure.load_configuration()['games_path']
@@ -151,6 +160,10 @@ class LibGuadalete(object):
         return base_path + '/' + des
 
     def __renameOutputFile(self,des):
+        """
+        Simple function that rename the output file named 'resultado.txt'
+        to the proper filename with the date, names and so on.
+        """
         src = "resultado.txt"
         f = open(src,"a")
         f.write("fin\n")
@@ -159,16 +172,17 @@ class LibGuadalete(object):
         os.rename(src, des)
 
     def __define_winner(self, last_fact, prev_last_fact):
+        """
+        Given the 2 lasts facts of an execution of the main environment,
+        this function define the result of the game.
+        """
         i_l = last_fact.find('(rey-')
         i_p = prev_last_fact.find('(rey-')
-        print last_fact + ' -> ' + str(i_l)
-        print prev_last_fact + ' -> ' + str(i_p)
 
         if (i_l == -1 and i_p == -1) or (not(i_l == -1) and not(i_p == -1)):
             return 0
         else:
             t = last_fact[i_l + 5]
-            print t
             if t == 'B':
                 return 1
             elif t == 'A':
@@ -176,9 +190,11 @@ class LibGuadalete(object):
             
 
     def run_game(self):
-        """
-        Method that make the expert systems play the game, and generate the output file.
-        @return String with the path to the output file
+        """Method that make the expert systems play the game, and generate the
+        output file.
+
+        Return a pair containing the output filename where the game had been
+        logged, and an integer that indicates who won the game.
         """
         winner = self.__startGame()
         des = self.__generateFileName()
