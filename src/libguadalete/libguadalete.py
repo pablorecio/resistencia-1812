@@ -22,6 +22,7 @@ import clips
 import os
 import datetime
 import random
+import time
 
 import sys
 sys.path.append("./libguadalete")
@@ -37,6 +38,10 @@ import fB
 import mirroring
 
 import configure
+
+filename = 'tiempos.txt'
+f = open(filename, 'w')
+f.close()
 
 class LibGuadalete(object):
     """
@@ -60,7 +65,15 @@ class LibGuadalete(object):
         self.max_value = 6
 
     def __startGame(self):
-        clips.Clear()
+        t1 = time.clock()
+        #clips.Clear() #This function does not clear the stack and made the
+                       #contest a lot more slower
+        clips.Eval('(clear)')
+        t2 = time.clock()
+
+        f = open(filename, 'a')
+        f.write(str(t2-t1) + "\n")
+        f.close()
         
         clips.EngineConfig.Strategy = clips.RANDOM_STRATEGY
 
