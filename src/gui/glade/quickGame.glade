@@ -276,6 +276,7 @@
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
                             <property name="draw_indicator">True</property>
+                            <signal name="toggled" handler="on_check_dont_save_toggled"/>
                           </object>
                           <packing>
                             <property name="top_attach">1</property>

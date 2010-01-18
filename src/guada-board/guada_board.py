@@ -5,6 +5,7 @@ import pygame
 import pygame.font
 import board
 
+import os
 from os import path
 import sys
 sys.path.append("./libguadalete")
@@ -151,7 +152,7 @@ def last_turn(game, xml_layout, mouse=None):
     game.last_turn()
     return _get_turn(game, xml_layout, mouse)
 
-def run(teamA, teamB, fast = False, path_piece_default='./images/piece-default.png', xml_file='./guada-board/layouts/xml_prueba.xml'):
+def run(teamA, teamB, fast = False, dont_log = False, path_piece_default='./images/piece-default.png', xml_file='./guada-board/layouts/xml_prueba.xml'):
     lib = libguadalete.LibGuadalete(teamA[0],teamB[0])
     out_file, winner = lib.run_game()
     if not fast:
@@ -159,6 +160,8 @@ def run(teamA, teamB, fast = False, path_piece_default='./images/piece-default.p
         name_team_B = extract_name(teamB[0])
         _load_game_from_file(out_file, (name_team_A, teamA[1]),
                              (name_team_B, teamB[1]), path_piece_default, xml_file)
+    if dont_log:
+        os.remove(out_file)
     return winner
 
 def run_from_file(src_file,

@@ -30,12 +30,12 @@ concreta del trabajo que me queda por hacer.
 ** TODO Mostrar ganador al terminar una partida
    SCHEDULED: <2010-01-17 dom> DEADLINE: <2010-01-19 mar>
    Que pueda mostrar el resultado de la partida via =pygame=
-** TODO Opciones que faltan en el cargador de partida [1/4]
+** TODO Opciones que faltan en el cargador de partida [2/4]
    SCHEDULED: <2010-01-16 sáb> DEADLINE: <2010-01-23 sáb>
 *** DONE Partida rápida
     Este modo sirve para mostrar solo el resultado de la partida, sin
     dibujar nada con =pygame=
-*** TODO No registrar la partida
+*** DONE No registrar la partida
     Simplemente que no se almacene el fichero de la partida
 *** TODO Ocultar valores de las fichas
     Una opción para ocultar *realmente* el valor de las fichas cuanto 
