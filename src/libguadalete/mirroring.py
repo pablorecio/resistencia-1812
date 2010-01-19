@@ -24,20 +24,28 @@ team_path_tmp_file = './equipoTemporal.clp'
 rule_path_tmp_file = './reglasTemporal.clp'
 
 def _reverse_index(i):
+    """
+    Mathematical function that return the opposite index for given
+    """
     return i - (-7 + 2 * (i - 1))
 
 def mirroring_team(src_file):
-    """
-    Function that allows to invert a team from the A team to the B team.
+    """Mirror the file for the formation of a team.
+    
+    Allows to invert a team from the A team to the B team.
     When the user generates the team formation file, the user thinks that
     the team will be on the bottom off the board, and his (1,1) coordinate
     is the actual (1,1) coordinate on the board.
-    But if his team is the 'B' team the entire logic and formation will change.
-    This function has the responsability to convert formation file to the B team,
-    swapping the ubication ((1,1) is now (8,8)) and replacing A for B mostly.
+    But if his team is the 'B' team the entire logic and formation will
+    change. This function has the responsability to convert formation
+    file to the B team, swapping the ubication ((1,1) is now (8,8)) and
+    replacing A for B mostly.
+
+    Keywords arguments:
     
-    @param src_file Path to the original file
-    @return Path to the temporal file that has the new formation
+    src_file -- Path to the original file
+    
+    Will return the path to the temporal file that has the new formation
     """
     f_team = open(src_file,"r")
     f_temp = open(team_path_tmp_file, "w")
@@ -48,10 +56,12 @@ def mirroring_team(src_file):
         l = l.replace('(equipo "A")', '(equipo "B")')
         y = l.find('(pos-y') + 7
         if y > 30:
-            l = l.replace('(pos-y ' + l[y] + ')', '(pos-y ' + str(_reverse_index(int(l[y]))) + ')')
+            l = l.replace('(pos-y ' + l[y] + ')',
+                          '(pos-y ' + str(_reverse_index(int(l[y]))) + ')')
         x = l.find('(pos-x') + 7
         if x > 30:
-            l = l.replace('(pos-x ' + l[x] + ')', '(pos-x ' + str(_reverse_index(int(l[x]))) + ')')
+            l = l.replace('(pos-x ' + l[x] + ')',
+                          '(pos-x ' + str(_reverse_index(int(l[x]))) + ')')
         f_temp.write(l)
     
     return team_path_tmp_file
@@ -59,13 +69,17 @@ def mirroring_team(src_file):
 # Now functions that reverse the rules
 
 def mirroring_rules(src_file):
-    """
-    Function that convert rules for the A team to the B team.
-    The same idea that <code>mirroring_team</code>, but in this case, works
-    on the rule's file.
+    """Mirror the file for the rules of a team.
     
-    @param src_file Path to the original file
-    @return Path to the temporal file that has the new rules
+    Function that convert rules for the A team to the B team.
+    The same idea that mirroring_team, but in this case, works
+    on the rule's file.
+
+    Keywords arguments:
+    
+    src_file -- Path to the original file
+    
+    Will return the path to the temporal file that has the new rules
     """
     f_rule = open(src_file,"r")
     f_temp = open(rule_path_tmp_file, "w")

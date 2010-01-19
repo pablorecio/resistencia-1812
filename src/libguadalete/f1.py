@@ -26,6 +26,30 @@
  has the responsibility to initialize the game's world.
 """
 
+def init_world(clips, num_turns=100):
+    #---------------------------------
+    # We define max movements on a match (of both team), board
+    # dimension and modules control.
+    #----------------------------------
+    # Variables. Now are statics, but in a future maybe will be
+    # customizable, so it is more generical this way
+    dimension = 8
+    turn = 'A'
+    base_a = 1
+    base_b = dimension
+    # Deffacts name
+    deffacts_name = "opciones-juego"
+    # Deffacts body
+    deffacts_body  = "(tiempo-inicial " + str(num_turns) + ")"
+    deffacts_body += "(dimension " + str(dimension) + ")"
+    deffacts_body += '(turno "' + turn + '")'
+    deffacts_body += '(base "A" ' + str(base_a) + ')'
+    deffacts_body += '(base "B" ' + str(base_b) + ')'
+    deffacts_body += '(modulos INFORMAR TRADUCIRF EQUIPO-A MOVER INFORMAR TRADUCIRF EQUIPO-B TRADUCIRM MOVER)'
+    # Building the Deffact
+    opciones_juego = clips.BuildDeffacts(deffacts_name, deffacts_body)
+    # ---------------------------------
+
 def LoadFunctions(clips): #Maybe add number of turns, dimension, etc
     #---------------------------------
     # We define ficha-r's template that is the real piece the system uses
@@ -76,29 +100,7 @@ def LoadFunctions(clips): #Maybe add number of turns, dimension, etc
     mueve = clips.BuildTemplate(template_name, template_body)
     # ---------------------------------
     
-    #---------------------------------
-    # We define max movements on a match (of both team), board
-    # dimension and modules control.
-    #----------------------------------
-    # Variables. Now are statics, but in a future maybe will be
-    # customizable, so it is more generical this way
-    num_turns = 200
-    dimension = 8
-    turn = 'A'
-    base_a = 1
-    base_b = dimension
-    # Deffacts name
-    deffacts_name = "opciones-juego"
-    # Deffacts body
-    deffacts_body  = "(tiempo-inicial " + str(num_turns) + ")"
-    deffacts_body += "(dimension " + str(dimension) + ")"
-    deffacts_body += '(turno "' + turn + '")'
-    deffacts_body += '(base "A" ' + str(base_a) + ')'
-    deffacts_body += '(base "B" ' + str(base_b) + ')'
-    deffacts_body += '(modulos INFORMAR TRADUCIRF EQUIPO-A MOVER INFORMAR TRADUCIRF EQUIPO-B TRADUCIRM MOVER)'
-    # Building the Deffact
-    opciones_juego = clips.BuildDeffacts(deffacts_name, deffacts_body)
-    # ---------------------------------
+    
     
     #----------------------------------
     # MAIN module (redefines the one of the system).
