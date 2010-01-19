@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <window-board>
-  <propierty name="window_title" type="title_string">Resistencia en Cádiz: 1812</propierty>
+  <propierty name="window_title" type="title_string">Resistencia en Cadiz: 1812</propierty>
   <propierty name="background" type="image">./images/fondo.png</propierty>
   <propierty name="favicon" type="image">./images/favicon.png</propierty>
   <propierty name="font_type" type="font">./fonts/zektonbi.ttf</propierty>

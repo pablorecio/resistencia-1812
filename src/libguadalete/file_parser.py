@@ -23,6 +23,14 @@ import os
 max_value = 6
 
 def __fill_matrix(x=8, y=8, value=0):
+    """
+    Simply fill a matrix with the same value.
+
+    Keywords arguments:
+    x -- x size of the matrix
+    y -- y size of the matrix
+    value - value that we want to fill with
+    """
     m = []
     for i in range(x):
         f = []
@@ -33,6 +41,9 @@ def __fill_matrix(x=8, y=8, value=0):
     return m
 
 def __find_element_matrix(board, e):
+    """
+    Check the existence of the element on a matrix.
+    """
     sum = 0
     for l in board:
         sum += l.count(e)
@@ -40,6 +51,11 @@ def __find_element_matrix(board, e):
     return not sum == 0
 
 def __define_winner(board):
+    """
+    Checking the last board of a game, determines the result.
+    Will return 0 if it's a draw, 1 if the first team won and
+    -1 if the second team won.
+    """
     king_A = __find_element_matrix(board, 1)
     king_B = __find_element_matrix(board, -1)
 
@@ -51,12 +67,15 @@ def __define_winner(board):
         return -1
 
 def parse_file(src_file):
-    """
-    This function allows to parse an output file generated on a simulation, and generate
-    a data structure more computer readable.
-    @param src_file File with a game played.
-    @return A list with the boards for every single turn on a game.
-    @todo See if it's the right place for this function
+    """This function allows to parse the file generated on a simulation.
+
+    Keywords arguments:
+    src_file -- Output file of a simulation. This file has to contain all
+    the data of every turn.
+
+    The function will return a pair. First element is list of boards. Those boards
+    are turn of the game. Second element is an integer that indicates the result of
+    the game
     """
     f = open(src_file)
     
