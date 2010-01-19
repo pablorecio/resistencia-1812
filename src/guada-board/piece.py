@@ -9,11 +9,10 @@ class Piece(object):
     It is a simple class, you only have to create the object and you
     can get a drawdable surface with the piece and the number with its value.
     """
-    def __init__(self, value = 0, covered = 0, size = 60,
+    def __init__(self, value = 0, covered = 0, size = 60, hidden = False,
                  img_path = './images/piece-default.png',
                  font = './fonts/LiberationMono-Bold.ttf'):
-        """
-        Init method for the class Piece
+        """Init method for the class Piece
 
         Keyword arguments:
         value -- Piece numeric value. This value determines the strength
@@ -31,6 +30,7 @@ class Piece(object):
         self.img_path = img_path
         self.size = size
         self.covered = covered
+        self.hidden = hidden
         self.font = font
 
     def get_value(self):
@@ -46,8 +46,7 @@ class Piece(object):
         return self.size;
 
     def get_surface(self):
-        """
-        This method generate a surface drawdable with the piece and its value.
+        """This method generate a surface drawdable with the piece and its value.
 
         Return a pygame.surface with the complete piece draw.
         """
@@ -65,21 +64,23 @@ class Piece(object):
         
             border = pygame.font.Font(self.font, 34)
             insider = pygame.font.Font(self.font, 32)
-
+            
             if self.covered == 0:
-                border_text = border.render('['+str(self.value)+']',
-                                            1, border_color)
-                insider_text = insider.render('['+str(self.value)+']',
-                                              1, color)
+                if not self.hidden:
+                    border_text = border.render('['+str(self.value)+']',
+                                                1, border_color)
+                    insider_text = insider.render('['+str(self.value)+']',
+                                                  1, color)
             else:
                 border_text = border.render(str(self.value), 1, border_color)
                 insider_text = insider.render(str(self.value), 1, color)
-        
-            textpos = insider_text.get_rect(centerx=surface.get_width()/2,
-                                            centery=surface.get_width()/2)
+
+            if not (self.covered == 0 and self.hidden):
+                textpos = insider_text.get_rect(centerx=surface.get_width()/2,
+                                                centery=surface.get_width()/2)
             
-            surface.blit(border_text,textpos)
-            surface.blit(insider_text,textpos)
+                surface.blit(border_text,textpos)
+                surface.blit(insider_text,textpos)
 
         return surface
 

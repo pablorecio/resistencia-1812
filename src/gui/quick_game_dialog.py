@@ -48,6 +48,7 @@ class quickGameDialog:
         #---------------
         self.fast_game = False
         self.dont_save_game = False
+        self.hidde_values = False
         builder.connect_signals(self)
         
     def on_quickGameDialog_close(self, widget, data=None):
@@ -70,6 +71,9 @@ class quickGameDialog:
 
     def on_check_dont_save_toggled(self, widget):
         self.dont_save_game = widget.get_active()
+
+    def on_check_hide_values_toggled(self, widget):
+        self.hidde_values = widget.get_active()
 
     def on_btn_cancel_clicked(self, widget, data=None):
         self.quick_game.hide()
@@ -113,7 +117,8 @@ class quickGameDialog:
                                   './images/piece-orange.png'),
                                  ((self.es_team_b,self.team_team_b),
                                   './images/piece-violete.png'),
-                                 self.fast_game, self.dont_save_game)
+                                 self.fast_game, self.dont_save_game,
+                                 self.hidde_values)
         if self.fast_game:
             result = ''
             if winner == 0:
