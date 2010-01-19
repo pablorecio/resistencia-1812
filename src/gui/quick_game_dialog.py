@@ -45,10 +45,17 @@ class quickGameDialog:
         self.result_dialog = builder.get_object("dlg_result")
         self.result_dialog.connect('response', lambda d, r: d.hide())
         self.result_dialog.set_transient_for(self.quick_game)
+
+        self.num_turns = 50
+        self.spin_turns = builder.get_object("spin_num_turns")
+        self.spin_turns.set_value(self.num_turns)
+        self.spin_turns.set_range(50,300)
+        self.spin_turns.set_increments(1,10)
         #---------------
         self.fast_game = False
         self.dont_save_game = False
         self.hidde_values = False
+        
         builder.connect_signals(self)
         
     def on_quickGameDialog_close(self, widget, data=None):
@@ -75,6 +82,12 @@ class quickGameDialog:
     def on_check_hide_values_toggled(self, widget):
         self.hidde_values = widget.get_active()
 
+    def on_spin_num_turns_change_value(self, widget, data=None):
+        self.num_turns = widget.get_value()
+
+    def on_spin_num_turns_value_changed(self, widget, data=None):
+        self.num_turns = widget.get_value()
+        
     def on_btn_cancel_clicked(self, widget, data=None):
         self.quick_game.hide()
 
@@ -118,7 +131,7 @@ class quickGameDialog:
                                  ((self.es_team_b,self.team_team_b),
                                   './images/piece-violete.png'),
                                  self.fast_game, self.dont_save_game,
-                                 self.hidde_values)
+                                 self.hidde_values, str(int(self.num_turns)))
         if self.fast_game:
             result = ''
             if winner == 0:

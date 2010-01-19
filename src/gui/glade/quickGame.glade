@@ -254,8 +254,11 @@
                               <object class="GtkSpinButton" id="spin_num_turns">
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
+                                <property name="max_length">3</property>
                                 <property name="invisible_char">&#x25CF;</property>
                                 <property name="progress_pulse_step">1</property>
+                                <signal name="value_changed" handler="on_spin_num_turns_value_changed"/>
+                                <signal name="change_value" handler="on_spin_num_turns_change_value"/>
                               </object>
                               <packing>
                                 <property name="expand">False</property>

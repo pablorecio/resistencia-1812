@@ -153,10 +153,10 @@ def last_turn(game, xml_layout, mouse=None):
     game.last_turn()
     return _get_turn(game, xml_layout, mouse)
 
-def run(teamA, teamB, fast=False, dont_log=False, hidden=False,
+def run(teamA, teamB, fast=False, dont_log=False, hidden=False, number_turns=100,
         path_piece_default='./images/piece-default.png',
         xml_file='./guada-board/layouts/xml_prueba.xml'):
-    lib = libguadalete.LibGuadalete(teamA[0],teamB[0])
+    lib = libguadalete.LibGuadalete(teamA[0],teamB[0],number_turns)
     out_file, winner = lib.run_game()
     if not fast:
         name_team_A = extract_name(teamA[0])

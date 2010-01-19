@@ -45,7 +45,7 @@ class LibGuadalete(object):
     simulation of 'La batalla del Guadalete', generating a file
     that can be parsered easily.
     """
-    def __init__(self, teamA, teamB, teams_path = '../teams'):
+    def __init__(self, teamA, teamB, number_turns=100, teams_path = '../teams'):
         """Class initializator.
 
         Keywords arguments:
@@ -59,6 +59,7 @@ class LibGuadalete(object):
         self.teamB = teamB
         self.teams_path = teams_path
         self.max_value = 6
+        self.number_turns = number_turns
 
     def __startGame(self):
         """Intialize rules and facts of the main environment.
@@ -74,6 +75,7 @@ class LibGuadalete(object):
         clips.Eval("(seed " + str(random.randint(0,9999)) + ")") 
 
         funciones.LoadFunctions(clips)
+        f1.init_world(clips, self.number_turns)
         f1.LoadFunctions(clips)
         mover.LoadFunctions(clips)
         texto.LoadFunctions(clips)
