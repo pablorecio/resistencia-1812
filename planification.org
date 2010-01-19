@@ -2,7 +2,7 @@ El objetivo de este fichero de planificación es llevar un control estricto
 de las tareas que faltan por realizar, de forma que me vaya /obligando/ 
 a ir cumpliendo los objetivos.
 
-* Corto plazo [3/7]
+* Corto plazo [4/7]
 Este apartado sirve para indicar tareas pequeñas que puedo realizar en
 una ó dos tardes, de forma que me sirva para tener una visión un poco más
 concreta del trabajo que me queda por hacer.
@@ -30,7 +30,7 @@ concreta del trabajo que me queda por hacer.
 ** TODO Mostrar ganador al terminar una partida
    SCHEDULED: <2010-01-17 dom> DEADLINE: <2010-01-19 mar>
    Que pueda mostrar el resultado de la partida via =pygame=
-** TODO Opciones que faltan en el cargador de partida [3/4]
+** DONE Opciones que faltan en el cargador de partida [4/4]
    SCHEDULED: <2010-01-16 sáb> DEADLINE: <2010-01-23 sáb>
 *** DONE Partida rápida
     Este modo sirve para mostrar solo el resultado de la partida, sin
@@ -41,7 +41,7 @@ concreta del trabajo que me queda por hacer.
     Una opción para ocultar *realmente* el valor de las fichas cuanto 
     este valor no esté descubierto. Seguramente habrá que tocar a nivel 
     de =guada-board=, modificando la clase =Piece=
-*** TODO Número de turnos 
+*** DONE Número de turnos 
     Pues eso
 ** TODO Screencast
 * Medio / largo plazo [1/2]
