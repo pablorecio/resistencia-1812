@@ -1,7 +1,27 @@
 # -*- coding: utf-8 -*-
+###############################################################################
+# This file is part of Resistencia Cadiz 1812.                                #
+#                                                                             #
+# This program is free software: you can redistribute it and/or modify        #
+# it under the terms of the GNU General Public License as published by        #
+# the Free Software Foundation, either version 3 of the License, or           #
+# any later version.                                                          #
+#                                                                             #
+# This program is distributed in the hope that it will be useful,             #
+# but WITHOUT ANY WARRANTY; without even the implied warranty of              #
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the               #
+# GNU General Public License for more details.                                #
+#                                                                             #
+# You should have received a copy of the GNU General Public License           #
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.       #
+#                                                                             #
+# Copyright (C) 2010, Pablo Recio Quijano, <pablo.recioquijano@alum.uca.es>   #
+###############################################################################
 
 import pygame
 import pygame.font
+
+from resistencia import xdg
 
 class Piece(object):
     """This class provides an abstraction layer for the pieces on the board.
@@ -10,8 +30,8 @@ class Piece(object):
     can get a drawdable surface with the piece and the number with its value.
     """
     def __init__(self, value = 0, covered = 0, size = 60, hidden = False,
-                 img_path = './images/piece-default.png',
-                 font = './fonts/LiberationMono-Bold.ttf'):
+                 img_path = xdg.get_data_path('images/piece-default.png'),
+                 font = xdg.get_data_path('fonts/LiberationMono-Bold.ttf')):
         """Init method for the class Piece
 
         Keyword arguments:
@@ -61,7 +81,7 @@ class Piece(object):
         
             color = (255,)*3 #White
             border_color = (0,)*3 #Black
-        
+
             border = pygame.font.Font(self.font, 34)
             insider = pygame.font.Font(self.font, 32)
             

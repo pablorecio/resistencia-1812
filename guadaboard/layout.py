@@ -25,7 +25,7 @@ from xml.dom import minidom
 import pygame
 import pygame.font
 
-import xml_layout_functions as functions
+import main_layout_functions as functions
 
 # To clarify this, here is a little schema of the list 'self.elements'
 # after reading the XML file:

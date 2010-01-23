@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-10-25 12:55+0100\n"
+"POT-Creation-Date: 2010-01-23 16:29+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,43 +16,48 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: main.glade.h:1
+#: ../resistencia/main.py:42
+msgid "Loading main window"
+msgstr ""
+
+#. ---------------------------------
+#: ../data/glade/main.glade.h:1
 msgid "Cadiz deffense: 1812"
 msgstr ""
 
-#: main.glade.h:2
+#: ../data/glade/main.glade.h:2
 msgid "Competitions"
 msgstr ""
 
-#: main.glade.h:3
+#: ../data/glade/main.glade.h:3
 msgid "Copyright &#xA9; 2009 Pablo Recio Quijano"
 msgstr ""
 
-#: main.glade.h:4
+#: ../data/glade/main.glade.h:4
 msgid "Expert system's Manager"
 msgstr ""
 
-#: main.glade.h:5
+#: ../data/glade/main.glade.h:5
 msgid "Laboratory"
 msgstr ""
 
-#: main.glade.h:6
+#: ../data/glade/main.glade.h:6
 msgid "Previous games"
 msgstr ""
 
-#: main.glade.h:7
+#: ../data/glade/main.glade.h:7
 msgid "Quick game"
 msgstr ""
 
-#: main.glade.h:8
+#: ../data/glade/main.glade.h:8
 msgid "Settings"
 msgstr ""
 
-#: main.glade.h:9
+#: ../data/glade/main.glade.h:9
 msgid "Sistema Experto para ense&#xF1;ar Sistemas Expertos"
 msgstr ""
 
-#: main.glade.h:10
+#: ../data/glade/main.glade.h:10
 msgid ""
 "This program is free software: you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
@@ -68,78 +73,86 @@ msgid ""
 "along with this program.  If not, see <http://www.gnu.org/licenses/>."
 msgstr ""
 
-#: quickGame.glade.h:1
-msgid "<b>Settings</b>"
+#: ../data/glade/main.glade.h:22
+msgid "You have to select a file"
 msgstr ""
 
-#: quickGame.glade.h:2
-msgid "<b>Team A</b>"
-msgstr ""
-
-#: quickGame.glade.h:3
-msgid "<b>Team B</b>"
-msgstr ""
-
-#: quickGame.glade.h:4
-msgid "Don't save the game"
-msgstr ""
-
-#: quickGame.glade.h:5
-msgid "Fast game"
-msgstr ""
-
-#: quickGame.glade.h:6
-msgid "Hide pieces's values"
-msgstr ""
-
-#: quickGame.glade.h:7
-msgid "Number of turns"
-msgstr ""
-
-#: quickGame.glade.h:8
-msgid "Select formation for team A"
-msgstr ""
-
-#: quickGame.glade.h:9
-msgid "Select formation for team B"
-msgstr ""
-
-#: quickGame.glade.h:10
-msgid "System Expert for team A"
-msgstr ""
-
-#: quickGame.glade.h:11
-msgid "System Expert for team B"
-msgstr ""
-
-#: quickGame.glade.h:12
-msgid "You have no selected file for the Expert System A"
-msgstr ""
-
-#: quickGame.glade.h:13
-msgid "You have no selected file for the Expert System B"
-msgstr ""
-
-#: quickGame.glade.h:14
-msgid "You have no selected file for the Team A"
-msgstr ""
-
-#: quickGame.glade.h:15
-msgid "You have no selected file for the team B"
-msgstr ""
-
-#: settingsDialog.glade.h:1
+#: ../data/glade/settingsDialog.glade.h:1
 msgid "<b>Path to previous games</b>"
 msgstr ""
 
-#: settingsDialog.glade.h:2
+#: ../data/glade/settingsDialog.glade.h:2
 msgid "<b>Path to systems experts</b>"
 msgstr ""
 
-#: settingsDialog.glade.h:3
+#: ../data/glade/settingsDialog.glade.h:3
 msgid "Language"
 msgstr ""
 
-#: settingsDialog.glade.h:4
+#: ../data/glade/settingsDialog.glade.h:4
 msgid "Settings - Cadiz deffense: 1812"
+msgstr ""
+
+#: ../data/glade/quickGame.glade.h:1
+msgid "<b>Settings</b>"
+msgstr ""
+
+#: ../data/glade/quickGame.glade.h:2
+msgid "<b>Team A</b>"
+msgstr ""
+
+#: ../data/glade/quickGame.glade.h:3
+msgid "<b>Team B</b>"
+msgstr ""
+
+#: ../data/glade/quickGame.glade.h:4
+msgid "Don't save the game"
+msgstr ""
+
+#: ../data/glade/quickGame.glade.h:5
+msgid "Fast game"
+msgstr ""
+
+#: ../data/glade/quickGame.glade.h:6
+msgid "Hide pieces's values"
+msgstr ""
+
+#: ../data/glade/quickGame.glade.h:7
+msgid "Number of turns"
+msgstr ""
+
+#: ../data/glade/quickGame.glade.h:8
+msgid "Resultado de la partida"
+msgstr ""
+
+#: ../data/glade/quickGame.glade.h:9
+msgid "Select formation for team A"
+msgstr ""
+
+#: ../data/glade/quickGame.glade.h:10
+msgid "Select formation for team B"
+msgstr ""
+
+#: ../data/glade/quickGame.glade.h:11
+msgid "System Expert for team A"
+msgstr ""
+
+#: ../data/glade/quickGame.glade.h:12
+msgid "System Expert for team B"
+msgstr ""
+
+#: ../data/glade/quickGame.glade.h:13
+msgid "You have no selected file for the Expert System A"
+msgstr ""
+
+#: ../data/glade/quickGame.glade.h:14
+msgid "You have no selected file for the Expert System B"
+msgstr ""
+
+#: ../data/glade/quickGame.glade.h:15
+msgid "You have no selected file for the Team A"
+msgstr ""
+
+#: ../data/glade/quickGame.glade.h:16
+msgid "You have no selected file for the team B"
 msgstr ""

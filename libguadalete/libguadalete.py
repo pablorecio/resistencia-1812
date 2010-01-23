@@ -1,43 +1,33 @@
 # -*- coding: utf-8 -*-
-# ---------------------------------------------------------------------
-# This file is part of Resistencia Cadiz 1812.
-#
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# any later version.
+###############################################################################
+# This file is part of Resistencia Cadiz 1812.                                #
+#                                                                             #
+# This program is free software: you can redistribute it and/or modify        #
+# it under the terms of the GNU General Public License as published by        #
+# the Free Software Foundation, either version 3 of the License, or           #
+# any later version.                                                          #
+#                                                                             #
+# This program is distributed in the hope that it will be useful,             #
+# but WITHOUT ANY WARRANTY; without even the implied warranty of              #
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the               #
+# GNU General Public License for more details.                                #
+#                                                                             #
+# You should have received a copy of the GNU General Public License           #
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.       #
+#                                                                             #
+# Copyright(C) 2009,2010 Pablo Recio Quijano <pablo.recioquijano@alum.uca.es> #
+###############################################################################
 
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-
-# You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-# Copyright (C) 2009, Pablo Recio Quijano
-#----------------------------------------------------------------------
+import os
+import random
+import sys
+#sys.path.append("./libguadalete")
 
 import clips
-import os
-import datetime
-import random
-import time
 
-import sys
-sys.path.append("./libguadalete")
-import funciones
-import f1
-import mover
-import texto
-import traducirF
-import traducirM
-import fA
-import fB
+import funciones, f1, mover, texto, traducirF, traducirM, fA, fB, mirroring
 
-import mirroring
-
-import configure
+from resistencia import configure, filenames
 
 filename = 'tiempos.txt'
 f = open(filename, 'w')
@@ -58,13 +48,14 @@ class LibGuadalete(object):
         teamB -- Tuple with paths to the rule file and formation file for the B team.
         teams_path -- Path to the directory that teams are stored by default
         """
-        #print teamA
-        #print teamB
         self.teamA = teamA
         self.teamB = teamB
         self.teams_path = teams_path
         self.max_value = 6
         self.number_turns = number_turns
+
+        if not os.path.exists(configure.file_path):
+            configure.generate_configuration_file()
 
     def __startGame(self):
         """Intialize rules and facts of the main environment.
@@ -127,44 +118,8 @@ class LibGuadalete(object):
 
         Return a string like 'game_YYYY-MM-DD_hh:mm:ss_teamA-vs-teamB.txt'
         """
-        t = datetime.datetime.now()
-
-        if (t.month < 10):
-            month = "0" + str(t.month)
-        else:
-            month = str(t.month)
-            
-        if (t.day < 10):
-            day = "0" + str(t.day)
-        else:
-            day = str(t.day)
-
-        if (t.hour < 10):
-            hour = "0" + str(t.hour)
-        else:
-            hour = str(t.hour)
-    
-        if (t.minute < 10):
-            min = "0" + str(t.minute)
-        else:
-            min = str(t.minute)
-
-        if (t.second < 10):
-            sec = "0" + str(t.second)
-        else:
-            sec = str(t.second)
-
-        i_a = self.teamA[1].find("/equipo")
-        i_b = self.teamB[1].find("/equipo")
-        j_a = self.teamA[1].find(".clp")
-        j_b = self.teamB[1].find(".clp")
-        
-        teamA = (self.teamA[1])[i_a+7:j_a]
-        teamB = (self.teamB[1])[i_b+7:j_b]
-    
-        des = 'game_' + str(t.year) + "-" + month + "-" + day + "_"
-        des += hour + ":" + min + ":" + sec + "_" + teamA + "-vs-" + teamB
-        des += ".txt"
+        des = filenames.generate_filename('game',
+                                          (self.teamA, self.teamB))
 
         base_path = configure.load_configuration()['games_path']
 

@@ -20,8 +20,9 @@
 
 import os
 import sys
-
 from xml.dom import minidom
+
+from resistencia import xdg
 
 def _parse_propierty_data_string(node):
     data = node.firstChild.data
@@ -51,10 +52,10 @@ def erase_childs_end_of_line(node):
             node.remove(child)
 
 def parse_propierty_image(node):
-    return _parse_propierty_data_string(node)
+    return xdg.get_data_path(_parse_propierty_data_string(node))
 
 def parse_propierty_font(node):
-    return _parse_propierty_data_string(node)
+    return xdg.get_data_path(_parse_propierty_data_string(node))
 
 def parse_propierty_string(node):
     return _parse_propierty_data_string(node)
@@ -127,17 +128,17 @@ def parse_propierty_button_images(node):
                 aux = child.firstChild.data
                 aux.replace("\n", '')
                 aux.replace(' ', '')
-                default = aux
+                default = xdg.get_data_path(aux)
             if attr == 'above':
                 aux = child.firstChild.data
                 aux.replace("\n", '')
                 aux.replace(' ', '')
-                above = aux
+                above = xdg.get_data_path(aux)
             if attr == 'pressed':
                 aux = child.firstChild.data
                 aux.replace("\n", '')
                 aux.replace(' ', '')
-                pressed = aux
+                pressed = xdg.get_data_path(aux)
     
     return (default,above,pressed)
 

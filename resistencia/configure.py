@@ -1,22 +1,22 @@
 # -*- coding: utf-8 -*-
-# ---------------------------------------------------------------------
-# This file is part of Resistencia Cadiz 1812.
-#
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# any later version.
-
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-
-# You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-# Copyright (C) 2009, Pablo Recio Quijano
-#----------------------------------------------------------------------
+###############################################################################
+# This file is part of Resistencia Cadiz 1812.                                #
+#                                                                             #
+# This program is free software: you can redistribute it and/or modify        #
+# it under the terms of the GNU General Public License as published by        #
+# the Free Software Foundation, either version 3 of the License, or           #
+# any later version.                                                          #
+#                                                                             #
+# This program is distributed in the hope that it will be useful,             #
+# but WITHOUT ANY WARRANTY; without even the implied warranty of              #
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the               #
+# GNU General Public License for more details.                                #
+#                                                                             #
+# You should have received a copy of the GNU General Public License           #
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.       #
+#                                                                             #
+# Copyright (C) 2010, Pablo Recio Quijano, <pablo.recioquijano@alum.uca.es>   #
+###############################################################################
 
 # This module is an abstraction layer to manage configuration files
 # and works for XML using DOM
@@ -25,7 +25,10 @@ import os
 import sys
 from xml.dom import minidom
 
-file_path = './configuration.xml'
+from resistencia import xdg
+
+config_base_path = xdg.get_config_dir() + '/'
+file_path = config_base_path + 'configuration.xml'
 
 def generate_configuration_file():
     impl = minidom.getDOMImplementation()
@@ -34,10 +37,10 @@ def generate_configuration_file():
     top_element = config_xml.documentElement
     
     se_path = config_xml.createElement('se_path')
-    se_path.setAttribute('value', os.path.realpath('./teams'))
+    se_path.setAttribute('value', os.path.realpath(config_base_path + 'teams'))
     
     games_path = config_xml.createElement('games_path')
-    games_path.setAttribute('value', os.path.realpath('./games'))
+    games_path.setAttribute('value', os.path.realpath(config_base_path + '/games'))
 
     language = config_xml.createElement('language')
     language.setAttribute('value', 'es_ES')

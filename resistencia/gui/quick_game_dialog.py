@@ -1,11 +1,30 @@
+# -*- coding: utf-8 -*-
+###############################################################################
+# This file is part of Resistencia Cadiz 1812.                                #
+#                                                                             #
+# This program is free software: you can redistribute it and/or modify        #
+# it under the terms of the GNU General Public License as published by        #
+# the Free Software Foundation, either version 3 of the License, or           #
+# any later version.                                                          #
+#                                                                             #
+# This program is distributed in the hope that it will be useful,             #
+# but WITHOUT ANY WARRANTY; without even the implied warranty of              #
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the               #
+# GNU General Public License for more details.                                #
+#                                                                             #
+# You should have received a copy of the GNU General Public License           #
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.       #
+#                                                                             #
+# Copyright (C) 2010, Pablo Recio Quijano, <pablo.recioquijano@alum.uca.es>   #
+###############################################################################
+
 import sys
 import os.path
-import gtk
-sys.path.append("../guada-board")
-sys.path.append("./guada-board")
 
-import guada_board
-import configure
+import gtk
+
+from guadaboard import guada_board
+from resistencia import configure, xdg, filenames
 
 class quickGameDialog:    
     def __init__(self, parent):
@@ -15,7 +34,7 @@ class quickGameDialog:
         self.team_team_b = ''
         
         builder = gtk.Builder()
-        builder.add_from_file("./gui/glade/quickGame.glade")
+        builder.add_from_file(xdg.get_data_path('glade/quickGame.glade'))
 
         def_path = configure.load_configuration()['se_path']
         builder.get_object('file_chooser_es_a').set_current_folder(def_path)
@@ -46,7 +65,7 @@ class quickGameDialog:
         self.result_dialog.connect('response', lambda d, r: d.hide())
         self.result_dialog.set_transient_for(self.quick_game)
 
-        self.num_turns = 50
+        self.num_turns = 120
         self.spin_turns = builder.get_object("spin_num_turns")
         self.spin_turns.set_value(self.num_turns)
         self.spin_turns.set_range(50,300)
@@ -127,19 +146,23 @@ class quickGameDialog:
 
     def load_board(self):
         winner = guada_board.run(((self.es_team_a,self.team_team_a),
-                                  './images/piece-orange.png'),
+                                  xdg.get_data_path('images/piece-orange.png')),
                                  ((self.es_team_b,self.team_team_b),
-                                  './images/piece-violete.png'),
+                                  xdg.get_data_path('images/piece-violete.png')),
                                  self.fast_game, self.dont_save_game,
                                  self.hidde_values, str(int(self.num_turns)))
         if self.fast_game:
             result = ''
+            name_teamA = filenames.extract_name_expert_system((self.es_team_a,
+                                                               self.team_team_a))
+            name_teamB = filenames.extract_name_expert_system((self.es_team_b,
+                                                               self.team_team_b))
             if winner == 0:
                 result = 'Empate'
             elif winner == 1:
-                result = 'Gana ' + self.es_team_a
+                result = 'Gana ' + name_teamA
             else:
-                result = 'Gana ' + self.es_team_b
+                result = 'Gana ' + name_teamB
                 
             self.result_dialog.format_secondary_text(result)
             self.result_dialog.run()

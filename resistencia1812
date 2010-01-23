@@ -1,0 +1,12 @@
+#!/bin/sh
+
+######## CONFIGURATION OPTIONS ########
+#PROGRAM_DIR="/home/username/apps/resistencia1812"      # insert full path to Exaile bin dir
+#######################################
+
+# get the app dir if not already defined
+if [ -z "$PROGRAM_DIR" ]; then
+    PROGRAM_DIR=`dirname "$0"`
+fi
+
+exec python -O ${PROGRAM_DIR}/resistencia1812.py --startgui "$@"

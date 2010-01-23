@@ -1,19 +1,34 @@
-
 # -*- coding: utf-8 -*-
-
-import pygame
-import pygame.font
-import board
+###############################################################################
+# This file is part of Resistencia Cadiz 1812.                                #
+#                                                                             #
+# This program is free software: you can redistribute it and/or modify        #
+# it under the terms of the GNU General Public License as published by        #
+# the Free Software Foundation, either version 3 of the License, or           #
+# any later version.                                                          #
+#                                                                             #
+# This program is distributed in the hope that it will be useful,             #
+# but WITHOUT ANY WARRANTY; without even the implied warranty of              #
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the               #
+# GNU General Public License for more details.                                #
+#                                                                             #
+# You should have received a copy of the GNU General Public License           #
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.       #
+#                                                                             #
+# Copyright (C) 2010, Pablo Recio Quijano, <pablo.recioquijano@alum.uca.es>   #
+###############################################################################
 
 import os
 from os import path
 import sys
-sys.path.append("./libguadalete")
-sys.path.append("./guada-board/layouts")
-import libguadalete
-import file_parser
-import layout
+
+import pygame
+import pygame.font
+
+from libguadalete import libguadalete, file_parser
+from resistencia import filenames, xdg
 import game
+import layout
 
 def _load_game_from_file(src_file, teamA, teamB, path_piece_default, xml_file,
                          hidden=False):
@@ -25,12 +40,10 @@ def _load_game_from_file(src_file, teamA, teamB, path_piece_default, xml_file,
         print 'Ganó ' + teamA[0]
     else:        
         print 'Ganó ' + teamB[0]
-
     
     pygame.init()
 
     background_surfaces = {}
-
     xml_layout = layout.Layout(xml_file)
     
     screen = pygame.display.set_mode(xml_layout.get_window_size())
@@ -104,22 +117,6 @@ def _load_game_from_file(src_file, teamA, teamB, path_piece_default, xml_file,
                             screen.blit(surface,(0,0))
                             pygame.display.flip()
 
-def extract_name(team):
-    i = team[0].find("/reglas")
-    j = team[0].find(".clp")
-
-    return (team[0])[i+7:j]
-
-def extract_names_from_file(src_file):
-    useless, file_name = path.split(src_file)
-
-    nameA_i = 20
-    nameA_j = file_name.find('-vs-')
-    nameB_i = nameA_j + 4
-    nameB_j = file_name.find('.txt')
-
-    return (file_name[nameA_i:nameA_j], file_name[nameB_i:nameB_j])
-
 def get_collision(point, rects):
     res = ''
     for index in rects:
@@ -153,15 +150,14 @@ def last_turn(game, xml_layout, mouse=None):
     game.last_turn()
     return _get_turn(game, xml_layout, mouse)
 
-def run(teamA, teamB, fast=False, dont_log=False,
-        hidden=False, number_turns=100,
-        path_piece_default='./images/piece-default.png',
-        xml_file='./guada-board/layouts/xml_prueba.xml'):
+def run(teamA, teamB, fast=False, dont_log=False, hidden=False,
+        number_turns=100, path_piece_default= xdg.get_data_path('images/piece-default.png'),
+        xml_file= xdg.get_data_path('layouts/main-layout.xml')):
     lib = libguadalete.LibGuadalete(teamA[0],teamB[0],number_turns)
     out_file, winner = lib.run_game()
     if not fast:
-        name_team_A = extract_name(teamA[0])
-        name_team_B = extract_name(teamB[0])
+        name_team_A = filenames.extract_name_expert_system(teamA[0])
+        name_team_B = filenames.extract_name_expert_system(teamB[0])
         _load_game_from_file(out_file, (name_team_A, teamA[1]),
                              (name_team_B, teamB[1]), path_piece_default,
                              xml_file, hidden)
@@ -170,11 +166,13 @@ def run(teamA, teamB, fast=False, dont_log=False,
     return winner
 
 def run_from_file(src_file,
-                  teamA=('equipoA', './images/piece-orange.png'),
-                  teamB=('equipoB', './images/piece-violete.png'),
-                  path_piece_default='./images/piece-default.png',
-                  xml_file='./guada-board/layouts/xml_prueba.xml'):
-    nameA, nameB = extract_names_from_file(src_file)
+                  teamA=('equipoA',
+                         xdg.get_data_path('images/piece-orange.png')),
+                  teamB=('equipoB',
+                         xdg.get_data_path('images/piece-violete.png')),
+                  path_piece_default= xdg.get_data_path('images/piece-default.png'),
+                  xml_file= xdg.get_data_path('layouts/main-layout.xml')):
+    nameA, nameB = filenames.extract_names_from_file(src_file)
     teamA = (nameA, teamA[1])
     teamB = (nameB, teamB[1])
     winner = _load_game_from_file(src_file, teamA, teamB, path_piece_default, xml_file)

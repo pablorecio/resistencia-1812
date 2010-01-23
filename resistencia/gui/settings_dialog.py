@@ -1,15 +1,34 @@
+# -*- coding: utf-8 -*-
+###############################################################################
+# This file is part of Resistencia Cadiz 1812.                                #
+#                                                                             #
+# This program is free software: you can redistribute it and/or modify        #
+# it under the terms of the GNU General Public License as published by        #
+# the Free Software Foundation, either version 3 of the License, or           #
+# any later version.                                                          #
+#                                                                             #
+# This program is distributed in the hope that it will be useful,             #
+# but WITHOUT ANY WARRANTY; without even the implied warranty of              #
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the               #
+# GNU General Public License for more details.                                #
+#                                                                             #
+# You should have received a copy of the GNU General Public License           #
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.       #
+#                                                                             #
+# Copyright (C) 2010, Pablo Recio Quijano, <pablo.recioquijano@alum.uca.es>   #
+###############################################################################
+
 import os
 import sys
-sys.path.append("..")
 
 import gtk
 
-import configure
+from resistencia import configure, xdg
 
 class settingsDialog:
     def __init__(self, parent):
         builder = gtk.Builder()
-        builder.add_from_file("./gui/glade/settingsDialog.glade")
+        builder.add_from_file(xdg.get_data_path('glade/settingsDialog.glade'))
 
         self.settings = builder.get_object("settingsDialog")
         self.settings.set_transient_for(parent)
