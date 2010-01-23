@@ -1,58 +1,63 @@
 # Spanish translations for PACKAGE package.
 # Copyright (C) 2009 THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# Riku the Ronin <rikutheronin@gmail.com>, 2009.
 #
+# Riku the Ronin <rikutheronin@gmail.com>, 2009, 2010.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-10-25 12:55+0100\n"
-"PO-Revision-Date: 2009-10-25 13:10+0100\n"
+"POT-Creation-Date: 2010-01-23 18:56+0100\n"
+"PO-Revision-Date: 2010-01-23 19:05+0100\n"
 "Last-Translator: Riku the Ronin <rikutheronin@gmail.com>\n"
-"Language-Team: Spanish\n"
+"Language-Team: Spanish <>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: main.glade.h:1
+#: ../resistencia/main.py:42
+msgid "Loading main window"
+msgstr "Cargando ventana principal"
+
+#. ---------------------------------
+#: ../data/glade/main.glade.h:1
 msgid "Cadiz deffense: 1812"
 msgstr "Resistencia en Cádiz: 1812"
 
-#: main.glade.h:2
+#: ../data/glade/main.glade.h:2
 msgid "Competitions"
 msgstr "Competiciones"
 
-#: main.glade.h:3
+#: ../data/glade/main.glade.h:3
 msgid "Copyright &#xA9; 2009 Pablo Recio Quijano"
 msgstr ""
 
-#: main.glade.h:4
+#: ../data/glade/main.glade.h:4
 msgid "Expert system's Manager"
 msgstr "Gestor de Sistemas Expertos"
 
-#: main.glade.h:5
+#: ../data/glade/main.glade.h:5
 msgid "Laboratory"
 msgstr "Laboratorio"
 
-#: main.glade.h:6
+#: ../data/glade/main.glade.h:6
 msgid "Previous games"
 msgstr "Partidas anteriores"
 
-#: main.glade.h:7
+#: ../data/glade/main.glade.h:7
 msgid "Quick game"
 msgstr "Partidas rápidas"
 
-#: main.glade.h:8
+#: ../data/glade/main.glade.h:8
 msgid "Settings"
 msgstr "Configuración"
 
-#: main.glade.h:9
+#: ../data/glade/main.glade.h:9
 msgid "Sistema Experto para ense&#xF1;ar Sistemas Expertos"
 msgstr ""
 
-#: main.glade.h:10
+#: ../data/glade/main.glade.h:10
 msgid ""
 "This program is free software: you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
@@ -68,78 +73,87 @@ msgid ""
 "along with this program.  If not, see <http://www.gnu.org/licenses/>."
 msgstr ""
 
-#: quickGame.glade.h:1
-msgid "<b>Settings</b>"
-msgstr "<b>Configuración</b>"
-
-#: quickGame.glade.h:2
-msgid "<b>Team A</b>"
-msgstr "<b>Equipo A</b>"
-
-#: quickGame.glade.h:3
-msgid "<b>Team B</b>"
-msgstr "<b>Equipo B</b>"
-
-#: quickGame.glade.h:4
-msgid "Don't save the game"
-msgstr "No guardar la partida"
-
-#: quickGame.glade.h:5
-msgid "Fast game"
-msgstr "Partida rápida"
-
-#: quickGame.glade.h:6
-msgid "Hide pieces's values"
-msgstr "Esconder los valores de las piezas"
-
-#: quickGame.glade.h:7
-msgid "Number of turns"
-msgstr "Número de turnos"
-
-#: quickGame.glade.h:8
-msgid "Select formation for team A"
-msgstr "Formación para el equipo A"
-
-#: quickGame.glade.h:9
-msgid "Select formation for team B"
-msgstr "Formación para el equipo B"
-
-#: quickGame.glade.h:10
-msgid "System Expert for team A"
-msgstr "Reglas para el equipo A"
-
-#: quickGame.glade.h:11
-msgid "System Expert for team B"
-msgstr "Reglas para el equipo B"
-
-#: quickGame.glade.h:12
-msgid "You have no selected file for the Expert System A"
-msgstr "No ha seleccionado un fichero para el Sistema experto A"
-
-#: quickGame.glade.h:13
-msgid "You have no selected file for the Expert System B"
-msgstr "No ha seleccionado un fichero para el Sistema experto B"
-
-#: quickGame.glade.h:14
-msgid "You have no selected file for the Team A"
+#: ../data/glade/main.glade.h:22
+#, fuzzy
+msgid "You have to select a file"
 msgstr "No ha seleccionado un fichero para el equipo A"
 
-#: quickGame.glade.h:15
-msgid "You have no selected file for the team B"
-msgstr "No ha seleccionado un fichero para el equipo B"
-
-#: settingsDialog.glade.h:1
+#: ../data/glade/settingsDialog.glade.h:1
 msgid "<b>Path to previous games</b>"
 msgstr "<b>Ruta para las partidas antiguas</b>"
 
-#: settingsDialog.glade.h:2
+#: ../data/glade/settingsDialog.glade.h:2
 msgid "<b>Path to systems experts</b>"
 msgstr "<b>Ruta para los sistemas experto</b>"
 
-#: settingsDialog.glade.h:3
+#: ../data/glade/settingsDialog.glade.h:3
 msgid "Language"
 msgstr "Idioma"
 
-#: settingsDialog.glade.h:4
+#: ../data/glade/settingsDialog.glade.h:4
 msgid "Settings - Cadiz deffense: 1812"
 msgstr "Configuración - Resistencia en Cádiz: 1812"
+
+#: ../data/glade/quickGame.glade.h:1
+msgid "<b>Settings</b>"
+msgstr "<b>Configuración</b>"
+
+#: ../data/glade/quickGame.glade.h:2
+msgid "<b>Team A</b>"
+msgstr "<b>Equipo A</b>"
+
+#: ../data/glade/quickGame.glade.h:3
+msgid "<b>Team B</b>"
+msgstr "<b>Equipo B</b>"
+
+#: ../data/glade/quickGame.glade.h:4
+msgid "Don't save the game"
+msgstr "No guardar la partida"
+
+#: ../data/glade/quickGame.glade.h:5
+msgid "Fast game"
+msgstr "Partida rápida"
+
+#: ../data/glade/quickGame.glade.h:6
+msgid "Hide pieces's values"
+msgstr "Esconder los valores de las piezas"
+
+#: ../data/glade/quickGame.glade.h:7
+msgid "Number of turns"
+msgstr "Número de turnos"
+
+#: ../data/glade/quickGame.glade.h:8
+msgid "Resultado de la partida"
+msgstr ""
+
+#: ../data/glade/quickGame.glade.h:9
+msgid "Select formation for team A"
+msgstr "Formación para el equipo A"
+
+#: ../data/glade/quickGame.glade.h:10
+msgid "Select formation for team B"
+msgstr "Formación para el equipo B"
+
+#: ../data/glade/quickGame.glade.h:11
+msgid "System Expert for team A"
+msgstr "Reglas para el equipo A"
+
+#: ../data/glade/quickGame.glade.h:12
+msgid "System Expert for team B"
+msgstr "Reglas para el equipo B"
+
+#: ../data/glade/quickGame.glade.h:13
+msgid "You have no selected file for the Expert System A"
+msgstr "No ha seleccionado un fichero para el Sistema experto A"
+
+#: ../data/glade/quickGame.glade.h:14
+msgid "You have no selected file for the Expert System B"
+msgstr "No ha seleccionado un fichero para el Sistema experto B"
+
+#: ../data/glade/quickGame.glade.h:15
+msgid "You have no selected file for the Team A"
+msgstr "No ha seleccionado un fichero para el equipo A"
+
+#: ../data/glade/quickGame.glade.h:16
+msgid "You have no selected file for the team B"
+msgstr "No ha seleccionado un fichero para el equipo B"

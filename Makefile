@@ -30,6 +30,7 @@ make-install-dirs:
 	mkdir -p $(RESISTENCIALIBDIR)
 	mkdir -p $(RESISTENCIALIBDIR)/resistencia
 	mkdir -p $(RESISTENCIALIBDIR)/resistencia/gui
+	mkdir -p $(RESISTENCIALIBDIR)/resistencia/contests
 	mkdir -p $(RESISTENCIALIBDIR)/guadaboard
 	mkdir -p $(RESISTENCIALIBDIR)/libguadalete
 	mkdir -p $(RESISTENCIASHAREDIR)
@@ -63,6 +64,8 @@ install-target: make-install-dirs
 	install -m 644 resistencia/*.py $(RESISTENCIALIBDIR)/resistencia
 	-install -m 644 resistencia/gui/*.py[co] $(RESISTENCIALIBDIR)/resistencia/gui
 	install -m 644 resistencia/gui/*.py $(RESISTENCIALIBDIR)/resistencia/gui
+	#-install -m 644 resistencia/contests/*.py[co] $(RESISTENCIALIBDIR)/resistencia/contests
+	#install -m 644 resistencia/contests/*.py $(RESISTENCIALIBDIR)/resistencia/contests
 	-install -m 644 guadaboard/*.py[co] $(RESISTENCIALIBDIR)/guadaboard
 	install -m 644 guadaboard/*.py $(RESISTENCIALIBDIR)/guadaboard
 	-install -m 644 libguadalete/*.py[co] $(RESISTENCIALIBDIR)/libguadalete
