@@ -29,7 +29,7 @@ from resistencia import configure, xdg
 
 import settings_dialog
 import quick_game_dialog
-import tree_view
+import players_selection
 
 class Resistencia:
     """
@@ -60,7 +60,7 @@ class Resistencia:
         self.about.show()
 
     def on_btn_competitions_clicked(self, widget):
-        treeview = tree_view.treeView(self.window)
+        treeview = players_selection.playersSelection(self.window)
         treeview.players_selector.run()
 
     def on_btn_previous_games_clicked(self, widget):

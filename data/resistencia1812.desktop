@@ -10,4 +10,4 @@ Comment[es]=Crea, prueba y compite con tus sistemas expertos
 Icon=resistencia1812
 Exec=resistencia1812 %F
 Terminal=false
-Categories=Programming;Games;GTK;
+Categories=GNOME;Game;BoardGame;

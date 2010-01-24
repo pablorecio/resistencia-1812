@@ -33,12 +33,12 @@ if sys.platform == 'linux2':
     try:
         import ctypes
         libc = ctypes.CDLL('libc.so.6')
-        libc.prctl(15, 'resistencia', 0, 0, 0)
+        libc.prctl(15, 'resistencia1812', 0, 0, 0)
     except:
         try:
              import dl
              libc = dl.open('/lib/libc.so.6')
-             libc.call('prctl', 15, 'resistencia\0', 0, 0, 0) # 15 is PR_SET_NAME
+             libc.call('prctl', 15, 'resistencia1812\0', 0, 0, 0) # 15 is PR_SET_NAME
         except:
             pass
 

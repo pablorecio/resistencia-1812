@@ -18,7 +18,7 @@
 # Copyright (C) 2010, Pablo Recio Quijano
 #----------------------------------------------------------------------
 
-import guada_board
+from guadaboard import guada_board
 pieceA = './images/piece-orange.png'
 pieceB = './images/piece-violete.png'
 

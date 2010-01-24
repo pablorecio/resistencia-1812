@@ -4,7 +4,7 @@
   <!-- interface-naming-policy project-wide -->
   <object class="GtkDialog" id="quickGameDialog">
     <property name="border_width">5</property>
-    <property name="icon">../../images/favicon.png</property>
+    <property name="icon">../images/favicon.png</property>
     <property name="type_hint">normal</property>
     <property name="has_separator">False</property>
     <signal name="close" handler="on_quickGameDialog_close"/>

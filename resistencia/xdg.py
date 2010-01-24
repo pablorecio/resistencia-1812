@@ -67,6 +67,7 @@ if os.path.exists(os.path.join(resistencia_dir, 'Makefile')):
     data_dirs.insert(0, data_dir)
     # Insert the "data" directory to data_dirs.
     # insert the config dir
+    config_home = os.path.join(resistencia_dir, 'data')
     config_dir = os.path.join(resistencia_dir, 'data', 'config')
     config_dirs.insert(0, config_dir)
 

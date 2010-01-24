@@ -20,16 +20,12 @@
 
 import sys
 import time
-sys.path.append('../libguadalete')
-sys.path.append('../guada-board')
-sys.path.append('../guada-board/layouts')
-sys.path.append('..')
 
 import os
 import datetime
 import random
 
-import configure
+from resistencia import configure
 import pairing
 import round
 
