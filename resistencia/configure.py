@@ -23,12 +23,15 @@
 
 import os
 import sys
+import shutil
 from xml.dom import minidom
 
 from resistencia import xdg
 
 config_base_path = xdg.get_config_dir() + '/'
 file_path = config_base_path + 'configuration.xml'
+
+print file_path
 
 def generate_configuration_file():
     impl = minidom.getDOMImplementation()
@@ -37,10 +40,22 @@ def generate_configuration_file():
     top_element = config_xml.documentElement
     
     se_path = config_xml.createElement('se_path')
-    se_path.setAttribute('value', os.path.realpath(config_base_path + 'teams'))
-    
+    se_real_path = os.path.realpath(config_base_path) + '/teams'
+    se_path.setAttribute('value', se_real_path)
+    if not os.path.exists(se_real_path):
+        os.mkdir(se_real_path)
+        data_path = xdg.get_data_path('teams')
+        files = os.listdir(data_path)
+        for f in files:
+            f = data_path + '/' + f
+            print os.path.realpath(f) + '-------' + se_real_path
+            shutil.copy(os.path.realpath(f), se_real_path)
+
     games_path = config_xml.createElement('games_path')
-    games_path.setAttribute('value', os.path.realpath(config_base_path + '/games'))
+    games_real_path = os.path.realpath(config_base_path + '/games')
+    games_path.setAttribute('value', games_real_path)
+    if not os.path.exists(games_real_path):
+        os.mkdir(games_real_path)
 
     language = config_xml.createElement('language')
     language.setAttribute('value', 'es_ES')

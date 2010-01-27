@@ -21,9 +21,6 @@ pyclips:
 compile:
 	python -m compileall -q $(PACKAGES)
 	-python -O -m compileall -q $(PACKAGES)
-	mkdir -p $(RESISTENCIAHOMEDIR)
-	mkdir -p $(RESISTENCIAHOMEDIR)/games
-	mkdir -p $(RESISTENCIAHOMEDIR)/teams
 
 make-install-dirs:
 	mkdir -p $(DESTDIR)$(PREFIX)/bin
@@ -39,6 +36,7 @@ make-install-dirs:
 	mkdir -p $(RESISTENCIASHAREDIR)/data/glade
 	mkdir -p $(RESISTENCIASHAREDIR)/data/fonts
 	mkdir -p $(RESISTENCIASHAREDIR)/data/layouts
+	mkdir -p $(RESISTENCIASHAREDIR)/data/teams
 	#mkdir -p $(RESISTENCIASHAREDIR)/data/migrations
 	#mkdir -p $(RESISTENCIASHAREDIR)/data/migrations/migration_200907100931
 	mkdir -p $(DESTDIR)$(PREFIX)/share/pixmaps
@@ -74,7 +72,7 @@ install-target: make-install-dirs
 	install -m 644 data/glade/*.glade $(RESISTENCIASHAREDIR)/data/glade
 	install -m 644 data/layouts/*.xml $(RESISTENCIASHAREDIR)/data/layouts
 	install -m 644 data/fonts/*.ttf $(RESISTENCIASHAREDIR)/data/fonts
-	install -m 655 data/teams/*.clp $(RESISTENCIAHOMEDIR)/teams
+	install -m 655 data/teams/*.clp $(RESISTENCIASHAREDIR)/data/teams
 	install -m 644 data/images/resistencia1812.png \
 		$(DESTDIR)$(PREFIX)/share/pixmaps/resistencia1812.png
 	install -m 644 data/resistencia1812.desktop \
