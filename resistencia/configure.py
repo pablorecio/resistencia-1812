@@ -44,12 +44,18 @@ def generate_configuration_file():
     se_path.setAttribute('value', se_real_path)
     if not os.path.exists(se_real_path):
         os.mkdir(se_real_path)
-        data_path = xdg.get_data_path('teams')
+        os.mkdir(se_real_path + '/rules')
+        os.mkdir(se_real_path + '/formations')
+        data_path = xdg.get_data_path('teams/rules')
         files = os.listdir(data_path)
         for f in files:
             f = data_path + '/' + f
-            print os.path.realpath(f) + '-------' + se_real_path
-            shutil.copy(os.path.realpath(f), se_real_path)
+            shutil.copy(os.path.realpath(f), se_real_path + '/rules')
+        data_path = xdg.get_data_path('teams/formations')
+        files = os.listdir(data_path)
+        for f in files:
+            f = data_path + '/' + f
+            shutil.copy(os.path.realpath(f), se_real_path + '/formations')
 
     games_path = config_xml.createElement('games_path')
     games_real_path = os.path.realpath(config_base_path + '/games')
