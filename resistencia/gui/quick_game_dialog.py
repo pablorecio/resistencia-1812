@@ -37,10 +37,12 @@ class quickGameDialog:
         builder.add_from_file(xdg.get_data_path('glade/quickGame.glade'))
 
         def_path = configure.load_configuration()['se_path']
-        builder.get_object('file_chooser_es_a').set_current_folder(def_path)
-        builder.get_object('file_chooser_team_a').set_current_folder(def_path)
-        builder.get_object('file_chooser_es_b').set_current_folder(def_path)
-        builder.get_object('file_chooser_team_b').set_current_folder(def_path)
+        def_rules_path = def_path + '/rules'
+        def_formations_path = def_path + '/formations'
+        builder.get_object('file_chooser_es_a').set_current_folder(def_rules_path)
+        builder.get_object('file_chooser_team_a').set_current_folder(def_formations_path)
+        builder.get_object('file_chooser_es_b').set_current_folder(def_rules_path)
+        builder.get_object('file_chooser_team_b').set_current_folder(def_formations_path)
 
         self.quick_game = builder.get_object("quickGameDialog")
         self.quick_game.set_transient_for(parent)
