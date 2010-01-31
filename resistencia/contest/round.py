@@ -19,8 +19,9 @@
 #----------------------------------------------------------------------
 
 from guadaboard import guada_board
-pieceA = './images/piece-orange.png'
-pieceB = './images/piece-violete.png'
+from resistencia import xdg
+_pieceA = xdg.get_data_path('images/piece-orange.png')
+_pieceB = xdg.get_data_path('images/piece-violete.png')
 
 class Error(Exception):
     """Base class for exceptions in this module."""
@@ -38,7 +39,7 @@ class RoundError(Error):
 
 class Round(object):
 
-    def __init__(self, matchs, translator, log_file):
+    def __init__(self, matchs, translator, log_file, num_turns = 150):
         self.round = [] #Formed by tuples ((teamA, teamB), played, result)
         for match in matchs:
             self.round.append((match, False, 0))
@@ -48,15 +49,26 @@ class Round(object):
         self.next_game = 0
         self.number_games = len(self.round)
         self.translator = translator
-        
-    def get_result(self, id_game):
+        self.num_turns = num_turns
+
+    def get_number_of_games(self):
+        return self.number_games
+
+    def get_game_result(self, id_game):
         if self.round[id_game][1] == True:
             return (self.round[id_game][0], self.round[id_game][2])
         else:
             raise RoundError('The game ' + str(id_game) + ' has not been played yet')
 
-    def get_number_of_games(self):
-        return self.number_games
+    def get_round_results(self):
+        results = []
+        if self.completed:
+            for match in self.round:
+                results.append((match[0], match[2]))
+
+            return results
+        else:
+            raise RoundError('Not all games played')
 
     def get_winners(self):
         winners = []
@@ -69,6 +81,26 @@ class Round(object):
                     winners.append(match[0][1])
 
             return winners
+        else:
+            raise RoundError('Not all games played')
+
+    def get_puntuation(self):
+        results = {}
+        if self.completed:
+            for match in self.round:
+                result = match[2]
+                teamA = match[0][0]
+                teamB = match[0][1]
+                if result == 0:
+                    results[teamA] = 1
+                    results[teamB] = 1
+                elif result == 1:
+                    results[teamA] = 3
+                    results[teamB] = 0
+                elif result == -1:
+                    results[teamA] = 0
+                    results[teamB] = 3
+            return results
         else:
             raise RoundError('Not all games played')
 
@@ -93,27 +125,7 @@ class Round(object):
         else:
             raise RoundError('Not all games played')
 
-    def get_puntuation(self):
-        results = {}
-        if self.completed:
-            for match in self.round:
-                result = match[2]
-                teamA = match[0][0]
-                teamB = match[0][1]
-                if result == 0:
-                    results[teamA] = 1
-                    results[teamB] = 1
-                elif result == 1:
-                    results[teamA] = 3
-                    results[teamB] = 0
-                elif result == -1:
-                    results[teamA] = 0
-                    results[teamB] = 3
-            return results
-        else:
-            raise RoundError('Not all games played')
-
-    def play_match(self):
+    def play_match(self, fast=False):
         teamA_key = self.round[self.next_game][0][0]
         teamB_key = self.round[self.next_game][0][1]
         teamA = None
@@ -121,9 +133,10 @@ class Round(object):
         
         result = 0
         if (not teamA_key == 'aux_ghost_team') and (not teamB_key == 'aux_ghost_team'):
-            teamA = (self.translator[teamA_key], pieceA)
-            teamB = (self.translator[teamB_key], pieceB)
-            result = guada_board.run(teamA, teamB, fast=True)
+            teamA = (self.translator[teamA_key], _pieceA)
+            teamB = (self.translator[teamB_key], _pieceB)
+            result = guada_board.run(teamA, teamB, fast=fast, hidden=True,
+                                     number_turns=self.num_turns)
         else:
             if teamA_key == 'aux_ghost_team':
                 result = -1

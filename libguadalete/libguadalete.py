@@ -29,10 +29,6 @@ import funciones, f1, mover, texto, traducirF, traducirM, fA, fB, mirroring
 
 from resistencia import configure, filenames
 
-filename = 'tiempos.txt'
-f = open(filename, 'w')
-f.close()
-
 class LibGuadalete(object):
     """Main class of the wrapper module for clips scripts
     

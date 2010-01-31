@@ -1,22 +1,22 @@
 # -*- coding: utf-8 -*-
-# ---------------------------------------------------------------------
-# This file is part of Resistencia Cadiz 1812.
-#
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# any later version.
-
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-# GNU General Public License for more details.
-
-# You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-# Copyright (C) 2010, Pablo Recio Quijano
-#----------------------------------------------------------------------
+###############################################################################
+# This file is part of Resistencia Cadiz 1812.                                #
+#                                                                             #
+# This program is free software: you can redistribute it and/or modify        #
+# it under the terms of the GNU General Public License as published by        #
+# the Free Software Foundation, either version 3 of the License, or           #
+# any later version.                                                          #
+#                                                                             #
+# This program is distributed in the hope that it will be useful,             #
+# but WITHOUT ANY WARRANTY; without even the implied warranty of              #
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the               #
+# GNU General Public License for more details.                                #
+#                                                                             #
+# You should have received a copy of the GNU General Public License           #
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.       #
+#                                                                             #
+# Copyright (C) 2010, Pablo Recio Quijano, <pablo.recioquijano@alum.uca.es>   #
+###############################################################################
 
 import sys
 import time
@@ -24,53 +24,19 @@ import time
 import os
 import datetime
 import random
+import gtk
 
-from resistencia import configure
+sys.path.append('../../')
+from resistencia import configure, filenames, xdg
+from resistencia.gui import round_results
 import pairing
 import round
-
-def _extract_name(team):
-    i = team[0].find("/reglas")
-    j = team[0].find(".clp")
-
-    return (team[0])[i+7:j]
-
-def _generate_tournament_file_name():
-    t = datetime.datetime.now()
-
-    if (t.month < 10):
-        month = "0" + str(t.month)
-    else:
-        month = str(t.month)
-            
-    if (t.day < 10):
-        day = "0" + str(t.day)
-    else:
-        day = str(t.day)
-
-    if (t.hour < 10):
-        hour = "0" + str(t.hour)
-    else:
-        hour = str(t.hour)
-    
-    if (t.minute < 10):
-        min = "0" + str(t.minute)
-    else:
-        min = str(t.minute)
-    
-    des = 'tournament_' + str(t.year) + "-" + month + "-"
-    des += day + "_" + hour + ":" + min
-    des += ".txt"
-    
-    base_path = configure.load_configuration()['games_path']
-    
-    return base_path + '/' + des
 
 def _generate_key_names(teams):
     d = {}
 
     for team in teams:
-        name = _extract_name(team)
+        name = filenames.extract_name_expert_system(team)
         d[name] = team
 
     return d
@@ -78,7 +44,6 @@ def _generate_key_names(teams):
 def _merge_puntuations(punt1, punt2):
     for index in punt1:
         punt1[index] = punt1[index] + punt2[index]
-        
 
 def _puntuations_compare(p1, p2):
     if p1[1] > p2[1]:
@@ -101,7 +66,10 @@ class League(object):
         self.matchs = pairing.make_pairings(self.keys, back_round)
 
         self.rounds = []
-        self.tournament_file_name = _generate_tournament_file_name()
+        base_path = configure.load_configuration()['games_path'] + '/'
+        self.tournament_file_name = base_path + filenames.generate_filename('tournament')
+        print self.tournament_file_name
+        
         for jorn in self.matchs:
             self.rounds.append(round.Round(jorn, self.translator,
                                            self.tournament_file_name))
@@ -114,6 +82,12 @@ class League(object):
         self.number_of_rounds = len(self.rounds)
         self.actual_round = 0
         self.league_completed = False
+
+    def get_round_number(self):
+        return self.actual_round
+
+    def get_round(self, round_number):
+        return self.rounds[round_number]
 
     def play_round(self):
         if not self.league_completed:
@@ -138,6 +112,13 @@ class League(object):
             self.actual_round = self.actual_round + 1
             self.league_completed = (self.actual_round == self.number_of_rounds)
 
+    def get_actual_puntuations(self):
+        clasification = self.puntuations.items()
+        clasification.sort(_puntuations_compare)
+        clasification.reverse()
+
+        return clasification
+
     def print_actual_puntuations(self):
         clasification = self.puntuations.items()
         clasification.sort(_puntuations_compare)
@@ -157,20 +138,39 @@ class League(object):
 
 if __name__ == "__main__":
 
-    teams = [('../teams/reglasRafa.clp', '../teams/equipoRafa.clp'),
-             ('../teams/reglasJavierS.clp', '../teams/equipoJavierS.clp'),
-             ('../teams/reglasPabloRecio.clp','../teams/equipoPabloRecio.clp'),
-             ('../teams/reglasRosunix.clp', '../teams/equipoRosunix.clp'),
-             ('../teams/reglasGent0oza.clp', '../teams/equipoGent0oza.clp'),
-             ('../teams/reglasAbrahan.clp', '../teams/equipoAbrahan.clp'),
-             ('../teams/reglasPalomo.clp', '../teams/equipoPalomo.clp'),
-             ('../teams/reglasNoelia.clp', '../teams/equipoNoelia.clp')]
+    rules = xdg.get_config_dir() + '/teams/rules'
+    formations = xdg.get_config_dir() + '/teams/formations'
+    teams = [(rules + '/reglasRafa.clp', formations + '/equipoRafa.clp'),
+             (rules + '/reglasJavierS.clp', formations + '/equipoJavierS.clp'),
+             (rules + '/reglasPabloRecio.clp',formations + '/equipoPabloRecio.clp'),
+             (rules + '/reglasRosunix.clp', formations + '/equipoRosunix.clp')]#,
+             #(rules + '/reglasGent0oza.clp', formations + '/equipoGent0oza.clp'),
+             #(rules + '/reglasAbrahan.clp', formations + '/equipoAbrahan.clp'),
+             #(rules + '/reglasPalomo.clp', formations + '/equipoPalomo.clp'),
+             #(rules + '/reglasNoelia.clp', formations + '/equipoNoelia.clp')]
 
     l = League(teams, True)
 
-    while not l.league_completed:
-        l.play_round()
-        l.print_actual_puntuations()
+    band = False
 
-        time.sleep(10)
+    while not l.league_completed and not band:
+        i = l.get_round_number()
+        l.play_round()
+        r = l.get_round(i)
+
+        classifications = l.get_actual_puntuations()#r.get_puntuation()
+        results = r.get_round_results()
+
+        R = round_results.roundResults(classifications, results)
+        button_pressed = R.result_dialog.run()
+
+        
+        while gtk.events_pending():
+            gtk.main_iteration(False)
+        if button_pressed == -4:
+            band = True
+        #del R
+        #time.sleep(3)
+
+        #band = R.end_contest
     

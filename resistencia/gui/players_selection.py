@@ -143,7 +143,7 @@ class playersSelection(object):
         self.file_chooser_formation = builder.get_object('file_chooser_formation')
         
         def_path = configure.load_configuration()['se_path']
-        self.file_chooser_rules.set_current_folder(def_path)
-        self.file_chooser_formation.set_current_folder(def_path)
+        self.file_chooser_rules.set_current_folder(def_path + '/rules')
+        self.file_chooser_formation.set_current_folder(def_path + '/formations')
         
         builder.connect_signals(self)

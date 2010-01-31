@@ -144,6 +144,8 @@ class quickGameDialog:
 
         if correct == True:
             self.quick_game.hide()
+            while gtk.events_pending():
+                gtk.main_iteration(False)
             self.load_board()
 
     def load_board(self):

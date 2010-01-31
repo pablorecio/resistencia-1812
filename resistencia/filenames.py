@@ -28,7 +28,7 @@ import datetime
 import random
 import types
 
-def extract_name_expert_system (team):
+def extract_simple_name_expert_system (team):
     """Reciving a 2 elements tuple, extract the name of the player.
 
     Keywords arguments:
@@ -42,6 +42,24 @@ def extract_name_expert_system (team):
     j = team[0].find(".clp")
 
     return (team[0])[i+7:j]
+
+def extract_name_expert_system(team):
+    """Reciving a 2 elements tuple, extract the name of the player
+    using the 2 files instead of only one.
+
+    Keywords arguments:
+    team -- Tuple with the names of the rules and formation files.
+    """
+    if not (type(team) == types.TupleType) or not (len(team) == 2):
+        str_error = 'Variable must be a pair '
+        raise ValueError(str_error)
+    
+    i1 = team[0].find("/reglas")
+    j1 = team[0].find(".clp")
+    i2 = team[1].find("/equipo")
+    j2 = team[1].find(".clp")
+    
+    return (team[0])[i1+7:j1] + (team[1])[i2+7:j2]
 
 def extract_names_from_file (filename):
     """
