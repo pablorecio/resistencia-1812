@@ -109,6 +109,9 @@ clean:
 	find . -name "pyclips" -exec rm -rf {} \;
 	find po/* -depth -type d -exec rm -r {} \;
 
+clean-games:
+	$(RM) ./data/games/*.txt
+
 pot:
 	@echo "[encoding: UTF-8]" > po/POTFILES.in
 	find resistencia -name "*.py" >> po/POTFILES.in

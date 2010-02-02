@@ -28,8 +28,7 @@ from resistencia.nls import gettext as _
 
 class roundResults:
     def add_column(self, list_view, title, columnId):
-        column = gtk.TreeViewColumn(title, gtk.CellRendererText(),
-                                    text=columnId)
+        column = gtk.TreeViewColumn(title, gtk.CellRendererText(), markup=columnId)
         list_view.append_column(column)
 
     def fill_classification(self):
@@ -41,7 +40,18 @@ class roundResults:
 
     def fill_results(self):
         for e in self.results:
-            self.list_store_results.append((e[0][0], e[0][1], e[1]))
+            teamA = e[0][0];
+            teamB = e[0][1];
+            win_color = '#0C0C9D'
+            draw_color = '#5DEA5D'
+            if e[1] == 1:
+                teamA = '<span foreground="' + win_color + '"><b>' + teamA + '</b></span>'
+            elif e[1] == -1:
+                teamB = '<span foreground="' + win_color + '"><b>' + teamB + '</b></span>'
+            else: #draw
+                teamA = '<span foreground="' + draw_color + '"><b>' + teamA + '</b></span>'
+                teamB = '<span foreground="' + draw_color + '"><b>' + teamB + '</b></span>'
+            self.list_store_results.append((teamA, teamB))
     
     def __init__(self, classification, results): #add parent
         builder = gtk.Builder()
@@ -78,15 +88,12 @@ class roundResults:
 
         self.cTeamA = 0
         self.cTeamB = 1
-        self.cResult = 2
 
         self.sTeamA = _('Team A')
         self.sTeamB = _('Team B')
-        self.sResult = _('Result')
 
         self.add_column(self.list_view_results, self.sTeamA, self.cTeamA)
         self.add_column(self.list_view_results, self.sTeamB, self.cTeamB)
-        self.add_column(self.list_view_results, self.sResult, self.cResult)
 
         self.list_store_results = builder.get_object('list_results')
         self.fill_results()

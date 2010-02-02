@@ -2,6 +2,24 @@
 <interface>
   <requires lib="gtk+" version="2.16"/>
   <!-- interface-naming-policy project-wide -->
+  <object class="GtkListStore" id="list_classification">
+    <columns>
+      <!-- column-name pos -->
+      <column type="gint"/>
+      <!-- column-name name -->
+      <column type="gchararray"/>
+      <!-- column-name punt -->
+      <column type="gint"/>
+    </columns>
+  </object>
+  <object class="GtkListStore" id="list_results">
+    <columns>
+      <!-- column-name teamA -->
+      <column type="gchararray"/>
+      <!-- column-name teamB -->
+      <column type="gchararray"/>
+    </columns>
+  </object>
   <object class="GtkDialog" id="dlg_results">
     <property name="border_width">5</property>
     <property name="title" translatable="yes">Results of the round</property>
@@ -138,26 +156,6 @@
       <action-widget response="0">btn_results_cancel</action-widget>
       <action-widget response="13">btn_results_next</action-widget>
     </action-widgets>
-  </object>
-  <object class="GtkListStore" id="list_classification">
-    <columns>
-      <!-- column-name pos -->
-      <column type="gint"/>
-      <!-- column-name name -->
-      <column type="gchararray"/>
-      <!-- column-name punt -->
-      <column type="gint"/>
-    </columns>
-  </object>
-  <object class="GtkListStore" id="list_results">
-    <columns>
-      <!-- column-name teamA -->
-      <column type="gchararray"/>
-      <!-- column-name teamB -->
-      <column type="gchararray"/>
-      <!-- column-name res -->
-      <column type="gint"/>
-    </columns>
   </object>
   <object class="GtkMessageDialog" id="dlg_confirmation_close">
     <property name="border_width">5</property>
