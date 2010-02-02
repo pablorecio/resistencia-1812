@@ -53,17 +53,24 @@ class roundResults:
                 teamB = '<span foreground="' + draw_color + '"><b>' + teamB + '</b></span>'
             self.list_store_results.append((teamA, teamB))
     
-    def __init__(self, classification, results): #add parent
+    def __init__(self, classification, results, round, rounds): #add parent
         builder = gtk.Builder()
         builder.add_from_file(xdg.get_data_path('glade/results.glade'))
 
         self.classifications = classification
         self.results = results
+        self.round = round
+        self.rounds = rounds
 
         self.result_dialog = builder.get_object('dlg_results')
+        title = self.result_dialog.get_title()  + ' ' + str(round) + '/' + str(rounds)
+        self.result_dialog.set_title(title)
         self.confirmation_dialog = builder.get_object('dlg_confirmation_close')
         self.confirmation_dialog.connect('response', lambda d, r: d.hide())
         self.confirmation_dialog.set_transient_for(self.result_dialog)
+        self.finalround_dialog = builder.get_object('dlg_finalround')
+        self.finalround_dialog.connect('response', lambda d, r: d.hide())
+        self.finalround_dialog.set_transient_for(self.result_dialog)
 
         self.list_view_classifications = builder.get_object('treeview_classification')
         self.list_view_results = builder.get_object('treeview_results')
@@ -102,13 +109,16 @@ class roundResults:
         
         builder.connect_signals(self)
 
+    def on_dlg_results_show(self, data=None):
+        print 'on_dlg_results_show'
+        if self.round == self.rounds:
+            self.finalround_dialog.run()
+
     def on_btn_results_cancel_clicked(self, widget):
-        self.confirmation_dialog.show()
+        self.confirmation_dialog.run()
 
     def on_btn_results_next_clicked(self, widget):
-        print 'Pulsado 1'
         self.result_dialog.hide()
-        print 'Pulsado 2'
 
     def on_dlg_results_close(self, widget, data=None):
         self.result_dialog.destroy()
@@ -120,3 +130,5 @@ class roundResults:
 
     def on_btn_confirmation_cancel_clicked(self, widget, data=None):
         self.confirmation_dialog.hide()
+        self.result_dialog.run()
+        

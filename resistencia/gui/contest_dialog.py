@@ -24,6 +24,7 @@ import sys
 import gtk
 
 from resistencia import configure, filenames, xdg
+from resistencia.contest import main as contest
 
 class contestDialog:
     # --- List and handler functions
@@ -60,9 +61,12 @@ class contestDialog:
         name = filenames.extract_name_expert_system((rules_file_name,
                                                      formation_file_name))
 
-        self.teams[name] = (rules_file_name, formation_file_name)
+        if not self.teams.has_key(name):
+            self.teams[name] = (self.rules_selected_file, self.formation_selected_file)
 
-        self.list_store.append((name, rules_file_name, formation_file_name))
+            self.list_store.append((name, rules_file_name, formation_file_name))
+            if len(self.teams) == 2:
+                self.start_button.set_sensitive(True)
     # ---
     def __init__(self, parent):
         builder = gtk.Builder()
@@ -98,15 +102,21 @@ class contestDialog:
         self.file_chooser_formation = builder.get_object('file_chooser_formation')
         #self.file_chooser_formation.set_transient_for(self.players_selector)
 
+        self.format_contest = 'league'
         self.radio_league = builder.get_object('radio_league')
         self.radio_cup = builder.get_object('radio_cup')
         self.radio_groups = builder.get_object('radio_groups')
-
         self.check_backround = builder.get_object('check_backround')
+        self.check_fast = builder.get_object('check_onlyresults')
+
+        self.back_round = False
+        self.fast = False
         
         def_path = configure.load_configuration()['se_path']
         self.file_chooser_rules.set_current_folder(def_path + '/rules')
         self.file_chooser_formation.set_current_folder(def_path + '/formations')
+
+        self.start_button = builder.get_object('btn_start')
         
         builder.connect_signals(self)
 
@@ -118,6 +128,8 @@ class contestDialog:
     def on_btn_remove_clicked(self, widget, data=None):
         del self.teams[self.list_store.get_value(self.treeiter, 0)]
         self.list_store.remove(self.treeiter)
+        if len(self.teams) == 1:
+            self.start_button.set_sensitive(False)
 
     def on_list_es_view_cursor_changed(self, widget, data=None):
         self.treeiter = self.list_store.get_iter(widget.get_cursor()[0])
@@ -150,17 +162,39 @@ class contestDialog:
     def on_btn_cancel_clicked(self, widget, data=None):
         self.contest_dialog.hide()
 
+    def on_btn_start_clicked(self, widget, data=None):
+        self.contest_dialog.destroy()
+        while gtk.events_pending():
+            gtk.main_iteration(False)
+        contest.init_contest(self.format_contest, self.teams, self.fast, self.back_round)
+
     # ---- Radio button
 
     def on_radio_league_toggled(self, widget, data=None):
         if self.radio_league.get_active():
             self.check_backround.set_sensitive(True)
+            self.format_contest = 'league'
         else:
             self.check_backround.set_sensitive(False)
 
     def on_radio_cup_toggled(self, widget, data=None):
-        print 'Copa toggled'
+        if self.radio_cup.get_active():
+            self.format_contest = 'cup'
 
     def on_radio_groups_toggled(self, widget, data=None):
-        print 'Round toggled'
+        if self.radio_group.get_active():
+            self.format_contest = 'group'
+
+    def on_check_backround_toggled(self, widget, data=None):
+        print 'hola'
+        if self.check_backround.get_active():
+            self.back_round = True
+        else:
+            self.back_round = False
+
+    def on_check_onlyresults_toggled(self, widget, data=None):
+        if self.check_fast.get_active():
+            self.fast = True
+        else:
+            self.fast = False
         

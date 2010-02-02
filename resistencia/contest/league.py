@@ -22,13 +22,10 @@ import sys
 import time
 
 import os
-import datetime
-import random
 import gtk
 
-sys.path.append('../../')
-from resistencia import configure, filenames, xdg
-from resistencia.gui import round_results
+from resistencia import configure, filenames
+
 import pairing
 import round
 
@@ -85,17 +82,23 @@ class League(object):
 
     def get_round_number(self):
         return self.actual_round
+    
+    def get_prev_round_number(self):
+        return self.actual_round - 1
+
+    def get_number_of_rounds(self):
+        return self.number_of_rounds
 
     def get_round(self, round_number):
         return self.rounds[round_number]
 
-    def play_round(self):
+    def play_round(self, fast=False):
         if not self.league_completed:
             r = self.rounds[self.actual_round]
             n = r.get_number_of_games()
 
             for i in range(n):
-                r.play_match()
+                r.play_match(fast)
 
             p = r.get_puntuation()
             self.puntuations_by_round.append(p)
@@ -134,43 +137,5 @@ class League(object):
                 num_sep = 29 - long_name
 
                 print name + ' ' + '-'*num_sep + ' ' + str(punt)
-            
 
-if __name__ == "__main__":
-
-    rules = xdg.get_config_dir() + '/teams/rules'
-    formations = xdg.get_config_dir() + '/teams/formations'
-    teams = [(rules + '/reglasRafa.clp', formations + '/equipoRafa.clp'),
-             (rules + '/reglasJavierS.clp', formations + '/equipoJavierS.clp'),
-             (rules + '/reglasPabloRecio.clp',formations + '/equipoPabloRecio.clp'),
-             (rules + '/reglasRosunix.clp', formations + '/equipoRosunix.clp'),
-             (rules + '/reglasGent0oza.clp', formations + '/equipoGent0oza.clp'),
-             (rules + '/reglasAbrahan.clp', formations + '/equipoAbrahan.clp'),
-             (rules + '/reglasPalomo.clp', formations + '/equipoPalomo.clp'),
-             (rules + '/reglasNoelia.clp', formations + '/equipoNoelia.clp')]
-
-    l = League(teams, True)
-
-    band = False
-
-    while not l.league_completed and not band:
-        i = l.get_round_number()
-        l.play_round()
-        r = l.get_round(i)
-
-        classifications = l.get_actual_puntuations()#r.get_puntuation()
-        results = r.get_round_results()
-
-        R = round_results.roundResults(classifications, results)
-        button_pressed = R.result_dialog.run()
-
-        
-        while gtk.events_pending():
-            gtk.main_iteration(False)
-        if button_pressed == -4:
-            band = True
-        #del R
-        #time.sleep(3)
-
-        #band = R.end_contest
     
