@@ -143,11 +143,11 @@ if __name__ == "__main__":
     teams = [(rules + '/reglasRafa.clp', formations + '/equipoRafa.clp'),
              (rules + '/reglasJavierS.clp', formations + '/equipoJavierS.clp'),
              (rules + '/reglasPabloRecio.clp',formations + '/equipoPabloRecio.clp'),
-             (rules + '/reglasRosunix.clp', formations + '/equipoRosunix.clp')]#,
-             #(rules + '/reglasGent0oza.clp', formations + '/equipoGent0oza.clp'),
-             #(rules + '/reglasAbrahan.clp', formations + '/equipoAbrahan.clp'),
-             #(rules + '/reglasPalomo.clp', formations + '/equipoPalomo.clp'),
-             #(rules + '/reglasNoelia.clp', formations + '/equipoNoelia.clp')]
+             (rules + '/reglasRosunix.clp', formations + '/equipoRosunix.clp'),
+             (rules + '/reglasGent0oza.clp', formations + '/equipoGent0oza.clp'),
+             (rules + '/reglasAbrahan.clp', formations + '/equipoAbrahan.clp'),
+             (rules + '/reglasPalomo.clp', formations + '/equipoPalomo.clp'),
+             (rules + '/reglasNoelia.clp', formations + '/equipoNoelia.clp')]
 
     l = League(teams, True)
 
