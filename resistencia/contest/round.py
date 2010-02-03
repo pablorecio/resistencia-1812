@@ -135,8 +135,10 @@ class Round(object):
         if (not teamA_key == 'aux_ghost_team') and (not teamB_key == 'aux_ghost_team'):
             teamA = (self.translator[teamA_key], _pieceA)
             teamB = (self.translator[teamB_key], _pieceB)
-            result = guada_board.run(teamA, teamB, fast=fast, hidden=True,
-                                     number_turns=self.num_turns)
+            result = guada_board.run(teamA, teamB, fast=fast,
+                                            hidden=True,
+                                            number_turns=self.num_turns)
+            
         else:
             if teamA_key == 'aux_ghost_team':
                 result = -1

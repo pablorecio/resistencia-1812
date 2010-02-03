@@ -25,7 +25,7 @@ import sys
 import pygame
 import pygame.font
 
-from libguadalete import libguadalete, file_parser
+from libguadalete import libguadalete, file_parser, stats
 from resistencia import filenames, xdg
 import game
 import layout
@@ -151,8 +151,9 @@ def last_turn(game, xml_layout, mouse=None):
     return _get_turn(game, xml_layout, mouse)
 
 def run(teamA, teamB, fast=False, dont_log=False, hidden=False,
-        number_turns=100, path_piece_default= xdg.get_data_path('images/piece-default.png'),
-        xml_file= xdg.get_data_path('layouts/main-layout.xml')):
+        number_turns=100, 
+        path_piece_default= xdg.get_data_path('images/piece-default.png'),
+        xml_file= xdg.get_data_path('layouts/main-layout.xml'), get_stats=False):
     lib = libguadalete.LibGuadalete(teamA[0],teamB[0],number_turns)
     out_file, winner = lib.run_game()
     if not fast:
@@ -161,9 +162,12 @@ def run(teamA, teamB, fast=False, dont_log=False, hidden=False,
         _load_game_from_file(out_file, (name_team_A, teamA[1]),
                              (name_team_B, teamB[1]), path_piece_default,
                              xml_file, hidden)
-    if dont_log:
+    res = winner
+    if get_stats:
+        res = (winner, stats.get_game_file_stats(out_file))
+    if dont_log or get_stats:
         os.remove(out_file)
-    return winner
+    return res
 
 def run_from_file(src_file,
                   teamA=('equipoA',
