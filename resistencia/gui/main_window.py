@@ -30,6 +30,7 @@ from resistencia import configure, xdg
 import settings_dialog
 import quick_game_dialog
 import contest_dialog
+import tests_dialog
 
 class Resistencia:
     """
@@ -68,6 +69,10 @@ class Resistencia:
                                             #self.previous_games_file_chooser_handler)
         self.previous_games_chooser.set_transient_for(self.window)
         self.previous_games_chooser.show()
+
+    def on_btn_laboratory_clicked(self, widget):
+        testing_dialog = tests_dialog.testDialog(self.window)
+        testing_dialog.tests_dialog.run()
 
     def on_btn_settings_clicked(self, widget):
         settings_dial = settings_dialog.settingsDialog(self.window)
