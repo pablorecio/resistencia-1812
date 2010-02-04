@@ -28,6 +28,8 @@ from guadaboard import guada_board
 from resistencia import configure, xdg, filenames
 from resistencia.tests import tests
 
+import tests_result
+
 def _clean_dictionary(d):
     l = []
     for k in d:
@@ -212,5 +214,7 @@ class testDialog:
                             self.num_rounds)
         t.run_test_suite()
 
-        print t.get_test_stats()
+        test = tests_result.testResult(t.get_test_stats())
+        test.test_result.run()
+        self.tests_dialog.destroy()
 
