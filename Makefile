@@ -36,6 +36,7 @@ make-install-dirs:
 	mkdir -p $(RESISTENCIASHAREDIR)/data/glade
 	mkdir -p $(RESISTENCIASHAREDIR)/data/fonts
 	mkdir -p $(RESISTENCIASHAREDIR)/data/layouts
+	mkdir -p $(RESISTENCIASHAREDIR)/data/music
 	mkdir -p $(RESISTENCIASHAREDIR)/data/teams
 	mkdir -p $(RESISTENCIASHAREDIR)/data/teams/rules
 	mkdir -p $(RESISTENCIASHAREDIR)/data/teams/formations
@@ -74,6 +75,7 @@ install-target: make-install-dirs
 	install -m 644 data/glade/*.glade $(RESISTENCIASHAREDIR)/data/glade
 	install -m 644 data/layouts/*.xml $(RESISTENCIASHAREDIR)/data/layouts
 	install -m 644 data/fonts/*.ttf $(RESISTENCIASHAREDIR)/data/fonts
+	install -m 644 data/music/*.ogg $(RESISTENCIASHAREDIR)/data/music
 	install -m 644 data/teams/rules/*.clp $(RESISTENCIASHAREDIR)/data/teams/rules
 	install -m 644 data/teams/formations/*.clp $(RESISTENCIASHAREDIR)/data/teams/formations
 	install -m 644 data/images/resistencia1812.png \
