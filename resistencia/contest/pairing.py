@@ -140,3 +140,15 @@ def make_pairings(teams, back_round=False):
         matchs = matchs + _generate_back_round(matchs)
 
     return matchs
+
+def test_pairing(main_team, teams, team_id = 0):
+    random.shuffle(teams)
+
+    matchs = []
+    for team in teams:
+        if team_id == 0:
+            matchs.append(main_team, team)
+        else:
+            match.append(team, main_team)
+
+    return matchs
