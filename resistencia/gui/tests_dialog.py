@@ -22,8 +22,18 @@ import os.path
 
 import gtk
 
+import time
+
 from guadaboard import guada_board
 from resistencia import configure, xdg, filenames
+from resistencia.tests import tests
+
+def _clean_dictionary(d):
+    l = []
+    for k in d:
+        l.append(d[k])
+
+    return l
 
 class testDialog:
     # --- List and handler functions
@@ -132,10 +142,10 @@ class testDialog:
         self.tests_dialog.hide()
 
     def on_btn_filechooser_rules_file_set(self, widget, data=None):
-        self.rules_main_team = widget.get_uri()
+        self.rules_main_team = widget.get_uri().replace('file://','')
     
     def on_btn_filechooser_formation_file_set(self, widget, data=None):
-        self.formation_main_team = widget.get_uri()
+        self.formation_main_team = widget.get_uri().replace('file://','')
 
     def on_spin_rounds_change_value(self, widget, data=None):
         self.num_rounds = widget.get_value()
@@ -191,14 +201,16 @@ class testDialog:
         self.file_chooser_formation.hide()
         del self.rules_selected_file
         del self.formation_selected_file
-
-    def on_btn_apply_clicked(self, widget, data=None):
-        print self.teams
-        print self.files
-        print self.num_rounds
-        
+    
     def on_btn_cancel_clicked(self, widget, data=None):
         self.tests_dialog.hide()
-        
 
-    
+    def on_btn_apply_clicked(self, widget, data=None):        
+        main_team = (self.rules_main_team, self.formation_main_team)
+
+        t = tests.TestSuite(main_team, _clean_dictionary(self.teams),
+                            self.num_rounds)
+        t.run_test_suite()
+
+        print t.get_test_stats()
+

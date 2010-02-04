@@ -18,13 +18,16 @@
 # Copyright (C) 2010, Pablo Recio Quijano
 #----------------------------------------------------------------------
 
+import time
+
 from guadaboard import guada_board
 #from resistencia import xdg
 
-import round
+from resistencia.contest import round
 
 class TestRound(round.Round):
-    def __init__ (self, matchs, translator, log_file, num_turns = 150, player = 0):
+    def __init__ (self, matchs, translator, num_turns = 150,
+                  log_file=None, player = 0):
         #player must be 0 or 1
         round.Round.__init__(self, matchs, translator, log_file, num_turns)
         self.player_team = player
@@ -56,8 +59,11 @@ class TestRound(round.Round):
         teamA = (self.translator[teamA_key],)
         teamB = (self.translator[teamB_key],)
 
+        print teamA
+        print teamB
+
         result, stats = guada_board.run(teamA, teamB, fast=True, get_stats=True,
-                                        number_turns = self.number_turns)
+                                        number_turns=self.num_turns, dont_log=True)
         
         self.round[self.next_game] = (self.round[self.next_game][0], True, result)
 

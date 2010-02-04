@@ -147,8 +147,8 @@ def test_pairing(main_team, teams, team_id = 0):
     matchs = []
     for team in teams:
         if team_id == 0:
-            matchs.append(main_team, team)
+            matchs.append((main_team, team))
         else:
-            match.append(team, main_team)
+            matchs.append((team, main_team))
 
     return matchs
