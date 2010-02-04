@@ -32,25 +32,30 @@ def get_game_file_stats(filename):
     stats_teamA['wins'] = 0
     stats_teamA['looses'] = 0
     stats_teamA['draws'] = 0
+    stats_teamA['turns_winning'] = 0
+    stats_teamA['turns_losing'] = 0
     stats_teamB['wins'] = 0
     stats_teamB['looses'] = 0
     stats_teamB['draws'] = 0
+    stats_teamB['turns_winning'] = 0
+    stats_teamB['turns_losing'] = 0
     
     if winner == 1:
         stats_teamA['wins'] = 1
         stats_teamB['looses'] = 1
+        stats_teamA['turns_winning'] = num_turns
+        stats_teamB['turns_losing'] = num_turns
     elif winner == -1:
         stats_teamA['looses'] = 1
         stats_teamB['wins'] = 1
+        stats_teamA['turns_losing'] = num_turns
+        stats_teamB['turns_winning'] = num_turns
     else:
         stats_teamA['draws'] = 1
         stats_teamB['draws'] = 1
-
-    stats_teamA['num_turns'] = num_turns
-    stats_teamB['num_turns'] = num_turns
     
     stats_teamA['num_pieces'], stats_teamB['num_pieces'] = _count_pieces(final_board)
-    stats_teamA['num_values'], stats_teamB['num_values'] = _count_values(final_board)
+    stats_teamA['val_pieces'], stats_teamB['val_pieces'] = _count_values(final_board)
     
     stats_teamA['max_death'], stats_teamB['max_death'] = _check_death(6, game)
     

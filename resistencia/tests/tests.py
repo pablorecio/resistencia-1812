@@ -66,7 +66,7 @@ class TestSuite:
             round_games = pairing.test_pairing(self.key_main_team[0],
                                                self.keys_teams, i%2)
             self.rounds.append(test_round.TestRound(round_games, self.translator,
-                                                    i%2))
+                                                    player=i%2))
 
         self.total_stats = {}
         self.total_stats['wins'] = 0
@@ -91,7 +91,7 @@ class TestSuite:
             for j in range(n):
                 r.play_match()
 
-            self._merge_stats(get_round_stats[i%2])
+            self._merge_stats(r.get_round_stats())
 
     def get_test_stats(self):
         return self.total_stats

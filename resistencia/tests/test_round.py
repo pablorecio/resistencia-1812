@@ -44,12 +44,12 @@ class TestRound(round.Round):
 
     def get_round_stats(self):
         if self.completed:
-            return self.rounds_stats
+            return self.round_stats
         else:
             raise round.RoundError('Not all games played')
 
     def _merge_stats(self, match_stats):
-        for k in self.round_stats:
+        for k in match_stats:
             self.round_stats[k] = self.round_stats[k] + match_stats[k]
 
     def play_match(self):
@@ -70,7 +70,7 @@ class TestRound(round.Round):
         self.next_game = self.next_game + 1
         self.completed = (self.next_game == self.number_games)
 
-        self._merge_stats(stats[self.player])
+        self._merge_stats(stats[self.player_team])
 
         return (self.round[self.next_game-1][0], self.round[self.next_game-1][2])
         
