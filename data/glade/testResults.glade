@@ -1,0 +1,260 @@
+<?xml version="1.0"?>
+<interface>
+  <requires lib="gtk+" version="2.16"/>
+  <!-- interface-naming-policy project-wide -->
+  <object class="GtkDialog" id="test_result_dialog">
+    <property name="border_width">5</property>
+    <property name="type_hint">normal</property>
+    <property name="has_separator">False</property>
+    <signal name="close" handler="on_test_result_dialog_close"/>
+    <child internal-child="vbox">
+      <object class="GtkVBox" id="dialog-vbox1">
+        <property name="visible">True</property>
+        <property name="orientation">vertical</property>
+        <property name="spacing">2</property>
+        <child>
+          <object class="GtkHBox" id="hbox1">
+            <property name="visible">True</property>
+            <child>
+              <object class="GtkTable" id="table1">
+                <property name="visible">True</property>
+                <property name="n_rows">7</property>
+                <property name="n_columns">2</property>
+                <child>
+                  <object class="GtkLabel" id="label1">
+                    <property name="visible">True</property>
+                    <property name="label" translatable="yes">Number of games:</property>
+                    <property name="justify">right</property>
+                  </object>
+                  <packing>
+                    <property name="x_options"></property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="label2">
+                    <property name="visible">True</property>
+                    <property name="label" translatable="yes">Wins:</property>
+                    <property name="justify">right</property>
+                  </object>
+                  <packing>
+                    <property name="top_attach">1</property>
+                    <property name="bottom_attach">2</property>
+                    <property name="x_options"></property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="label3">
+                    <property name="visible">True</property>
+                    <property name="label" translatable="yes">Looses:</property>
+                    <property name="justify">right</property>
+                  </object>
+                  <packing>
+                    <property name="top_attach">2</property>
+                    <property name="bottom_attach">3</property>
+                    <property name="x_options"></property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="label4">
+                    <property name="visible">True</property>
+                    <property name="label" translatable="yes">Draws:</property>
+                  </object>
+                  <packing>
+                    <property name="top_attach">3</property>
+                    <property name="bottom_attach">4</property>
+                    <property name="x_options"></property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="label5">
+                    <property name="visible">True</property>
+                    <property name="label" translatable="yes">Turns used to win:</property>
+                    <property name="justify">right</property>
+                  </object>
+                  <packing>
+                    <property name="top_attach">4</property>
+                    <property name="bottom_attach">5</property>
+                    <property name="x_options"></property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="label6">
+                    <property name="visible">True</property>
+                    <property name="label" translatable="yes">Turns used to lose:</property>
+                    <property name="justify">right</property>
+                  </object>
+                  <packing>
+                    <property name="top_attach">5</property>
+                    <property name="bottom_attach">6</property>
+                    <property name="x_options"></property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="label7">
+                    <property name="visible">True</property>
+                    <property name="label" translatable="yes">Max value piece dies at turn:</property>
+                    <property name="justify">right</property>
+                  </object>
+                  <packing>
+                    <property name="top_attach">6</property>
+                    <property name="bottom_attach">7</property>
+                    <property name="x_options"></property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="lbl_num_games">
+                    <property name="visible">True</property>
+                    <property name="label" translatable="yes">&lt;b&gt;@value@&lt;/b&gt;</property>
+                    <property name="use_markup">True</property>
+                    <property name="justify">center</property>
+                  </object>
+                  <packing>
+                    <property name="left_attach">1</property>
+                    <property name="right_attach">2</property>
+                    <property name="x_options">GTK_EXPAND</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="lbl_wins">
+                    <property name="visible">True</property>
+                    <property name="label" translatable="yes">&lt;b&gt;@value@&lt;/b&gt;</property>
+                    <property name="use_markup">True</property>
+                    <property name="justify">center</property>
+                  </object>
+                  <packing>
+                    <property name="left_attach">1</property>
+                    <property name="right_attach">2</property>
+                    <property name="top_attach">1</property>
+                    <property name="bottom_attach">2</property>
+                    <property name="x_options">GTK_EXPAND</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="lbl_looses">
+                    <property name="visible">True</property>
+                    <property name="label" translatable="yes">&lt;b&gt;@value@&lt;/b&gt;</property>
+                    <property name="use_markup">True</property>
+                    <property name="justify">center</property>
+                  </object>
+                  <packing>
+                    <property name="left_attach">1</property>
+                    <property name="right_attach">2</property>
+                    <property name="top_attach">2</property>
+                    <property name="bottom_attach">3</property>
+                    <property name="x_options">GTK_EXPAND</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="lbl_draws">
+                    <property name="visible">True</property>
+                    <property name="label" translatable="yes">&lt;b&gt;@value@&lt;/b&gt;</property>
+                    <property name="use_markup">True</property>
+                    <property name="justify">center</property>
+                  </object>
+                  <packing>
+                    <property name="left_attach">1</property>
+                    <property name="right_attach">2</property>
+                    <property name="top_attach">3</property>
+                    <property name="bottom_attach">4</property>
+                    <property name="x_options">GTK_EXPAND</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="lbl_turns_win">
+                    <property name="visible">True</property>
+                    <property name="label" translatable="yes">&lt;b&gt;@value@&lt;/b&gt;</property>
+                    <property name="use_markup">True</property>
+                    <property name="justify">center</property>
+                  </object>
+                  <packing>
+                    <property name="left_attach">1</property>
+                    <property name="right_attach">2</property>
+                    <property name="top_attach">4</property>
+                    <property name="bottom_attach">5</property>
+                    <property name="x_options">GTK_EXPAND</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="lbl_turns_lose">
+                    <property name="visible">True</property>
+                    <property name="label" translatable="yes">&lt;b&gt;@value@&lt;/b&gt;</property>
+                    <property name="use_markup">True</property>
+                    <property name="justify">center</property>
+                  </object>
+                  <packing>
+                    <property name="left_attach">1</property>
+                    <property name="right_attach">2</property>
+                    <property name="top_attach">5</property>
+                    <property name="bottom_attach">6</property>
+                    <property name="x_options">GTK_EXPAND</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="lbl_max_piece">
+                    <property name="visible">True</property>
+                    <property name="label" translatable="yes">&lt;b&gt;@value@&lt;/b&gt;</property>
+                    <property name="use_markup">True</property>
+                    <property name="justify">center</property>
+                  </object>
+                  <packing>
+                    <property name="left_attach">1</property>
+                    <property name="right_attach">2</property>
+                    <property name="top_attach">6</property>
+                    <property name="bottom_attach">7</property>
+                    <property name="x_options">GTK_EXPAND</property>
+                  </packing>
+                </child>
+              </object>
+              <packing>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkImage" id="pie_chart">
+                <property name="visible">True</property>
+              </object>
+              <packing>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="position">1</property>
+          </packing>
+        </child>
+        <child internal-child="action_area">
+          <object class="GtkHButtonBox" id="dialog-action_area1">
+            <property name="visible">True</property>
+            <property name="layout_style">end</property>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <object class="GtkButton" id="btn_apply">
+                <property name="label">gtk-ok</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="use_stock">True</property>
+                <signal name="clicked" handler="on_btn_apply_clicked"/>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="pack_type">end</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+    <action-widgets>
+      <action-widget response="0">btn_apply</action-widget>
+    </action-widgets>
+  </object>
+</interface>

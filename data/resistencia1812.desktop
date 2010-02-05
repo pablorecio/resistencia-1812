@@ -1,0 +1,13 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Cadiz defense: 1812
+Name[es]=Resistencia en Cádiz: 1812
+GenericName=Expert system manager
+GenericName[es]=Gestor de sistemas expertos
+Comment=Create, test and compite with your expert systems
+Comment[es]=Crea, prueba y compite con tus sistemas expertos
+Icon=resistencia1812
+Exec=resistencia1812 %F
+Terminal=false
+Categories=GNOME;Game;BoardGame;
