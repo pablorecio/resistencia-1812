@@ -46,8 +46,8 @@ class testResult:
         wins = stats['wins']
         draws = stats['draws']
         looses = stats['looses']
-        turns_winning = stats['turns_winning'] / num_games
-        turns_loosing = stats['turns_losing'] / num_games
+        turns_winning = stats['turns_winning'] / wins
+        turns_loosing = stats['turns_losing'] / looses
         num_pieces = stats['num_pieces'] / num_games
         val_pieces = stats['val_pieces'] / num_games
         max_death = stats['max_death'] / num_games

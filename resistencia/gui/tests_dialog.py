@@ -23,19 +23,23 @@ import os.path
 import gtk
 
 import time
+import types
 
 from guadaboard import guada_board
 from resistencia import configure, xdg, filenames
-from resistencia.tests import tests
+from resistencia.tests import tests, selection
 
 import tests_result
 
 def _clean_dictionary(d):
-    l = []
-    for k in d:
-        l.append(d[k])
-
-    return l
+    if type(d) == types.ListType:
+        return d
+    else:
+        l = []
+        for k in d:
+            l.append(d[k])
+            
+        return l
 
 class testDialog:
     # --- List and handler functions
@@ -209,6 +213,9 @@ class testDialog:
 
     def on_btn_apply_clicked(self, widget, data=None):        
         main_team = (self.rules_main_team, self.formation_main_team)
+
+        if self.all_teams:
+            self.teams = selection.get_installed_teams()
 
         t = tests.TestSuite(main_team, _clean_dictionary(self.teams),
                             self.num_rounds)
