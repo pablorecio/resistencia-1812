@@ -27,9 +27,18 @@ import pygame.font
 import pygame.mixer
 
 from libguadalete import libguadalete, file_parser, stats
-from resistencia import filenames, xdg
+from libguadalete.libguadalete import FileError as LibFileError
+from resistencia import filenames, xdg, configure
 import game
 import layout
+
+class Error(Exception):
+    """Base class for exceptions in this module."""
+    pass
+
+class GuadaFileError(Error):
+    def __init__(self, msg):
+        self.msg = msg
 
 def _load_game_from_file(src_file, teamA, teamB, path_piece_default, xml_file,
                          hidden=False):
@@ -161,7 +170,10 @@ def run(teamA, teamB, fast=False, dont_log=False, hidden=False,
         path_piece_default= xdg.get_data_path('images/piece-default.png'),
         xml_file= xdg.get_data_path('layouts/main-layout.xml'), get_stats=False):
     lib = libguadalete.LibGuadalete(teamA[0],teamB[0],number_turns)
-    out_file, winner = lib.run_game()
+    try:
+        out_file, winner = lib.run_game()
+    except LibFileError as e:
+        raise GuadaFileError(e.msg)
     if not fast:
         name_team_A = filenames.extract_name_expert_system(teamA[0])
         name_team_B = filenames.extract_name_expert_system(teamB[0])

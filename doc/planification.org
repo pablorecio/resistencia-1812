@@ -2,7 +2,7 @@ El objetivo de este fichero de planificación es llevar un control estricto
 de las tareas que faltan por realizar, de forma que me vaya /obligando/ 
 a ir cumpliendo los objetivos.
 
-* Corto plazo [4/7]
+* Corto plazo [5/7]
 Este apartado sirve para indicar tareas pequeñas que puedo realizar en
 una ó dos tardes, de forma que me sirva para tener una visión un poco más
 concreta del trabajo que me queda por hacer.
@@ -43,7 +43,8 @@ concreta del trabajo que me queda por hacer.
     de =guada-board=, modificando la clase =Piece=
 *** DONE Número de turnos 
     Pues eso
-** TODO Screencast
+** DONE Screencast
+   CLOSED: [2010-02-06 sáb 10:32]
 * Medio / largo plazo [1/2]
 En este apartado voy a indicar tareas importantes que hay que realizar, pero
 que requieren más tiempo para hacerlas.
@@ -94,3 +95,37 @@ documentación para el desarrollo.
 ** TODO otros [0/2]
    - [ ] [[./src/configure.py][configure.py]]
    - [ ] [[./src/resistencia.py][resistencia.py]]
+
+
+Bueno, estamos a <2010-02-06 sáb>, y mi previsión es entregar el PFC el día 
+<2010-02-16 mar>, así que vamos justos. De todas formas, a esto le falta poco.
+La siguiente lista muestra las tareas por hacer cara a esta entrega.
+
+* Para la entrega del PFC [18%]
+** DONE Tratamiento de excepciones
+   CLOSED: [2010-02-06 sáb 12:15]
+Lanzar excepción (y capturarla) cuando el fichero leido por PyCLIPS no 
+esté correcto.
+** TODO Indicar ganador de la partida
+** TODO Tratar los errores de input en los diálogos
+** TODO Ficheros de traducciones [0/4]
+   - [ ] Castellano
+   - [ ] Francés
+   - [ ] Alemán
+   - [ ] Italiano
+** TODO Competiciones restantes [0/3]
+   - [ ] Torneo eliminatorio
+   - [ ] Liguilla
+   - [ ] Playoff
+
+** TODO Humano vs IA
+** TODO Ampliabilidad del nucleo
+** TODO Mejoras en las pruebas [0/4]
+   - [ ] Generación de fichero CSV
+   - [ ] Diálogo de barra de progreso
+   - [ ] *BUG*: Si no se gana o no se pierde, hay división entre cero
+   - [ ] Favicon, título, reestructuración
+** DONE Opción sin música (en el settings)
+   CLOSED: [2010-02-06 sáb 12:39]
+** TODO Nuevo Layout
+** TODO Paquete Debian

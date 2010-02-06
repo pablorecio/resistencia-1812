@@ -67,6 +67,11 @@ class quickGameDialog:
         self.result_dialog.connect('response', lambda d, r: d.hide())
         self.result_dialog.set_transient_for(self.quick_game)
 
+        self.dlg_bad_file = builder.get_object('dlg_bad_file')
+        self.dlg_bad_file.connect('response', lambda d, r: d.hide())
+        self.dlg_bad_file.set_transient_for(self.quick_game)
+        
+
         self.num_turns = 120
         self.spin_turns = builder.get_object("spin_num_turns")
         self.spin_turns.set_range(50,300)
@@ -146,15 +151,24 @@ class quickGameDialog:
             self.quick_game.hide()
             while gtk.events_pending():
                 gtk.main_iteration(False)
-            self.load_board()
+            try:
+                self.load_board()
+            except guada_board.GuadaFileError as e:
+                self.dlg_bad_file.format_secondary_text(e.msg)
+                self.dlg_bad_file.run()
+                self.quick_game.show()
 
     def load_board(self):
-        winner = guada_board.run(((self.es_team_a,self.team_team_a),
-                                  xdg.get_data_path('images/piece-orange.png')),
-                                 ((self.es_team_b,self.team_team_b),
-                                  xdg.get_data_path('images/piece-violete.png')),
-                                 self.fast_game, self.dont_save_game,
-                                 self.hidde_values, str(int(self.num_turns)))
+        try:
+            winner = guada_board.run(((self.es_team_a,self.team_team_a),
+                                      xdg.get_data_path('images/piece-orange.png')),
+                                     ((self.es_team_b,self.team_team_b),
+                                      xdg.get_data_path('images/piece-violete.png')),
+                                     self.fast_game, self.dont_save_game,
+                                     self.hidde_values, str(int(self.num_turns)))
+        except guada_board.GuadaFileError as e:
+            raise guada_board.GuadaFileError(e.msg)
+            
         if self.fast_game:
             result = ''
             name_teamA = filenames.extract_name_expert_system((self.es_team_a,
