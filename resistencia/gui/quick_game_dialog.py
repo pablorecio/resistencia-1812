@@ -25,6 +25,9 @@ import gtk
 
 from guadaboard import guada_board
 from resistencia import configure, xdg, filenames
+from resistencia.nls import gettext as _
+
+import notify_result
 
 class quickGameDialog:    
     def __init__(self, parent):
@@ -63,9 +66,9 @@ class quickGameDialog:
         self.error_team_b.connect('response', lambda d, r: d.hide())
         self.error_team_b.set_transient_for(self.quick_game)
 
-        self.result_dialog = builder.get_object("dlg_result")
-        self.result_dialog.connect('response', lambda d, r: d.hide())
-        self.result_dialog.set_transient_for(self.quick_game)
+        #self.result_dialog = builder.get_object("dlg_result")
+        #self.result_dialog.connect('response', lambda d, r: d.hide())
+        #self.result_dialog.set_transient_for(self.quick_game)
 
         self.dlg_bad_file = builder.get_object('dlg_bad_file')
         self.dlg_bad_file.connect('response', lambda d, r: d.hide())
@@ -120,28 +123,28 @@ class quickGameDialog:
     def on_btn_apply_clicked(self, widget, data=None):
         correct = True
         if len(self.es_team_a) == 0:
-            self.error_es_a.show()
+            self.error_es_a.run()
             correct = False
         else:
             self.es_team_a = self.es_team_a[7:]
             print self.es_team_a
             
         if len(self.es_team_b) == 0:
-            self.error_es_b.show()
+            self.error_es_b.run()
             correct = False
         else:
             self.es_team_b = self.es_team_b[7:]
             print self.es_team_b
             
         if len(self.team_team_a) == 0:
-            self.error_team_a.show()
+            self.error_team_a.run()
             correct = False
         else:
             self.team_team_a = self.team_team_a[7:]
             print self.team_team_a
             
         if len(self.team_team_b) == 0:
-            self.error_team_b.show()
+            self.error_team_b.run()
             correct = False
         else:
             self.team_team_b = self.team_team_b[7:]
@@ -170,17 +173,10 @@ class quickGameDialog:
             raise guada_board.GuadaFileError(e.msg)
             
         if self.fast_game:
-            result = ''
-            name_teamA = filenames.extract_name_expert_system((self.es_team_a,
-                                                               self.team_team_a))
-            name_teamB = filenames.extract_name_expert_system((self.es_team_b,
-                                                               self.team_team_b))
-            if winner == 0:
-                result = 'Empate'
-            elif winner == 1:
-                result = 'Gana ' + name_teamA
-            else:
-                result = 'Gana ' + name_teamB
-                
-            self.result_dialog.format_secondary_text(result)
-            self.result_dialog.run()
+            teamA = (self.es_team_a, self.team_team_a)
+            teamB = (self.es_team_b, self.team_team_b)
+            name_teamA = filenames.extract_name_expert_system(teamA)
+            name_teamB = filenames.extract_name_expert_system(teamB)
+            n = notify_result.notifyResult((name_teamA, name_teamB), winner)
+            
+            n.dlg_result.run()

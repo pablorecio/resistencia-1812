@@ -96,12 +96,16 @@ def generate_filename (filetype, teams=None):
     iso_date = iso_date[:iso_date.find('.')]
 
     tail = ''
+    extension = '.txt'
 
     if filetype == 'game':
         name_teamA = extract_name_expert_system(teams[0])
         name_teamB = extract_name_expert_system(teams[1])
         tail = '_' + name_teamA + '-vs-' + name_teamB
+    if filetype == 'stats':
+        tail = '_' + extract_name_expert_system(teams)
+        extension = '.csv'
 
-    filename = filetype + '_' + iso_date + tail + '.txt'
+    filename = filetype + '_' + iso_date + tail + extension
 
     return filename

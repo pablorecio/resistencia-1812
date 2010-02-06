@@ -533,7 +533,7 @@
     <property name="skip_taskbar_hint">True</property>
     <property name="has_separator">False</property>
     <property name="buttons">ok</property>
-    <property name="text" translatable="yes">Resultado de la partida</property>
+    <property name="text" translatable="yes">Result of the game</property>
     <property name="secondary_text">%RESULTADO%</property>
     <child internal-child="vbox">
       <object class="GtkVBox" id="dialog-vbox10">

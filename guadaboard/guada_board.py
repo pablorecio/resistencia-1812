@@ -29,6 +29,7 @@ import pygame.mixer
 from libguadalete import libguadalete, file_parser, stats
 from libguadalete.libguadalete import FileError as LibFileError
 from resistencia import filenames, xdg, configure
+from resistencia.gui import notify_result
 import game
 import layout
 
@@ -89,6 +90,7 @@ def _load_game_from_file(src_file, teamA, teamB, path_piece_default, xml_file,
                 if music:
                     pygame.mixer.music.stop()
                 pygame.display.quit()
+                show_dialog_result((teamA[0], teamB[0]), winner)
                 return winner
             elif event.type == pygame.KEYDOWN:
                 if event.key == 275:
@@ -120,6 +122,7 @@ def _load_game_from_file(src_file, teamA, teamB, path_piece_default, xml_file,
                         if music:
                             pygame.mixer.music.stop()
                         pygame.display.quit()
+                        show_dialog_result((teamA[0], teamB[0]), winner)
                         return winner
                     else:
                         if res == 'button_left_2':
@@ -208,4 +211,6 @@ def run_from_file(src_file,
 
     return winner
 
-    
+def show_dialog_result((name_teamA, name_teamB), winner):
+    n = notify_result.notifyResult((name_teamA, name_teamB), winner)
+    n.dlg_result.run()
