@@ -44,9 +44,9 @@ if sys.platform == 'linux2':
 
 # Find out the location of resistencia's working directory, and insert it to sys.path
 basedir = os.path.dirname(os.path.realpath(__file__))
-if not os.path.exists(os.path.join(basedir, "resistencia.py")):
+if not os.path.exists(os.path.join(basedir, "resistencia1812.py")):
     cwd = os.getcwd()
-    if os.path.exists(os.path.join(cwd, "resistencia.py")):
+    if os.path.exists(os.path.join(cwd, "resistencia1812.py")):
         basedir = cwd
 sys.path.insert(0, basedir)
 

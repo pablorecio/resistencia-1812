@@ -25,6 +25,7 @@ import gtk
 
 from resistencia import configure, filenames, xdg
 from resistencia.contest import main as contest
+from resistencia.nls import gettext as _
 
 class contestDialog:
     # --- List and handler functions
@@ -83,9 +84,9 @@ class contestDialog:
         self.cRules = 1
         self.cFormation = 2
         
-        self.sName = "Name"
-        self.sRules = "Rules"
-        self.sFormation = "Formation"
+        self.sName = _("Name")
+        self.sRules = _("Rules")
+        self.sFormation = _("Formation")
         
         self.list_view = builder.get_object("list_es_view")
         self.list_view.set_reorderable(False)

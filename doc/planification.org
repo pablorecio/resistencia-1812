@@ -101,16 +101,17 @@ Bueno, estamos a <2010-02-06 sáb>, y mi previsión es entregar el PFC el día
 <2010-02-16 mar>, así que vamos justos. De todas formas, a esto le falta poco.
 La siguiente lista muestra las tareas por hacer cara a esta entrega.
 
-* Para la entrega del PFC [36%]
+* Para la entrega del PFC [45%]
 ** DONE Tratamiento de excepciones
    CLOSED: [2010-02-06 sáb 12:15]
 Lanzar excepción (y capturarla) cuando el fichero leido por PyCLIPS no 
 esté correcto.
 ** DONE Indicar ganador de la partida
    CLOSED: [2010-02-06 sáb 18:41]
-** TODO Tratar los errores de input en los diálogos
-** TODO Ficheros de traducciones [0/4]
-   - [ ] Castellano
+** DONE Tratar los errores de input en los diálogos
+   CLOSED: [2010-02-06 sáb 18:55]
+** TODO Ficheros de traducciones [1/4]
+   - [X] Castellano
    - [ ] Francés
    - [ ] Alemán
    - [ ] Italiano

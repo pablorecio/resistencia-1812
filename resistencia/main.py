@@ -18,6 +18,16 @@
 ###############################################################################
 
 import locale, gettext
+import gtk
+import gtk.glade
+APP = 'resistencia1812'
+DIR = '/usr/share/locale'
+
+gettext.textdomain(APP)
+gettext.bindtextdomain(APP, DIR)
+gtk.glade.textdomain(APP)
+gtk.glade.bindtextdomain(APP, DIR)
+
 
 # set the locale to LANG, or the user's default
 locale.setlocale(locale.LC_ALL, '')

@@ -1,26 +1,247 @@
-# Spanish translations for PACKAGE package.
-# Copyright (C) 2009 THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# Spanish translations for resistencia-en-cadiz package
+# Traducciones al español para el paquete resistencia-en-cadiz.
+# Copyright (C) 2010 THE resistencia-en-cadiz'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the resistencia-en-cadiz package.
+# Riku the Ronin <pablo.recioquijano@alum.uca.es>, 2010.
 #
-# Riku the Ronin <rikutheronin@gmail.com>, 2009, 2010.
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: 0.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-23 18:56+0100\n"
-"PO-Revision-Date: 2010-01-23 19:05+0100\n"
-"Last-Translator: Riku the Ronin <rikutheronin@gmail.com>\n"
+"POT-Creation-Date: 2010-02-06 20:37+0100\n"
+"PO-Revision-Date: 2010-02-06 20:35+0100\n"
+"Last-Translator: Riku the Ronin <pablo.recioquijano@alum.uca.es>\n"
 "Language-Team: Spanish <>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../resistencia/main.py:42
+#: ../resistencia/main.py:52
 msgid "Loading main window"
 msgstr "Cargando ventana principal"
 
+#: ../resistencia/tests/tests.py:72
+msgid "Opponent"
+msgstr "Oponente"
+
+#: ../resistencia/tests/tests.py:72
+msgid "As team"
+msgstr "Como equipo"
+
+#: ../resistencia/tests/tests.py:73
+msgid "Result"
+msgstr "Resultad"
+
+#: ../resistencia/tests/tests.py:73 ../data/glade/quickGame.glade.h:11
+msgid "Number of turns"
+msgstr "Número de turno"
+
+#: ../resistencia/tests/tests.py:74
+msgid "Number of pieces"
+msgstr "Número de piezas"
+
+#: ../resistencia/tests/tests.py:74
+msgid "Value of the pieces"
+msgstr "Valor de las piezas"
+
+#: ../resistencia/tests/tests.py:75
+msgid "Turn when max value piece died"
+msgstr "Turno cuando muere la pieza de máximo valor"
+
+#: ../resistencia/gui/round_results.py:83
+msgid "Team name"
+msgstr "Nombre del equipo"
+
+#: ../resistencia/gui/round_results.py:99
+msgid "Team A"
+msgstr "Equipo A"
+
+#: ../resistencia/gui/round_results.py:100
+msgid "Team B"
+msgstr "Equipo B"
+
+#: ../resistencia/gui/tests_dialog.py:124
+#: ../resistencia/gui/contest_dialog.py:86
+msgid "Name"
+msgstr "Nombre"
+
+#: ../resistencia/gui/tests_dialog.py:125
+#: ../resistencia/gui/contest_dialog.py:87
+msgid "Rules"
+msgstr "Reglas"
+
+#: ../resistencia/gui/tests_dialog.py:126
+#: ../resistencia/gui/contest_dialog.py:88
+msgid "Formation"
+msgstr "Formación"
+
+#: ../resistencia/gui/notify_result.py:37
+msgid "Draw"
+msgstr "Empates"
+
+#: ../resistencia/gui/notify_result.py:39
+msgid "Wins "
+msgstr "Ganados"
+
+#: ../resistencia/gui/notify_result.py:41
+msgid "Gana "
+msgstr "Gana"
+
+#: ../libguadalete/libguadalete.py:94 ../libguadalete/libguadalete.py:101
+#: ../libguadalete/libguadalete.py:111 ../libguadalete/libguadalete.py:119
+msgid "Loading "
+msgstr "Cargando"
+
+#: ../libguadalete/libguadalete.py:100 ../libguadalete/libguadalete.py:106
+#: ../libguadalete/libguadalete.py:115 ../libguadalete/libguadalete.py:124
+msgid "Error parsing the file "
+msgstr "Error al analizar el fichero"
+
 #. ---------------------------------
+#: ../data/glade/results.glade.h:1
+msgid "<b>Classification</b>"
+msgstr "<b>Clasificación</b>"
+
+#: ../data/glade/results.glade.h:2
+msgid "<b>Results</b>"
+msgstr "<b>Resultados</b>"
+
+#: ../data/glade/results.glade.h:3
+msgid "Are you sure?"
+msgstr "¿Estás seguro?"
+
+#: ../data/glade/results.glade.h:4
+msgid "Confirmation"
+msgstr "Confirmación"
+
+#: ../data/glade/results.glade.h:5
+msgid "Final round"
+msgstr "Última ronda"
+
+#: ../data/glade/results.glade.h:6
+msgid ""
+"If you close this contest, you won't be able to restart\n"
+"it again, and you will have to start a new one."
+msgstr ""
+"Si cierras la competición no podrás volver a reiniciarla\n"
+"otra vez, y tendrás que empezar una nueva."
+
+#: ../data/glade/results.glade.h:8
+msgid "Results of the round"
+msgstr "Resultados de la ronda"
+
+#: ../data/glade/results.glade.h:9
+msgid "The end!"
+msgstr "¡Fin!"
+
+#: ../data/glade/results.glade.h:10
+msgid "This are the results of the final round"
+msgstr "Estos son los resultados de la última ronda"
+
+#: ../data/glade/resultNotifier.glade.h:1 ../data/glade/quickGame.glade.h:12
+msgid "Result of the game"
+msgstr "Resultados del juego"
+
+#: ../data/glade/resultNotifier.glade.h:2
+msgid "Results"
+msgstr "Resultados"
+
+#: ../data/glade/testResults.glade.h:1
+msgid "<b>@value@</b>"
+msgstr "<b>@value@</b>"
+
+#: ../data/glade/testResults.glade.h:2
+msgid "Draws:"
+msgstr "Empates:"
+
+#: ../data/glade/testResults.glade.h:3
+msgid "Looses:"
+msgstr "Partidas perdidas:"
+
+#: ../data/glade/testResults.glade.h:4
+msgid "Max value piece dies at turn:"
+msgstr "La pieza de mas valor muere en el turno:"
+
+#: ../data/glade/testResults.glade.h:5
+msgid "Number of games:"
+msgstr "Numero de juegos:"
+
+#: ../data/glade/testResults.glade.h:6
+msgid "Tests results for team @team@"
+msgstr "Resultado de las pruebas para el equipo @team@"
+
+#: ../data/glade/testResults.glade.h:7
+msgid "Turns used to lose:"
+msgstr "Turnos en los que pierdes"
+
+#: ../data/glade/testResults.glade.h:8
+msgid "Turns used to win:"
+msgstr "Turnos en los que ganas"
+
+#: ../data/glade/testResults.glade.h:9
+msgid "Wins:"
+msgstr "Partidas ganadas:"
+
+#: ../data/glade/testDialog.glade.h:1
+msgid "<b>Main expert system</b>"
+msgstr "<b>Sistema experto principal</b>"
+
+#: ../data/glade/testDialog.glade.h:2
+msgid "<b>Options</b>"
+msgstr "<b>Opciones</b>"
+
+#: ../data/glade/testDialog.glade.h:3 ../data/glade/contest.glade.h:3
+#: ../data/glade/tree.glade.h:1
+msgid "<b>Selected expert systems</b>"
+msgstr "<b>Selecciona sistema experto</b>"
+
+#: ../data/glade/testDialog.glade.h:4
+msgid "Calculating..."
+msgstr "Calculando..."
+
+#: ../data/glade/testDialog.glade.h:5
+msgid "Formation file"
+msgstr "Archivo de formación"
+
+#: ../data/glade/testDialog.glade.h:6
+msgid "Number of repetitions"
+msgstr "Número de repeticiones"
+
+#: ../data/glade/testDialog.glade.h:7
+msgid "Rules file"
+msgstr "Archivo de reglas"
+
+#: ../data/glade/testDialog.glade.h:8
+msgid "Running the test..."
+msgstr "Ejecutando las pruebas..."
+
+#: ../data/glade/testDialog.glade.h:9 ../data/glade/contest.glade.h:12
+#: ../data/glade/tree.glade.h:3
+msgid "Select the formation file"
+msgstr "Selecciona el archivo de formación"
+
+#: ../data/glade/testDialog.glade.h:10 ../data/glade/contest.glade.h:13
+#: ../data/glade/tree.glade.h:4
+msgid "Select the rules file"
+msgstr "Selecciona el archivo de reglas"
+
+#: ../data/glade/testDialog.glade.h:11
+msgid "Tests expert system"
+msgstr "Pruebas del sistema experto"
+
+#: ../data/glade/testDialog.glade.h:12
+msgid "Use all teams installed"
+msgstr "Usar todos los equipos instalados"
+
+#: ../data/glade/testDialog.glade.h:13
+msgid "You have no selected file for the Expert System"
+msgstr "No ha seleccionado el fichero de reglas"
+
+#: ../data/glade/testDialog.glade.h:14
+msgid "You have no selected file for the Team"
+msgstr "No ha seleccionado el fichero de formación"
+
 #: ../data/glade/main.glade.h:1
 msgid "Cadiz deffense: 1812"
 msgstr "Resistencia en Cádiz: 1812"
@@ -31,11 +252,11 @@ msgstr "Competiciones"
 
 #: ../data/glade/main.glade.h:3
 msgid "Copyright &#xA9; 2009 Pablo Recio Quijano"
-msgstr ""
+msgstr "Copyright &#xA9; 2009 Pablo Recio Quijano"
 
 #: ../data/glade/main.glade.h:4
 msgid "Expert system's Manager"
-msgstr "Gestor de Sistemas Expertos"
+msgstr "Gestor de sistemas expertos"
 
 #: ../data/glade/main.glade.h:5
 msgid "Laboratory"
@@ -43,11 +264,11 @@ msgstr "Laboratorio"
 
 #: ../data/glade/main.glade.h:6
 msgid "Previous games"
-msgstr "Partidas anteriores"
+msgstr "Partidas antiguas"
 
 #: ../data/glade/main.glade.h:7
 msgid "Quick game"
-msgstr "Partidas rápidas"
+msgstr "Partida rápida"
 
 #: ../data/glade/main.glade.h:8
 msgid "Settings"
@@ -55,7 +276,7 @@ msgstr "Configuración"
 
 #: ../data/glade/main.glade.h:9
 msgid "Sistema Experto para ense&#xF1;ar Sistemas Expertos"
-msgstr ""
+msgstr "Sistema Experto para ense&#xF1;ar Sistemas Expertos"
 
 #: ../data/glade/main.glade.h:10
 msgid ""
@@ -74,86 +295,138 @@ msgid ""
 msgstr ""
 
 #: ../data/glade/main.glade.h:22
-#, fuzzy
 msgid "You have to select a file"
-msgstr "No ha seleccionado un fichero para el equipo A"
+msgstr "Debe seleccionar un fichero"
+
+#: ../data/glade/contest.glade.h:1
+msgid "<b>Contest format</b>"
+msgstr "<b>Formato de la competición</b>"
+
+#: ../data/glade/contest.glade.h:2
+msgid "<b>Generals</b>"
+msgstr "<b>Generales</b>"
+
+#: ../data/glade/contest.glade.h:4
+msgid "Back round"
+msgstr "Ida y vuelta"
+
+#: ../data/glade/contest.glade.h:5
+msgid "Contest settings"
+msgstr "Configuraciones de la competición"
+
+#: ../data/glade/contest.glade.h:6
+msgid "Elimination cup"
+msgstr "Copa eliminatoria"
+
+#: ../data/glade/contest.glade.h:7
+msgid "Groups"
+msgstr "Grupos"
+
+#: ../data/glade/contest.glade.h:8
+msgid "League"
+msgstr "Liga"
+
+#: ../data/glade/contest.glade.h:9
+msgid "Main configuration"
+msgstr "Configuración principal"
+
+#: ../data/glade/contest.glade.h:10
+msgid "Only results"
+msgstr "Solo los resultados"
+
+#: ../data/glade/contest.glade.h:11
+msgid "Players"
+msgstr "Jugadores"
+
+#: ../data/glade/tree.glade.h:2
+msgid "Select players for the contest"
+msgstr "Seleccionar los jugadores para una competición"
 
 #: ../data/glade/settingsDialog.glade.h:1
 msgid "<b>Path to previous games</b>"
-msgstr "<b>Ruta para las partidas antiguas</b>"
+msgstr "<b>Ruta a las partidas antiguas</b>"
 
 #: ../data/glade/settingsDialog.glade.h:2
 msgid "<b>Path to systems experts</b>"
-msgstr "<b>Ruta para los sistemas experto</b>"
+msgstr "<b>Ruta a los sistemas expertos</b>"
 
 #: ../data/glade/settingsDialog.glade.h:3
+msgid "Active music on the board"
+msgstr "Activar la música en el tablero"
+
+#: ../data/glade/settingsDialog.glade.h:4
 msgid "Language"
 msgstr "Idioma"
 
-#: ../data/glade/settingsDialog.glade.h:4
+#: ../data/glade/settingsDialog.glade.h:5
 msgid "Settings - Cadiz deffense: 1812"
 msgstr "Configuración - Resistencia en Cádiz: 1812"
 
-#: ../data/glade/quickGame.glade.h:1
+#: ../data/glade/quickGame.glade.h:2
+#, no-c-format
+msgid "%VALUE%"
+msgstr "%VALUE%"
+
+#: ../data/glade/quickGame.glade.h:3
 msgid "<b>Settings</b>"
 msgstr "<b>Configuración</b>"
 
-#: ../data/glade/quickGame.glade.h:2
+#: ../data/glade/quickGame.glade.h:4
 msgid "<b>Team A</b>"
 msgstr "<b>Equipo A</b>"
 
-#: ../data/glade/quickGame.glade.h:3
+#: ../data/glade/quickGame.glade.h:5
 msgid "<b>Team B</b>"
 msgstr "<b>Equipo B</b>"
 
-#: ../data/glade/quickGame.glade.h:4
+#: ../data/glade/quickGame.glade.h:6
 msgid "Don't save the game"
 msgstr "No guardar la partida"
 
-#: ../data/glade/quickGame.glade.h:5
+#: ../data/glade/quickGame.glade.h:7
+msgid "Error finded"
+msgstr "Error encontrado"
+
+#: ../data/glade/quickGame.glade.h:8
+msgid "Error parsing a file"
+msgstr "Error leyendo un fichero"
+
+#: ../data/glade/quickGame.glade.h:9
 msgid "Fast game"
 msgstr "Partida rápida"
 
-#: ../data/glade/quickGame.glade.h:6
-msgid "Hide pieces's values"
-msgstr "Esconder los valores de las piezas"
-
-#: ../data/glade/quickGame.glade.h:7
-msgid "Number of turns"
-msgstr "Número de turnos"
-
-#: ../data/glade/quickGame.glade.h:8
-msgid "Resultado de la partida"
-msgstr ""
-
-#: ../data/glade/quickGame.glade.h:9
-msgid "Select formation for team A"
-msgstr "Formación para el equipo A"
-
 #: ../data/glade/quickGame.glade.h:10
-msgid "Select formation for team B"
-msgstr "Formación para el equipo B"
+msgid "Hide pieces's values"
+msgstr "Esconder el valor de las piezas"
 
-#: ../data/glade/quickGame.glade.h:11
+#: ../data/glade/quickGame.glade.h:13
+msgid "Select formation for team A"
+msgstr "Seleccionar formación para el equipo A"
+
+#: ../data/glade/quickGame.glade.h:14
+msgid "Select formation for team B"
+msgstr "Seleccionar formación para el equipo B"
+
+#: ../data/glade/quickGame.glade.h:15
 msgid "System Expert for team A"
 msgstr "Reglas para el equipo A"
 
-#: ../data/glade/quickGame.glade.h:12
+#: ../data/glade/quickGame.glade.h:16
 msgid "System Expert for team B"
 msgstr "Reglas para el equipo B"
 
-#: ../data/glade/quickGame.glade.h:13
+#: ../data/glade/quickGame.glade.h:17
 msgid "You have no selected file for the Expert System A"
-msgstr "No ha seleccionado un fichero para el Sistema experto A"
+msgstr "No ha seleccionado el fichero de reglas para el equipo A"
 
-#: ../data/glade/quickGame.glade.h:14
+#: ../data/glade/quickGame.glade.h:18
 msgid "You have no selected file for the Expert System B"
-msgstr "No ha seleccionado un fichero para el Sistema experto B"
+msgstr "No ha seleccionado el fichero de reglas para el equipo B"
 
-#: ../data/glade/quickGame.glade.h:15
+#: ../data/glade/quickGame.glade.h:19
 msgid "You have no selected file for the Team A"
-msgstr "No ha seleccionado un fichero para el equipo A"
+msgstr "No ha seleccionado el fichero de formación para el equipo A"
 
-#: ../data/glade/quickGame.glade.h:16
+#: ../data/glade/quickGame.glade.h:20
 msgid "You have no selected file for the team B"
-msgstr "No ha seleccionado un fichero para el equipo B"
+msgstr "No ha seleccionado el fichero de formación para el equipo B"
