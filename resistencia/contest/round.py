@@ -34,7 +34,7 @@ class RoundError(Error):
         msg  -- explanation of the error
     """
 
-    def __init__(self, expr, msg):
+    def __init__(self, msg):
         self.msg = msg
 
 class Round(object):

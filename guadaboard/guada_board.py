@@ -50,6 +50,10 @@ def _load_game_from_file(src_file, teamA, teamB, path_piece_default, xml_file,
         print 'Ganó ' + teamA[0]
     else:        
         print 'Ganó ' + teamB[0]
+
+    music = False
+    if configure.load_configuration()['music_active'] == '1':
+        music = True
     
     pygame.init()
 
@@ -59,8 +63,9 @@ def _load_game_from_file(src_file, teamA, teamB, path_piece_default, xml_file,
     screen = pygame.display.set_mode(xml_layout.get_window_size())
     pygame.display.set_caption(xml_layout.get_window_title())
 
-    pygame.mixer.music.load(xdg.get_data_path('music/walking_on_old_stones.ogg'))
-    pygame.mixer.music.play()
+    if music:
+        pygame.mixer.music.load(xdg.get_data_path('music/walking_on_old_stones.ogg'))
+        pygame.mixer.music.play()
 
     res_game = game.Game(entire_game, teamA[1],
                          teamB[1], path_piece_default,hidden=hidden)
@@ -81,7 +86,8 @@ def _load_game_from_file(src_file, teamA, teamB, path_piece_default, xml_file,
         time_passed = clock.tick(50)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                pygame.mixer.music.stop()
+                if music:
+                    pygame.mixer.music.stop()
                 pygame.display.quit()
                 return winner
             elif event.type == pygame.KEYDOWN:
@@ -111,7 +117,8 @@ def _load_game_from_file(src_file, teamA, teamB, path_piece_default, xml_file,
                 res = get_collision(event.pos, rects)
                 if event.button == 1 and res != '':
                     if res == 'button_exit':
-                        pygame.mixer.music.stop()
+                        if music:
+                            pygame.mixer.music.stop()
                         pygame.display.quit()
                         return winner
                     else:
