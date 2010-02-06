@@ -83,14 +83,19 @@ class TestSuite:
         for k in self.total_stats:
             self.total_stats[k] = self.total_stats[k] + round_stats[k]
 
-    def run_test_suite(self):
+    def run_test_suite(self, progress_bar):
         for i in range(self.rounds_number):
             r = self.rounds[i]
             n = r.get_number_of_games()
 
             for j in range(n):
                 r.play_match()
-
+                progress_bar.pulse()
+                frac = progress_bar.get_fraction() + progress_bar.get_pulse_step()
+                progress_bar.set_fraction(frac)
+                while gtk.events_pending():
+                    gtk.main_iteration(False)
+            
             self._merge_stats(r.get_round_stats())
 
     def get_test_stats(self):
