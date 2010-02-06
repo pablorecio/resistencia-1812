@@ -27,10 +27,15 @@ from resistencia import xdg
 import piechart
 
 class testResult:
-    def __init__(self, stats):
+    def __init__(self, stats, team):
         self.output_file = 'tmp.png'
-        line = (('wins', stats['wins']), ('draws', stats['draws']),
-                ('looses', stats['looses']))
+        line = []
+        if not stats['wins'] == 0:
+            line.append(('wins', stats['wins']))
+        if not stats['draws'] == 0:
+            line.append(('draws', stats['draws']))
+        if not stats['looses'] == 0:
+            line.append(('looses', stats['looses']))
 
         piechart.pieChart(self.output_file, line)
         
@@ -38,6 +43,8 @@ class testResult:
         builder.add_from_file(xdg.get_data_path('glade/testResults.glade'))
 
         self.test_result = builder.get_object('test_result_dialog')
+        self.test_result.set_title(self.test_result.get_title().replace('@team@',
+                                                                        team))
         #self.tests_dialog.set_transient_for(parent)
 
         builder.get_object('pie_chart').set_from_file(self.output_file)
@@ -46,8 +53,16 @@ class testResult:
         wins = stats['wins']
         draws = stats['draws']
         looses = stats['looses']
-        turns_winning = stats['turns_winning'] / wins
-        turns_loosing = stats['turns_losing'] / looses
+        try:
+            turns_winning = stats['turns_winning'] / wins
+        except ZeroDivisionError:
+            turns_winning = 0
+
+        try:
+            turns_loosing = stats['turns_losing'] / looses
+        except ZeroDivisionError:
+            turns_loosing = 0
+            
         num_pieces = stats['num_pieces'] / num_games
         val_pieces = stats['val_pieces'] / num_games
         max_death = stats['max_death'] / num_games

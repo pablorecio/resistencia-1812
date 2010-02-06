@@ -120,11 +120,11 @@ esté correcto.
 
 ** TODO Humano vs IA
 ** TODO Ampliabilidad del nucleo
-** TODO Mejoras en las pruebas [0/4]
+** TODO Mejoras en las pruebas [3/4]
    - [ ] Generación de fichero CSV
-   - [ ] Diálogo de barra de progreso
-   - [ ] *BUG*: Si no se gana o no se pierde, hay división entre cero
-   - [ ] Favicon, título, reestructuración
+   - [X] Diálogo de barra de progreso
+   - [X] *BUG*: Si no se gana o no se pierde, hay división entre cero
+   - [X] Favicon, título, reestructuración
 ** DONE Opción sin música (en el settings)
    CLOSED: [2010-02-06 sáb 12:39]
 ** TODO Nuevo Layout

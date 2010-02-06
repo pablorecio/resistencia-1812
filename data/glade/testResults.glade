@@ -4,6 +4,8 @@
   <!-- interface-naming-policy project-wide -->
   <object class="GtkDialog" id="test_result_dialog">
     <property name="border_width">5</property>
+    <property name="title" translatable="yes">Tests results for team @team@</property>
+    <property name="icon">../images/favicon.png</property>
     <property name="type_hint">normal</property>
     <property name="has_separator">False</property>
     <signal name="close" handler="on_test_result_dialog_close"/>
@@ -23,82 +25,89 @@
                 <child>
                   <object class="GtkLabel" id="label1">
                     <property name="visible">True</property>
+                    <property name="xalign">1</property>
                     <property name="label" translatable="yes">Number of games:</property>
                     <property name="justify">right</property>
                   </object>
                   <packing>
-                    <property name="x_options"></property>
+                    <property name="x_options">GTK_FILL</property>
                   </packing>
                 </child>
                 <child>
                   <object class="GtkLabel" id="label2">
                     <property name="visible">True</property>
+                    <property name="xalign">1</property>
                     <property name="label" translatable="yes">Wins:</property>
                     <property name="justify">right</property>
                   </object>
                   <packing>
                     <property name="top_attach">1</property>
                     <property name="bottom_attach">2</property>
-                    <property name="x_options"></property>
+                    <property name="x_options">GTK_FILL</property>
                   </packing>
                 </child>
                 <child>
                   <object class="GtkLabel" id="label3">
                     <property name="visible">True</property>
+                    <property name="xalign">1</property>
                     <property name="label" translatable="yes">Looses:</property>
                     <property name="justify">right</property>
                   </object>
                   <packing>
                     <property name="top_attach">2</property>
                     <property name="bottom_attach">3</property>
-                    <property name="x_options"></property>
+                    <property name="x_options">GTK_FILL</property>
                   </packing>
                 </child>
                 <child>
                   <object class="GtkLabel" id="label4">
                     <property name="visible">True</property>
+                    <property name="xalign">1</property>
                     <property name="label" translatable="yes">Draws:</property>
                   </object>
                   <packing>
                     <property name="top_attach">3</property>
                     <property name="bottom_attach">4</property>
-                    <property name="x_options"></property>
+                    <property name="x_options">GTK_FILL</property>
                   </packing>
                 </child>
                 <child>
                   <object class="GtkLabel" id="label5">
                     <property name="visible">True</property>
+                    <property name="xalign">1</property>
                     <property name="label" translatable="yes">Turns used to win:</property>
                     <property name="justify">right</property>
                   </object>
                   <packing>
                     <property name="top_attach">4</property>
                     <property name="bottom_attach">5</property>
-                    <property name="x_options"></property>
+                    <property name="x_options">GTK_FILL</property>
                   </packing>
                 </child>
                 <child>
                   <object class="GtkLabel" id="label6">
                     <property name="visible">True</property>
+                    <property name="xalign">1</property>
                     <property name="label" translatable="yes">Turns used to lose:</property>
                     <property name="justify">right</property>
                   </object>
                   <packing>
                     <property name="top_attach">5</property>
                     <property name="bottom_attach">6</property>
-                    <property name="x_options"></property>
+                    <property name="x_options">GTK_FILL</property>
                   </packing>
                 </child>
                 <child>
                   <object class="GtkLabel" id="label7">
                     <property name="visible">True</property>
+                    <property name="xalign">1</property>
                     <property name="label" translatable="yes">Max value piece dies at turn:</property>
                     <property name="justify">right</property>
                   </object>
                   <packing>
                     <property name="top_attach">6</property>
                     <property name="bottom_attach">7</property>
-                    <property name="x_options"></property>
+                    <property name="x_options">GTK_FILL</property>
                   </packing>
                 </child>
                 <child>
@@ -112,6 +121,7 @@
                     <property name="left_attach">1</property>
                     <property name="right_attach">2</property>
                     <property name="x_options">GTK_EXPAND</property>
+                    <property name="x_padding">20</property>
                   </packing>
                 </child>
                 <child>

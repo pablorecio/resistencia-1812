@@ -138,6 +138,12 @@ class testDialog:
         self.file_chooser_formation = builder.get_object('file_chooser_formation')
         self.file_chooser_rules.set_current_folder(default_rules_path)
         self.file_chooser_formation.set_current_folder(default_formations_path)
+
+        self.progress_bar_dialog = builder.get_object('progress_dialog')
+        self.progress_bar_dialog.connect('response', lambda d, r: d.hide())
+        self.progress_bar_dialog.set_transient_for(self.tests_dialog)
+        
+        self.progress_bar = builder.get_object('progress_bar_test')        
         
         builder.connect_signals(self)
     
@@ -217,11 +223,17 @@ class testDialog:
         if self.all_teams:
             self.teams = selection.get_installed_teams()
 
+        self.progress_bar.set_pulse_step(1 /  float(self.num_rounds * len(self.teams)))
         t = tests.TestSuite(main_team, _clean_dictionary(self.teams),
                             self.num_rounds)
-        t.run_test_suite()
+        self.progress_bar_dialog.show()
+        while gtk.events_pending():
+            gtk.main_iteration(False)
+        t.run_test_suite(self.progress_bar)
+        team = filenames.extract_name_expert_system(main_team)
 
-        test = tests_result.testResult(t.get_test_stats())
+        test = tests_result.testResult(t.get_test_stats(), team)
+        self.progress_bar_dialog.hide()
         test.test_result.run()
         self.tests_dialog.destroy()
 
