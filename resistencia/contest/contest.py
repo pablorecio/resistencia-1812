@@ -1,5 +1,6 @@
+# -*- coding: utf-8 -*-
 ###############################################################################
-# This file is part of Resistencia Cadiz 1812.                                #
+# This file is part of Resistencia en Cadiz: 1812.                            #
 #                                                                             #
 # This program is free software: you can redistribute it and/or modify        #
 # it under the terms of the GNU General Public License as published by        #
@@ -17,40 +18,41 @@
 # Copyright (C) 2010, Pablo Recio Quijano, <pablo.recioquijano@alum.uca.es>   #
 ###############################################################################
 
-import locale, gettext
-import gtk
-import gtk.glade
-APP = 'resistencia1812'
-DIR = '/usr/share/locale'
+from resistencia import filenames
 
-gettext.textdomain(APP)
-gettext.bindtextdomain(APP, DIR)
-gtk.glade.textdomain(APP)
-gtk.glade.bindtextdomain(APP, DIR)
+def generate_key_names(teams):
+    d = {}
 
+    for team in teams:
+        name = filenames.extract_name_expert_system(team)
+        d[name] = team
 
-# set the locale to LANG, or the user's default
-locale.setlocale(locale.LC_ALL, '')
+    return d
 
-# this installs _ into python's global namespace, so we don't have to
-# explicitly import it elsewhere
+def merge_puntuations(punt1, punt2):
+    for index in punt1:
+        punt1[index] = punt1[index] + punt2[index]
 
-from resistencia.nls import gettext as _
+def puntuations_compare(p1, p2):
+    if p1[1] > p2[1]:
+        return 1
+    elif p1[1] == p2[1]:
+        return 0
+    else:
+        return -1
 
-import gtk
-import gtk.glade
+class Contest(object):
+    def get_round_number(self):
+        raise NotImplementedError('Base class. Method not implemented')
 
-from resistencia.gui import main_window
-import configure
-
-configure.load_configuration()
-  
-def main():
-    "Main function"
-    editor = main_window.Resistencia()
-    editor.window.show()
-    print _("Loading main window")
-    gtk.main()
+    def get_prev_round_number(self):
+        raise NotImplementedError('Base class. Method not implemented')
     
-if __name__ == "__main__":
-    main()
+    def get_number_of_rounds(self):
+        raise NotImplementedError('Base class. Method not implemented')
+
+    def get_round(self, round_number):
+        raise NotImplementedError('Base class. Method not implemented')
+
+    def play_round(self, fast=False):
+        raise NotImplementedError('Base class. Method not implemented')

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 ###############################################################################
-# This file is part of Resistencia Cadiz 1812.                                #
+# This file is part of Resistencia en Cadiz: 1812.                            #
 #                                                                             #
 # This program is free software: you can redistribute it and/or modify        #
 # it under the terms of the GNU General Public License as published by        #
@@ -27,34 +27,14 @@ import gtk
 from resistencia import configure, filenames
 
 import pairing
+import contest
 import round
 
-def _generate_key_names(teams):
-    d = {}
-
-    for team in teams:
-        name = filenames.extract_name_expert_system(team)
-        d[name] = team
-
-    return d
-
-def _merge_puntuations(punt1, punt2):
-    for index in punt1:
-        punt1[index] = punt1[index] + punt2[index]
-
-def _puntuations_compare(p1, p2):
-    if p1[1] > p2[1]:
-        return 1
-    elif p1[1] == p2[1]:
-        return 0
-    else:
-        return -1
-
-class League(object):
+class League(contest.Contest):
     
     def __init__(self, teams, back_round=False):
         self.teams = teams
-        self.translator = _generate_key_names(teams)
+        self.translator = contest.generate_key_names(teams)
         self.keys = []
 
         for t in self.translator:
@@ -64,7 +44,7 @@ class League(object):
 
         self.rounds = []
         base_path = configure.load_configuration()['games_path'] + '/'
-        self.tournament_file_name = base_path + filenames.generate_filename('tournament')
+        self.tournament_file_name = base_path + filenames.generate_filename('league')
         print self.tournament_file_name
         
         for jorn in self.matchs:
@@ -102,7 +82,7 @@ class League(object):
 
             p = r.get_puntuation()
             self.puntuations_by_round.append(p)
-            _merge_puntuations(self.puntuations, p)
+            contest.merge_puntuations(self.puntuations, p)
 
             f_log = open(self.tournament_file_name, 'a')
             f_log.write('Ronda ' + str(self.actual_round+1) + ":\n")
@@ -117,14 +97,14 @@ class League(object):
 
     def get_actual_puntuations(self):
         clasification = self.puntuations.items()
-        clasification.sort(_puntuations_compare)
+        clasification.sort(contest.puntuations_compare)
         clasification.reverse()
 
         return clasification
 
     def print_actual_puntuations(self):
         clasification = self.puntuations.items()
-        clasification.sort(_puntuations_compare)
+        clasification.sort(contest.puntuations_compare)
         clasification.reverse()
 
         for i in clasification:

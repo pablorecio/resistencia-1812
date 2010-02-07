@@ -28,6 +28,21 @@ import clips
 import funciones, f1, mover, texto, traducirF, traducirM, fA, fB, mirroring
 
 from resistencia import configure, filenames
+from resistencia.nls import gettext as _
+
+class Error(Exception):
+    """Base class for exceptions in this module."""
+    pass
+
+class FileError(Error):
+    """Exception raised for errors parsing files
+
+    Attributes:
+        msg  -- explanation of the error
+    """
+
+    def __init__(self, msg):
+        self.msg = msg
 
 class LibGuadalete(object):
     """Main class of the wrapper module for clips scripts
@@ -76,22 +91,38 @@ class LibGuadalete(object):
 
         #print self.teams_path + "/equipo" + self.teamA + ".clp"
         temp_team = mirroring.mirroring_team(self.teamB[1])
-        print 'Loading ' + self.teamA[1]
+        print _('Loading ') + self.teamA[1]
         #create a temporally file that mirror the formation of B team,
         #because it's written thinking in A team
-        clips.Load(self.teamA[1])
-        print 'Loading ' + self.teamB[1]
-        clips.Load(temp_team)
+        try:
+            clips.Load(self.teamA[1])
+        except clips.ClipsError:
+            raise FileError(_('Error parsing the file ') +  self.teamA[1])
+        print _('Loading ') + self.teamB[1]
+        try:
+            clips.Load(temp_team)
+        except clips.ClipsError:
+            os.remove(temp_team)
+            raise FileError(_('Error parsing the file ') +  self.teamB[1])
+        
         os.remove(temp_team)
 
         fA.LoadFunctions(clips)
-        print 'Loading ' + self.teamA[0]
-        clips.Load(self.teamA[0])
+        print _('Loading ') + self.teamA[0]
+        try:
+            clips.Load(self.teamA[0])
+        except clips.ClipsError:
+            raise FileError(_('Error parsing the file ') +  self.teamA[0])
         temp_rules = mirroring.mirroring_rules(self.teamB[0])
         #same thing that for the formation, but this time using the rules
         fB.LoadFunctions(clips)
-        print 'Loading ' + self.teamB[0]
-        clips.Load(temp_rules)
+        print _('Loading ') + self.teamB[0]
+        try:
+            clips.Load(temp_rules)
+        except clips.ClipsError:
+            os.remove(temp_rules)
+            raise FileError(_('Error parsing the file ') +  self.teamB[0])
+        
         os.remove(temp_rules)
 
         clips.Reset() #restart the environment
@@ -158,7 +189,10 @@ class LibGuadalete(object):
         Return a pair containing the output filename where the game had been
         logged, and an integer that indicates who won the game.
         """
-        winner = self.__startGame()
+        try:
+            winner = self.__startGame()
+        except FileError as e:
+            raise FileError(e.msg)
         des = self.__generateFileName()
         self.__renameOutputFile(des)
 

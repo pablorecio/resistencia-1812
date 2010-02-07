@@ -35,6 +35,7 @@ class settingsDialog:
 
         self.file_chooser_games = builder.get_object("file_chs_prev_games")
         self.file_chooser_teams = builder.get_object("file_chs_se")
+        self.check_active_music = builder.get_object("check_active_music")
 
         config_vars = configure.load_configuration()
 
@@ -45,6 +46,11 @@ class settingsDialog:
         self.file_chooser_games.set_filename(config_vars['games_path'])
         self.file_chooser_teams.set_current_folder(teams_current_folder)
         self.file_chooser_teams.set_filename(config_vars['se_path'])
+        print config_vars
+        active = False
+        if config_vars['music_active'] == '1':
+            active = True
+        self.check_active_music.set_active(active)
         
         builder.connect_signals(self)
         
@@ -61,10 +67,17 @@ class settingsDialog:
         
         current_games_path = self.file_chooser_games.get_filename()
         current_teams_path = self.file_chooser_teams.get_filename()
+        current_active_music = ''
+        if self.check_active_music.get_active():
+            current_active_music = "1"
+        else:
+            current_active_music = "0"
         
         if current_games_path != config_vars['games_path']:
             configure.set_games_path(current_games_path)
         if current_teams_path != config_vars['se_path']:
             configure.set_se_path(current_teams_path)
-
+        if current_active_music != config_vars['music_active']:
+            configure.set_active_music(current_active_music)
+            
         self.settings.hide()

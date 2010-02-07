@@ -66,9 +66,13 @@ def generate_configuration_file():
     language = config_xml.createElement('language')
     language.setAttribute('value', 'es_ES')
 
+    active_music = config_xml.createElement('music_active')
+    active_music.setAttribute('value', '1')
+
     top_element.appendChild(se_path)
     top_element.appendChild(games_path)
     top_element.appendChild(language)
+    top_element.appendChild(active_music)
 
     file_xml = open(file_path,"w")
 
@@ -90,6 +94,9 @@ def load_configuration():
     
     language = config_xml.getElementsByTagName('language')
     params['language'] = language[0].getAttribute('value')
+    
+    music_active = config_xml.getElementsByTagName('music_active')
+    params['music_active'] = music_active[0].getAttribute('value')
 
     return params
 
@@ -124,6 +131,18 @@ def set_language(new_language):
     language.removeAttribute('value')
     language.setAttribute('value', new_language)
 
+    file_xml = open(file_path,"w")
+
+    file_xml.write(config_xml.toprettyxml())
+    file_xml.close()
+
+def set_active_music(new_music_active):
+    config_xml = minidom.parse(file_path)
+    music_active = config_xml.getElementsByTagName('music_active')[0]
+    
+    music_active.removeAttribute('value')
+    music_active.setAttribute('value', new_music_active)
+    
     file_xml = open(file_path,"w")
 
     file_xml.write(config_xml.toprettyxml())

@@ -2,6 +2,16 @@
 <interface>
   <requires lib="gtk+" version="2.16"/>
   <!-- interface-naming-policy project-wide -->
+  <object class="GtkListStore" id="list_expert_system">
+    <columns>
+      <!-- column-name es_name -->
+      <column type="gchararray"/>
+      <!-- column-name es_rules -->
+      <column type="gchararray"/>
+      <!-- column-name es_formation -->
+      <column type="gchararray"/>
+    </columns>
+  </object>
   <object class="GtkDialog" id="tests_dialog">
     <property name="border_width">5</property>
     <property name="title" translatable="yes">Tests expert system</property>
@@ -342,16 +352,6 @@
       <action-widget response="0">btn_apply</action-widget>
     </action-widgets>
   </object>
-  <object class="GtkListStore" id="list_expert_system">
-    <columns>
-      <!-- column-name es_name -->
-      <column type="gchararray"/>
-      <!-- column-name es_rules -->
-      <column type="gchararray"/>
-      <!-- column-name es_formation -->
-      <column type="gchararray"/>
-    </columns>
-  </object>
   <object class="GtkFileChooserDialog" id="file_chooser_formation">
     <property name="border_width">5</property>
     <property name="title" translatable="yes">Select the formation file</property>
@@ -476,5 +476,131 @@
       <action-widget response="0">btn_file_chooser_rules_close</action-widget>
       <action-widget response="0">btn_file_chooser_rules_apply</action-widget>
     </action-widgets>
+  </object>
+  <object class="GtkDialog" id="progress_dialog">
+    <property name="border_width">5</property>
+    <property name="type">popup</property>
+    <property name="type_hint">normal</property>
+    <property name="has_separator">False</property>
+    <child internal-child="vbox">
+      <object class="GtkVBox" id="dialog-vbox6">
+        <property name="visible">True</property>
+        <property name="orientation">vertical</property>
+        <property name="spacing">2</property>
+        <child>
+          <object class="GtkVBox" id="vbox2">
+            <property name="visible">True</property>
+            <property name="orientation">vertical</property>
+            <child>
+              <object class="GtkLabel" id="label7">
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">Running the test...</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="padding">20</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkProgressBar" id="progress_bar_test">
+                <property name="visible">True</property>
+                <property name="text" translatable="yes">Calculating...</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="position">1</property>
+          </packing>
+        </child>
+        <child internal-child="action_area">
+          <object class="GtkHButtonBox" id="dialog-action_area6">
+            <property name="visible">True</property>
+            <property name="layout_style">end</property>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="pack_type">end</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+  <object class="GtkMessageDialog" id="error_no_es">
+    <property name="border_width">5</property>
+    <property name="type_hint">normal</property>
+    <property name="skip_taskbar_hint">True</property>
+    <property name="urgency_hint">True</property>
+    <property name="message_type">error</property>
+    <property name="buttons">ok</property>
+    <property name="text" translatable="yes">You have no selected file for the Expert System</property>
+    <child internal-child="vbox">
+      <object class="GtkVBox" id="dialog-vbox18">
+        <property name="visible">True</property>
+        <property name="orientation">vertical</property>
+        <property name="spacing">2</property>
+        <child internal-child="action_area">
+          <object class="GtkHButtonBox" id="dialog-action_area18">
+            <property name="visible">True</property>
+            <property name="layout_style">end</property>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="pack_type">end</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+  <object class="GtkMessageDialog" id="error_no_team">
+    <property name="border_width">5</property>
+    <property name="type_hint">normal</property>
+    <property name="skip_taskbar_hint">True</property>
+    <property name="urgency_hint">True</property>
+    <property name="message_type">error</property>
+    <property name="buttons">ok</property>
+    <property name="text" translatable="yes">You have no selected file for the Team</property>
+    <child internal-child="vbox">
+      <object class="GtkVBox" id="dialog-vbox20">
+        <property name="visible">True</property>
+        <property name="orientation">vertical</property>
+        <property name="spacing">2</property>
+        <child internal-child="action_area">
+          <object class="GtkHButtonBox" id="dialog-action_area20">
+            <property name="visible">True</property>
+            <property name="layout_style">end</property>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <placeholder/>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="pack_type">end</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+      </object>
+    </child>
   </object>
 </interface>

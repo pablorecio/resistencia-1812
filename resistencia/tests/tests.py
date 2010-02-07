@@ -19,13 +19,15 @@
 ###############################################################################
 
 import sys
-import time
-
 import os
+import csv
+
 import gtk
 
-from resistencia import configure, filenames
+from resistencia import configure, filenames, xdg
 from resistencia.contest import pairing
+
+from resistencia.nls import gettext as _
 
 import test_round
 
@@ -51,6 +53,9 @@ class TestSuite:
 
         self.rounds_number = rounds_number
 
+        base_path = configure.load_configuration()['games_path'] + '/'
+        self.filename = base_path + filenames.generate_filename('stats', main_team)
+
         for t in self.translator_teams:
             self.keys_teams.append(t)
 
@@ -62,11 +67,18 @@ class TestSuite:
             self.translator[k] = self.translator_main_team[k]
 
         self.rounds = []
+        stats_writer = csv.writer(open(self.filename, 'w'), delimiter=',',
+                                  quotechar='|', quoting=csv.QUOTE_MINIMAL)
+        stats_writer.writerow([_('Opponent'), _('As team'),
+                               _('Result'), _("Number of turns"),
+                               _('Number of pieces'), _("Value of the pieces"),
+                               _('Turn when max value piece died')])
         for i in range(self.rounds_number):
             round_games = pairing.test_pairing(self.key_main_team[0],
                                                self.keys_teams, i%2)
             self.rounds.append(test_round.TestRound(round_games, self.translator,
-                                                    player=i%2))
+                                                    log_file=self.filename,
+                                                    player=i%2,))
 
         self.total_stats = {}
         self.total_stats['wins'] = 0
@@ -83,14 +95,19 @@ class TestSuite:
         for k in self.total_stats:
             self.total_stats[k] = self.total_stats[k] + round_stats[k]
 
-    def run_test_suite(self):
+    def run_test_suite(self, progress_bar):
         for i in range(self.rounds_number):
             r = self.rounds[i]
             n = r.get_number_of_games()
 
             for j in range(n):
                 r.play_match()
-
+                progress_bar.pulse()
+                frac = progress_bar.get_fraction() + progress_bar.get_pulse_step()
+                progress_bar.set_fraction(frac)
+                while gtk.events_pending():
+                    gtk.main_iteration(False)
+            
             self._merge_stats(r.get_round_stats())
 
     def get_test_stats(self):

@@ -21,19 +21,69 @@
 import os
 from os import path
 import sys
+import time
 
 import pygame
 import pygame.font
 import pygame.mixer
 
+import gtk
+
 from libguadalete import libguadalete, file_parser, stats
-from resistencia import filenames, xdg
+from libguadalete.libguadalete import FileError as LibFileError
+from resistencia import filenames, xdg, configure
+from resistencia.gui import notify_result
 import game
 import layout
 
+class Error(Exception):
+    """Base class for exceptions in this module."""
+    pass
+
+class GuadaFileError(Error):
+    def __init__(self, msg):
+        self.msg = msg
+
+def _handle_draw(output_file):
+    entire_game, winner = file_parser.parse_file(output_file)
+
+    if not winner == 0:
+        return winner
+    else: #if it's a draw
+        numA = 0
+        numB = 0
+        sum = 0
+        final_board = entire_game[len(entire_game) - 1]
+        n = len(final_board)
+        for i in range(n):
+            for j in range(n):
+                v = final_board[i][j]
+                sum = sum + v
+                if not v == 0:
+                    if v > 0:
+                        numA = numA + 1
+                    else:
+                        numB = numB + 1
+        if not sum == 0: #a team has more sum of values than the other
+            if sum > 0:
+                return 1
+            else:
+                return -1
+        else: #both has the same sum of values
+            if not numA == numB: #a team has more pieces than the other
+                if numA > numB:
+                    return 1
+                else:
+                    return -1
+            else: #both have the same number of pieces. 
+                return -1 #B team is in disvantage
+            
+
 def _load_game_from_file(src_file, teamA, teamB, path_piece_default, xml_file,
-                         hidden=False):
+                         hidden=False, cant_draw=False):
     entire_game, winner = file_parser.parse_file(src_file)
+    if cant_draw:
+        winner = _handle_draw(src_file)
 
     if winner == 0:
         print 'Empate'
@@ -41,6 +91,10 @@ def _load_game_from_file(src_file, teamA, teamB, path_piece_default, xml_file,
         print 'Ganó ' + teamA[0]
     else:        
         print 'Ganó ' + teamB[0]
+
+    music = False
+    if configure.load_configuration()['music_active'] == '1':
+        music = True
     
     pygame.init()
 
@@ -50,8 +104,9 @@ def _load_game_from_file(src_file, teamA, teamB, path_piece_default, xml_file,
     screen = pygame.display.set_mode(xml_layout.get_window_size())
     pygame.display.set_caption(xml_layout.get_window_title())
 
-    pygame.mixer.music.load(xdg.get_data_path('music/walking_on_old_stones.ogg'))
-    pygame.mixer.music.play()
+    if music:
+        pygame.mixer.music.load(xdg.get_data_path('music/walking_on_old_stones.ogg'))
+        pygame.mixer.music.play()
 
     res_game = game.Game(entire_game, teamA[1],
                          teamB[1], path_piece_default,hidden=hidden)
@@ -72,8 +127,10 @@ def _load_game_from_file(src_file, teamA, teamB, path_piece_default, xml_file,
         time_passed = clock.tick(50)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                pygame.mixer.music.stop()
+                if music:
+                    pygame.mixer.music.stop()
                 pygame.display.quit()
+                show_dialog_result((teamA[0], teamB[0]), winner)
                 return winner
             elif event.type == pygame.KEYDOWN:
                 if event.key == 275:
@@ -102,8 +159,10 @@ def _load_game_from_file(src_file, teamA, teamB, path_piece_default, xml_file,
                 res = get_collision(event.pos, rects)
                 if event.button == 1 and res != '':
                     if res == 'button_exit':
-                        pygame.mixer.music.stop()
+                        if music:
+                            pygame.mixer.music.stop()
                         pygame.display.quit()
+                        show_dialog_result((teamA[0], teamB[0]), winner)
                         return winner
                     else:
                         if res == 'button_left_2':
@@ -159,15 +218,21 @@ def last_turn(game, xml_layout, mouse=None):
 def run(teamA, teamB, fast=False, dont_log=False, hidden=False,
         number_turns=100, 
         path_piece_default= xdg.get_data_path('images/piece-default.png'),
-        xml_file= xdg.get_data_path('layouts/main-layout.xml'), get_stats=False):
+        xml_file= xdg.get_data_path('layouts/main-layout.xml'),
+        get_stats=False, cant_draw=False):
     lib = libguadalete.LibGuadalete(teamA[0],teamB[0],number_turns)
-    out_file, winner = lib.run_game()
+    try:
+        out_file, winner = lib.run_game()
+    except LibFileError as e:
+        raise GuadaFileError(e.msg)
     if not fast:
         name_team_A = filenames.extract_name_expert_system(teamA[0])
         name_team_B = filenames.extract_name_expert_system(teamB[0])
         _load_game_from_file(out_file, (name_team_A, teamA[1]),
                              (name_team_B, teamB[1]), path_piece_default,
-                             xml_file, hidden)
+                             xml_file, hidden, cant_draw=cant_draw)
+    if cant_draw:
+        winner = _handle_draw(out_file)
     res = winner
     if get_stats:
         res = (winner, stats.get_game_file_stats(out_file))
@@ -189,4 +254,9 @@ def run_from_file(src_file,
 
     return winner
 
-    
+def show_dialog_result((name_teamA, name_teamB), winner):
+    n = notify_result.notifyResult((name_teamA, name_teamB), winner)
+    n.dlg_result.run()
+        
+    while gtk.events_pending():
+        gtk.main_iteration(False)

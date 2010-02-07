@@ -29,6 +29,8 @@ from guadaboard import guada_board
 from resistencia import configure, xdg, filenames
 from resistencia.tests import tests, selection
 
+from resistencia.nls import gettext as _
+
 import tests_result
 
 def _clean_dictionary(d):
@@ -121,9 +123,9 @@ class testDialog:
         self.cRules = 1
         self.cFormation = 2
         
-        self.sName = "Name"
-        self.sRules = "Rules"
-        self.sFormation = "Formation"
+        self.sName = _("Name")
+        self.sRules = _("Rules")
+        self.sFormation = _("Formation")
         
         self.list_view = builder.get_object("list_es_view")
         self.list_view.set_reorderable(False)
@@ -138,6 +140,21 @@ class testDialog:
         self.file_chooser_formation = builder.get_object('file_chooser_formation')
         self.file_chooser_rules.set_current_folder(default_rules_path)
         self.file_chooser_formation.set_current_folder(default_formations_path)
+
+        
+        self.error_es = builder.get_object("error_no_es")
+        self.error_es.connect('response', lambda d, r: d.hide())
+        self.error_es.set_transient_for(self.tests_dialog)
+        
+        self.error_team = builder.get_object("error_no_team")
+        self.error_team.connect('response', lambda d, r: d.hide())
+        self.error_team.set_transient_for(self.tests_dialog)
+
+        self.progress_bar_dialog = builder.get_object('progress_dialog')
+        self.progress_bar_dialog.connect('response', lambda d, r: d.hide())
+        self.progress_bar_dialog.set_transient_for(self.tests_dialog)
+        
+        self.progress_bar = builder.get_object('progress_bar_test')        
         
         builder.connect_signals(self)
     
@@ -211,17 +228,32 @@ class testDialog:
     def on_btn_cancel_clicked(self, widget, data=None):
         self.tests_dialog.hide()
 
-    def on_btn_apply_clicked(self, widget, data=None):        
-        main_team = (self.rules_main_team, self.formation_main_team)
+    def on_btn_apply_clicked(self, widget, data=None):
+        correct = True
+        if len(self.rules_main_team) == 0:
+            self.error_es.run()
+            correct = False
+        if len(self.formation_main_team) == 0:
+            self.error_team.run()
+            correct = False
 
-        if self.all_teams:
-            self.teams = selection.get_installed_teams()
+        if correct:
+            main_team = (self.rules_main_team, self.formation_main_team)
 
-        t = tests.TestSuite(main_team, _clean_dictionary(self.teams),
-                            self.num_rounds)
-        t.run_test_suite()
+            if self.all_teams:
+                self.teams = selection.get_installed_teams()
 
-        test = tests_result.testResult(t.get_test_stats())
-        test.test_result.run()
-        self.tests_dialog.destroy()
+            self.progress_bar.set_pulse_step(1 /  float(self.num_rounds * len(self.teams)))
+            t = tests.TestSuite(main_team, _clean_dictionary(self.teams),
+                                self.num_rounds)
+            self.progress_bar_dialog.show()
+            while gtk.events_pending():
+                gtk.main_iteration(False)
+            t.run_test_suite(self.progress_bar)
+            team = filenames.extract_name_expert_system(main_team)
+
+            test = tests_result.testResult(t.get_test_stats(), team)
+            self.progress_bar_dialog.hide()
+            test.test_result.run()
+            self.tests_dialog.destroy()
 

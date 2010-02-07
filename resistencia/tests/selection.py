@@ -20,10 +20,10 @@
 
 import os
 
-from resistencia import xdg
+from resistencia import configure
 
 def get_installed_teams():
-    base_path = xdg.get_data_path('teams')
+    base_path = configure.load_configuration()['se_path']
     rules_path = base_path + '/rules'
     formations_path = base_path + '/formations'
 
