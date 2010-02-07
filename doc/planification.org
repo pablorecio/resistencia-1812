@@ -101,7 +101,7 @@ Bueno, estamos a <2010-02-06 sáb>, y mi previsión es entregar el PFC el día
 <2010-02-16 mar>, así que vamos justos. De todas formas, a esto le falta poco.
 La siguiente lista muestra las tareas por hacer cara a esta entrega.
 
-* Para la entrega del PFC [63%]
+* Para la entrega del PFC [72%]
 ** DONE Tratamiento de excepciones
    CLOSED: [2010-02-06 sáb 12:15]
 Lanzar excepción (y capturarla) cuando el fichero leido por PyCLIPS no 
@@ -120,7 +120,8 @@ esté correcto.
    - [X] Playoff
 
 ** TODO Humano vs IA
-** TODO Ampliabilidad del nucleo
+** CANCELED Ampliabilidad del nucleo
+   CLOSED: [2010-02-07 dom 02:37]
 ** DONE Mejoras en las pruebas [4/4]
    CLOSED: [2010-02-06 sáb 16:46]
    - [X] Generación de fichero CSV
