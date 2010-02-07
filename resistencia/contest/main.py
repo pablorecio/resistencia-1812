@@ -25,11 +25,14 @@ from resistencia import configure, filenames, xdg
 from resistencia.gui import round_results
 
 import league
+import tournament
 import round
 
 def init_contest(contest_format, teams, fast=False, back_round=False):
     if contest_format == 'league':
         _init_league(_clean_dictionary(teams), fast, back_round)
+    elif contest_format == 'cup':
+        _init_tournament(_clean_dictionary(teams), fast)
 
 def _init_league(teams, fast, back_round):    
     l = league.League(teams, back_round)
@@ -46,6 +49,29 @@ def _init_league(teams, fast, back_round):
         
         R = round_results.roundResults(classifications, results, l.get_prev_round_number() + 1,
                                        l.get_number_of_rounds())
+        button_pressed = R.result_dialog.run()
+        
+        while gtk.events_pending():
+            gtk.main_iteration(False)
+            
+        if button_pressed == -4 or button_pressed == 0:
+            band = True
+
+def _init_tournament(teams, fast):
+    t = tournament.Tournament(teams)
+    band = False
+
+    while not t.tournament_completed and not band:
+        i = t.get_round_number()
+        t.play_round(fast)
+        r = t.get_round(i)
+
+        classifications = []
+        results = r.get_round_results()
+        
+        R = round_results.roundResults(classifications, results, t.get_prev_round_number() + 1,
+                                       t.get_number_of_rounds(), show_classifications=False)
+
         button_pressed = R.result_dialog.run()
         
         while gtk.events_pending():

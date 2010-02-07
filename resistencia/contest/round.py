@@ -125,7 +125,7 @@ class Round(object):
         else:
             raise RoundError('Not all games played')
 
-    def play_match(self, fast=False):
+    def play_match(self, fast=False, cant_draw=False):
         teamA_key = self.round[self.next_game][0][0]
         teamB_key = self.round[self.next_game][0][1]
         teamA = None
@@ -136,8 +136,9 @@ class Round(object):
             teamA = (self.translator[teamA_key], _pieceA)
             teamB = (self.translator[teamB_key], _pieceB)
             result = guada_board.run(teamA, teamB, fast=fast,
-                                            hidden=True,
-                                            number_turns=self.num_turns)
+                                     hidden=True,
+                                     number_turns=self.num_turns,
+                                     cant_draw=cant_draw)
             
         else:
             if teamA_key == 'aux_ghost_team':

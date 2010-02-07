@@ -53,7 +53,8 @@ class roundResults:
                 teamB = '<span foreground="' + draw_color + '"><b>' + teamB + '</b></span>'
             self.list_store_results.append((teamA, teamB))
     
-    def __init__(self, classification, results, round, rounds): #add parent
+    def __init__(self, classification, results, round, rounds,
+                 show_classifications=True): #add parent
         builder = gtk.Builder()
         builder.add_from_file(xdg.get_data_path('glade/results.glade'))
 
@@ -75,23 +76,27 @@ class roundResults:
         self.list_view_classifications = builder.get_object('treeview_classification')
         self.list_view_results = builder.get_object('treeview_results')
 
-        self.cPosition = 0
-        self.cTeamName = 1
-        self.cPuntuations = 2
+        if show_classifications:
+            self.cPosition = 0
+            self.cTeamName = 1
+            self.cPuntuations = 2
         
-        self.sPosition = 'Pos'
-        self.sTeamName = _('Team name')
-        self.sPuntuations = 'Punt'
+            self.sPosition = 'Pos'
+            self.sTeamName = _('Team name')
+            self.sPuntuations = 'Punt'
 
-        self.add_column(self.list_view_classifications,
-                        self.sPosition, self.cPosition)
-        self.add_column(self.list_view_classifications,
-                        self.sTeamName, self.cTeamName)
-        self.add_column(self.list_view_classifications,
-                        self.sPuntuations, self.cPuntuations)
+            self.add_column(self.list_view_classifications,
+                            self.sPosition, self.cPosition)
+            self.add_column(self.list_view_classifications,
+                            self.sTeamName, self.cTeamName)
+            self.add_column(self.list_view_classifications,
+                            self.sPuntuations, self.cPuntuations)
 
         self.list_store_classifications = builder.get_object('list_classification')
-        self.fill_classification()
+        if show_classifications:
+            self.fill_classification()
+        else:
+            builder.get_object('hbox1').remove(builder.get_object('frame_classifications'))
 
         self.cTeamA = 0
         self.cTeamB = 1
