@@ -107,6 +107,7 @@ class contestDialog:
         self.radio_league = builder.get_object('radio_league')
         self.radio_cup = builder.get_object('radio_cup')
         self.radio_groups = builder.get_object('radio_groups')
+        self.radio_playoff = builder.get_object('radio_playoff')
         self.check_backround = builder.get_object('check_backround')
         self.check_fast = builder.get_object('check_onlyresults')
 
@@ -185,6 +186,13 @@ class contestDialog:
     def on_radio_groups_toggled(self, widget, data=None):
         if self.radio_group.get_active():
             self.format_contest = 'group'
+            
+    def on_radio_playoff_toggled(self, widget, data=None):
+        if self.radio_playoff.get_active():
+            self.check_backround.set_sensitive(True)
+            self.format_contest = 'playoff'
+        else:
+            self.check_backround.set_sensitive(False)
 
     def on_check_backround_toggled(self, widget, data=None):
         print 'hola'

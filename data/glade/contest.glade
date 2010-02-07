@@ -118,7 +118,6 @@
                               <object class="GtkVButtonBox" id="vbuttonbox1">
                                 <property name="visible">True</property>
                                 <property name="orientation">vertical</property>
-                                <property name="layout_style">start</property>
                                 <child>
                                   <object class="GtkRadioButton" id="radio_league">
                                     <property name="label" translatable="yes">League</property>
@@ -141,6 +140,7 @@
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">False</property>
+                                    <property name="active">True</property>
                                     <property name="draw_indicator">True</property>
                                     <property name="group">radio_league</property>
                                     <signal name="toggled" handler="on_radio_cup_toggled"/>
@@ -152,14 +152,15 @@
                                   </packing>
                                 </child>
                                 <child>
-                                  <object class="GtkRadioButton" id="radio_groups">
-                                    <property name="label" translatable="yes">Groups</property>
+                                  <object class="GtkRadioButton" id="radio_playoff">
+                                    <property name="label" translatable="yes">Playoff</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">False</property>
+                                    <property name="active">True</property>
                                     <property name="draw_indicator">True</property>
                                     <property name="group">radio_league</property>
-                                    <signal name="toggled" handler="on_radio_groups_toggled"/>
+                                    <signal name="toggled" handler="on_radio_playoff_toggled"/>
                                   </object>
                                   <packing>
                                     <property name="expand">False</property>

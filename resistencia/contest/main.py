@@ -25,6 +25,7 @@ from resistencia import configure, filenames, xdg
 from resistencia.gui import round_results
 
 import league
+import contest
 import tournament
 import round
 
@@ -33,6 +34,9 @@ def init_contest(contest_format, teams, fast=False, back_round=False):
         _init_league(_clean_dictionary(teams), fast, back_round)
     elif contest_format == 'cup':
         _init_tournament(_clean_dictionary(teams), fast)
+    elif contest_format == 'playoff':
+        _init_playoff(_clean_dictionary(teams), fast, back_round)
+        
 
 def _init_league(teams, fast, back_round):    
     l = league.League(teams, back_round)
@@ -80,9 +84,60 @@ def _init_tournament(teams, fast):
         if button_pressed == -4 or button_pressed == 0:
             band = True
 
+
+def _init_playoff(teams, fast, back_round):    
+    l = league.League(teams, back_round)
+
+    band = False
+    
+    while not l.league_completed and not band:
+        i = l.get_round_number()
+        l.play_round(fast)
+        r = l.get_round(i)
+        
+        classifications = l.get_actual_puntuations()
+        results = r.get_round_results()
+        
+        R = round_results.roundResults(classifications, results, l.get_prev_round_number() + 1,
+                                       l.get_number_of_rounds())
+        button_pressed = R.result_dialog.run()
+        
+        while gtk.events_pending():
+            gtk.main_iteration(False)
+            
+        if button_pressed == -4 or button_pressed == 0:
+            band = True
+
+    if not band:
+        band = False
+        teams = _get_teams_next_round(teams, _extract_classifications(classifications))
+        _init_tournament(teams, fast)
+        
+
 def _clean_dictionary(d):
     l = []
     for k in d:
         l.append(d[k])
 
     return l
+
+def _get_teams_next_round(teams, classifications):
+    translator = contest.generate_key_names(teams)
+
+    teams_next_round = []
+    n = len(teams) / 2
+
+    for i in range(n):
+        teams_next_round.append(translator[classifications[i]])
+
+    return teams_next_round
+
+def _extract_classifications(classifications):
+    new_classifications = []
+    for i in classifications:
+        new_classifications.append(i[0])
+
+    return new_classifications
+
+    
+        
