@@ -47,7 +47,7 @@ class quickGameDialog:
         builder.get_object('file_chooser_es_b').set_current_folder(def_rules_path)
         builder.get_object('file_chooser_team_b').set_current_folder(def_formations_path)
 
-        self.quick_game = builder.get_object("quickGameDialog")
+        self.quick_game = builder.get_object("quick_game_dialog")
         self.quick_game.set_transient_for(parent)
         #---- Initialation for the dialogs
         self.error_es_a = builder.get_object("error_no_es_a")

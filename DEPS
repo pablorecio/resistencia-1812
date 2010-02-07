@@ -9,6 +9,7 @@ Essential:
 * pygtk (>= 2.16)
 * pygame
 * pyclips
+* pycha
 
 Translation:
 
