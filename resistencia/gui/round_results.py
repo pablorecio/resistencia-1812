@@ -18,13 +18,13 @@
 # Copyright (C) 2010, Pablo Recio Quijano, <pablo.recioquijano@alum.uca.es>   #
 ###############################################################################
 
-import sys
-sys.path.append('../../')
-
 import gtk
 
 from resistencia import xdg
 from resistencia.nls import gettext as _
+
+def _draw_string(string, color):
+    return '<span foreground="' + color + '"><b>' + string + '</b></span>'
 
 class roundResults:
     def add_column(self, list_view, title, columnId):
@@ -33,28 +33,37 @@ class roundResults:
 
     def fill_classification(self):
         i = 1
+        top = int(len(self.classifications) / 2)
+        for e in self.classifications:
+            if e[0] == 'aux_ghost_team':
+                top = top - 1
+        color = '#0C0C9D'
         print self.classifications
         for e in self.classifications:
-            self.list_store_classifications.append((i, e[0], e[1]))
-            i = i + 1
+            name = e[0]
+            if not name == 'aux_ghost_team':
+                if self.show_top_teams and (i - 1) < top:
+                    name = _draw_string(name, color)
+                self.list_store_classifications.append((i, name, e[1]))
+                i = i + 1
 
     def fill_results(self):
         for e in self.results:
-            teamA = e[0][0];
-            teamB = e[0][1];
+            teamA = e[0][0].replace('aux_ghost_team', _('Rests'))
+            teamB = e[0][1].replace('aux_ghost_team', _('Rests'))
             win_color = '#0C0C9D'
             draw_color = '#5DEA5D'
             if e[1] == 1:
-                teamA = '<span foreground="' + win_color + '"><b>' + teamA + '</b></span>'
+                teamA = _draw_string(teamA, win_color)
             elif e[1] == -1:
-                teamB = '<span foreground="' + win_color + '"><b>' + teamB + '</b></span>'
+                teamB = _draw_string(teamB, win_color)
             else: #draw
-                teamA = '<span foreground="' + draw_color + '"><b>' + teamA + '</b></span>'
-                teamB = '<span foreground="' + draw_color + '"><b>' + teamB + '</b></span>'
+                teamA = _draw_string(teamA, draw_color)
+                teamB = _draw_string(teamB, draw_color)
             self.list_store_results.append((teamA, teamB))
     
     def __init__(self, classification, results, round, rounds,
-                 show_classifications=True): #add parent
+                 show_classifications=True, show_top_teams=False): #add parent
         builder = gtk.Builder()
         builder.add_from_file(xdg.get_data_path('glade/results.glade'))
 
@@ -62,6 +71,7 @@ class roundResults:
         self.results = results
         self.round = round
         self.rounds = rounds
+        self.show_top_teams = show_top_teams
 
         self.result_dialog = builder.get_object('dlg_results')
         title = self.result_dialog.get_title()  + ' ' + str(round) + '/' + str(rounds)

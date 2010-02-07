@@ -99,7 +99,7 @@ def _init_playoff(teams, fast, back_round):
         results = r.get_round_results()
         
         R = round_results.roundResults(classifications, results, l.get_prev_round_number() + 1,
-                                       l.get_number_of_rounds())
+                                       l.get_number_of_rounds(), show_top_teams=True)
         button_pressed = R.result_dialog.run()
         
         while gtk.events_pending():

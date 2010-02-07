@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-06 20:37+0100\n"
-"PO-Revision-Date: 2010-02-06 20:35+0100\n"
+"POT-Creation-Date: 2010-02-07 18:39+0100\n"
+"PO-Revision-Date: 2010-02-07 18:40+0100\n"
 "Last-Translator: Riku the Ronin <pablo.recioquijano@alum.uca.es>\n"
 "Language-Team: Spanish <>\n"
 "MIME-Version: 1.0\n"
@@ -49,40 +49,45 @@ msgstr "Valor de las piezas"
 msgid "Turn when max value piece died"
 msgstr "Turno cuando muere la pieza de máximo valor"
 
-#: ../resistencia/gui/round_results.py:83
+#: ../resistencia/gui/round_results.py:49
+#: ../resistencia/gui/round_results.py:50
+msgid "Rests"
+msgstr "Descansa"
+
+#: ../resistencia/gui/round_results.py:92
 msgid "Team name"
 msgstr "Nombre del equipo"
 
-#: ../resistencia/gui/round_results.py:99
+#: ../resistencia/gui/round_results.py:111
 msgid "Team A"
 msgstr "Equipo A"
 
-#: ../resistencia/gui/round_results.py:100
+#: ../resistencia/gui/round_results.py:112
 msgid "Team B"
 msgstr "Equipo B"
 
-#: ../resistencia/gui/tests_dialog.py:124
-#: ../resistencia/gui/contest_dialog.py:86
+#: ../resistencia/gui/tests_dialog.py:126
+#: ../resistencia/gui/contest_dialog.py:87
 msgid "Name"
 msgstr "Nombre"
 
-#: ../resistencia/gui/tests_dialog.py:125
-#: ../resistencia/gui/contest_dialog.py:87
+#: ../resistencia/gui/tests_dialog.py:127
+#: ../resistencia/gui/contest_dialog.py:88
 msgid "Rules"
 msgstr "Reglas"
 
-#: ../resistencia/gui/tests_dialog.py:126
-#: ../resistencia/gui/contest_dialog.py:88
+#: ../resistencia/gui/tests_dialog.py:128
+#: ../resistencia/gui/contest_dialog.py:89
 msgid "Formation"
 msgstr "Formación"
 
 #: ../resistencia/gui/notify_result.py:37
 msgid "Draw"
-msgstr "Empates"
+msgstr "Empate"
 
 #: ../resistencia/gui/notify_result.py:39
 msgid "Wins "
-msgstr "Ganados"
+msgstr "Ganada "
 
 #: ../resistencia/gui/notify_result.py:41
 msgid "Gana "
@@ -139,7 +144,7 @@ msgstr "¡Fin!"
 msgid "This are the results of the final round"
 msgstr "Estos son los resultados de la última ronda"
 
-#: ../data/glade/resultNotifier.glade.h:1 ../data/glade/quickGame.glade.h:12
+#: ../data/glade/resultNotifier.glade.h:1 ../data/glade/quickGame.glade.h:13
 msgid "Result of the game"
 msgstr "Resultados del juego"
 
@@ -266,7 +271,7 @@ msgstr "Laboratorio"
 msgid "Previous games"
 msgstr "Partidas antiguas"
 
-#: ../data/glade/main.glade.h:7
+#: ../data/glade/main.glade.h:7 ../data/glade/quickGame.glade.h:12
 msgid "Quick game"
 msgstr "Partida rápida"
 
@@ -319,24 +324,24 @@ msgid "Elimination cup"
 msgstr "Copa eliminatoria"
 
 #: ../data/glade/contest.glade.h:7
-msgid "Groups"
-msgstr "Grupos"
-
-#: ../data/glade/contest.glade.h:8
 msgid "League"
 msgstr "Liga"
 
-#: ../data/glade/contest.glade.h:9
+#: ../data/glade/contest.glade.h:8
 msgid "Main configuration"
 msgstr "Configuración principal"
 
-#: ../data/glade/contest.glade.h:10
+#: ../data/glade/contest.glade.h:9
 msgid "Only results"
 msgstr "Solo los resultados"
 
-#: ../data/glade/contest.glade.h:11
+#: ../data/glade/contest.glade.h:10
 msgid "Players"
 msgstr "Jugadores"
+
+#: ../data/glade/contest.glade.h:11
+msgid "Playoff"
+msgstr ""
 
 #: ../data/glade/tree.glade.h:2
 msgid "Select players for the contest"
@@ -399,34 +404,37 @@ msgstr "Partida rápida"
 msgid "Hide pieces's values"
 msgstr "Esconder el valor de las piezas"
 
-#: ../data/glade/quickGame.glade.h:13
+#: ../data/glade/quickGame.glade.h:14
 msgid "Select formation for team A"
 msgstr "Seleccionar formación para el equipo A"
 
-#: ../data/glade/quickGame.glade.h:14
+#: ../data/glade/quickGame.glade.h:15
 msgid "Select formation for team B"
 msgstr "Seleccionar formación para el equipo B"
 
-#: ../data/glade/quickGame.glade.h:15
+#: ../data/glade/quickGame.glade.h:16
 msgid "System Expert for team A"
 msgstr "Reglas para el equipo A"
 
-#: ../data/glade/quickGame.glade.h:16
+#: ../data/glade/quickGame.glade.h:17
 msgid "System Expert for team B"
 msgstr "Reglas para el equipo B"
 
-#: ../data/glade/quickGame.glade.h:17
+#: ../data/glade/quickGame.glade.h:18
 msgid "You have no selected file for the Expert System A"
 msgstr "No ha seleccionado el fichero de reglas para el equipo A"
 
-#: ../data/glade/quickGame.glade.h:18
+#: ../data/glade/quickGame.glade.h:19
 msgid "You have no selected file for the Expert System B"
 msgstr "No ha seleccionado el fichero de reglas para el equipo B"
 
-#: ../data/glade/quickGame.glade.h:19
+#: ../data/glade/quickGame.glade.h:20
 msgid "You have no selected file for the Team A"
 msgstr "No ha seleccionado el fichero de formación para el equipo A"
 
-#: ../data/glade/quickGame.glade.h:20
+#: ../data/glade/quickGame.glade.h:21
 msgid "You have no selected file for the team B"
 msgstr "No ha seleccionado el fichero de formación para el equipo B"
+
+#~ msgid "Groups"
+#~ msgstr "Grupos"
