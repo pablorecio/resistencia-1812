@@ -19,6 +19,8 @@
 ###############################################################################
 
 import os
+import types
+
 import gtk
 
 from resistencia import configure, filenames, xdg
@@ -29,17 +31,18 @@ import contest
 import tournament
 import round
 
-def init_contest(contest_format, teams, fast=False, back_round=False):
+def init_contest(contest_format, teams, fast=False, back_round=False,
+                 num_turns=120):
     if contest_format == 'league':
-        _init_league(_clean_dictionary(teams), fast, back_round)
+        _init_league(_clean_dictionary(teams), fast, num_turns, back_round)
     elif contest_format == 'cup':
-        _init_tournament(_clean_dictionary(teams), fast)
+        _init_tournament(_clean_dictionary(teams), num_turns, fast)
     elif contest_format == 'playoff':
-        _init_playoff(_clean_dictionary(teams), fast, back_round)
+        _init_playoff(_clean_dictionary(teams), fast, num_turns, back_round)
         
 
-def _init_league(teams, fast, back_round):    
-    l = league.League(teams, back_round)
+def _init_league(teams, fast, num_turns, back_round):
+    l = league.League(teams, num_turns, back_round)
 
     band = False
     
@@ -51,7 +54,8 @@ def _init_league(teams, fast, back_round):
         classifications = l.get_actual_puntuations()
         results = r.get_round_results()
         
-        R = round_results.roundResults(classifications, results, l.get_prev_round_number() + 1,
+        R = round_results.roundResults(classifications, results,
+                                       l.get_prev_round_number() + 1,
                                        l.get_number_of_rounds())
         button_pressed = R.result_dialog.run()
         
@@ -61,8 +65,8 @@ def _init_league(teams, fast, back_round):
         if button_pressed == -4 or button_pressed == 0:
             band = True
 
-def _init_tournament(teams, fast):
-    t = tournament.Tournament(teams)
+def _init_tournament(teams, num_turns, fast):
+    t = tournament.Tournament(teams, num_turns)
     band = False
 
     while not t.tournament_completed and not band:
@@ -73,8 +77,10 @@ def _init_tournament(teams, fast):
         classifications = []
         results = r.get_round_results()
         
-        R = round_results.roundResults(classifications, results, t.get_prev_round_number() + 1,
-                                       t.get_number_of_rounds(), show_classifications=False)
+        R = round_results.roundResults(classifications, results,
+                                       t.get_prev_round_number() + 1,
+                                       t.get_number_of_rounds(),
+                                       show_classifications=False)
 
         button_pressed = R.result_dialog.run()
         
@@ -85,8 +91,8 @@ def _init_tournament(teams, fast):
             band = True
 
 
-def _init_playoff(teams, fast, back_round):    
-    l = league.League(teams, back_round)
+def _init_playoff(teams, fast, num_turns, back_round):
+    l = league.League(teams, num_turns, back_round)
 
     band = False
     
@@ -98,8 +104,10 @@ def _init_playoff(teams, fast, back_round):
         classifications = l.get_actual_puntuations()
         results = r.get_round_results()
         
-        R = round_results.roundResults(classifications, results, l.get_prev_round_number() + 1,
-                                       l.get_number_of_rounds(), show_top_teams=True)
+        R = round_results.roundResults(classifications, results,
+                                       l.get_prev_round_number() + 1,
+                                       l.get_number_of_rounds(),
+                                       show_top_teams=True)
         button_pressed = R.result_dialog.run()
         
         while gtk.events_pending():
@@ -111,15 +119,19 @@ def _init_playoff(teams, fast, back_round):
     if not band:
         band = False
         teams = _get_teams_next_round(teams, _extract_classifications(classifications))
-        _init_tournament(teams, fast)
+        _init_tournament(teams, fast, num_turns)
         
 
-def _clean_dictionary(d):
-    l = []
-    for k in d:
-        l.append(d[k])
 
-    return l
+def _clean_dictionary(d):
+    if type(d) == types.ListType:
+        return d
+    else:
+        l = []
+        for k in d:
+            l.append(d[k])
+            
+        return l
 
 def _get_teams_next_round(teams, classifications):
     translator = contest.generate_key_names(teams)

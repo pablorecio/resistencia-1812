@@ -41,9 +41,10 @@ def _generate_key_names(teams):
     return d
 
 class TestSuite:
-    def __init__(self, main_team, teams, rounds_number):
+    def __init__(self, main_team, teams, rounds_number, num_turns):
         self.main_team = main_team
         self.teams = teams
+        self.num_turns = num_turns
         
         self.translator_teams = _generate_key_names(teams)
         self.translator_main_team = _generate_key_names([main_team])
@@ -77,6 +78,7 @@ class TestSuite:
             round_games = pairing.test_pairing(self.key_main_team[0],
                                                self.keys_teams, i%2)
             self.rounds.append(test_round.TestRound(round_games, self.translator,
+                                                    num_turns = self.num_turns,
                                                     log_file=self.filename,
                                                     player=i%2,))
 

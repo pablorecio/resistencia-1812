@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-07 18:39+0100\n"
+"POT-Creation-Date: 2010-02-07 19:28+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -48,20 +48,20 @@ msgstr ""
 msgid "Turn when max value piece died"
 msgstr ""
 
-#: ../resistencia/gui/round_results.py:49
-#: ../resistencia/gui/round_results.py:50
+#: ../resistencia/gui/round_results.py:52
+#: ../resistencia/gui/round_results.py:53
 msgid "Rests"
 msgstr ""
 
-#: ../resistencia/gui/round_results.py:92
+#: ../resistencia/gui/round_results.py:95
 msgid "Team name"
 msgstr ""
 
-#: ../resistencia/gui/round_results.py:111
+#: ../resistencia/gui/round_results.py:114
 msgid "Team A"
 msgstr ""
 
-#: ../resistencia/gui/round_results.py:112
+#: ../resistencia/gui/round_results.py:115
 msgid "Team B"
 msgstr ""
 

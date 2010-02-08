@@ -20,12 +20,15 @@
 
 import os
 import sys
+import types
 
 import gtk
 
 from resistencia import configure, filenames, xdg
 from resistencia.contest import main as contest
+from resistencia.tests import selection
 from resistencia.nls import gettext as _
+import tests_result
 
 class contestDialog:
     # --- List and handler functions
@@ -119,6 +122,13 @@ class contestDialog:
         self.file_chooser_formation.set_current_folder(def_path + '/formations')
 
         self.start_button = builder.get_object('btn_start')
+        self.frame_selection_teams = builder.get_object('box_selection')
+        
+        self.num_turns = 120
+        self.spin_turns = builder.get_object("spin_num_turns")
+        self.spin_turns.set_range(50,300)
+        self.spin_turns.set_increments(1,10)
+        self.spin_turns.set_value(self.num_turns)
         
         builder.connect_signals(self)
 
@@ -165,10 +175,13 @@ class contestDialog:
         self.contest_dialog.hide()
 
     def on_btn_start_clicked(self, widget, data=None):
+        if self.all_teams:
+            self.teams = selection.get_installed_teams()
         self.contest_dialog.destroy()
         while gtk.events_pending():
             gtk.main_iteration(False)
-        contest.init_contest(self.format_contest, self.teams, self.fast, self.back_round)
+        contest.init_contest(self.format_contest, self.teams,
+                             self.fast, self.back_round, self.num_turns)
 
     # ---- Radio button
 
@@ -206,4 +219,22 @@ class contestDialog:
             self.fast = True
         else:
             self.fast = False
+    
+    def on_check_all_teams_toggled(self, widget, data=None):
+        self.all_teams = widget.get_active()
+        if self.all_teams:
+            self.frame_selection_teams.set_sensitive(False)
+            self.start_button.set_sensitive(True)
+        else:
+            self.frame_selection_teams.set_sensitive(True)
+            if len(self.teams) >= 2:
+                self.start_button.set_sensitive(True)
+            else:
+                self.start_button.set_sensitive(False)
+
+    def on_spin_num_turns_change_value(self, widget, data=None):
+        self.num_turns = int(widget.get_value())
+
+    def on_spin_num_turns_value_changed(self, widget, data=None):
+        self.num_turns = int(widget.get_value())
         

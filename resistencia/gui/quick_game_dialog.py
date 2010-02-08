@@ -112,10 +112,10 @@ class quickGameDialog:
         self.hidde_values = widget.get_active()
 
     def on_spin_num_turns_change_value(self, widget, data=None):
-        self.num_turns = widget.get_value()
+        self.num_turns = int(widget.get_value())
 
     def on_spin_num_turns_value_changed(self, widget, data=None):
-        self.num_turns = widget.get_value()
+        self.num_turns = int(widget.get_value())
         
     def on_btn_cancel_clicked(self, widget, data=None):
         self.quick_game.hide()
