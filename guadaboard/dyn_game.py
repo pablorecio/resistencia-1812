@@ -26,19 +26,20 @@ from resistencia import configure, xdg
 from resistencia.nls import gettext as _
 
 import board
+import layout
 
 class DynGame:
-    def __init__(self, teamA_piece, teamB_piece, default_piece,
+    def __init__(self, teamA, teamB, default_piece, xml_file,
                  piece_size=60, board_size=8, player=0):
         self.turn = 0
 
-        self.teamA_piece = teamA_piece
-        self.teamB_piece = teamB_piece
+        self.teamA_piece = teamA[1]
+        self.teamB_piece = teamB[1]
         self.default_piece = default_piece
         self.piece_size = piece_size
         self.board_size = board_size
 
-        self.screen_size = (self.board_size*self.piece_size,)*2
+        self.srfc_board_size = (self.board_size*self.piece_size,)*2
         self.player = player
         
         music = False
@@ -46,23 +47,39 @@ class DynGame:
             music = True
         
         pygame.init()
-        self.screen = pygame.display.set_mode(self.screen_size)
+        self.xml_layout = layout.Layout(xml_file, True)
+        #self.screen = pygame.display.set_mode(self.srfc_board_size)
+        self.screen = pygame.display.set_mode(self.xml_layout.get_window_size())
+        pygame.display.set_caption(self.xml_layout.get_window_title())
+        self.srfc_board = pygame.Surface(self.srfc_board_size)
+        
+        self.xml_layout.init((teamA[1], teamA[0]), (teamB[1], teamB[0]),
+                             self.srfc_board)
+        self.rects = self.xml_layout.get_buttons_rects()
+        self.offset = self.xml_layout.get_board_position()
+        pygame.display.set_icon(self.xml_layout.get_favicon())
+        
+        self.screen.blit(self.xml_layout.get_surface(),(0,0))
+        pygame.display.flip()
 
         if music:
             music_path = xdg.get_data_path('music/walking_on_old_stones.ogg')
             pygame.mixer.music.load(music_path)
             pygame.mixer.music.play()
-
-        pygame.display.set_caption(_('Resistence Cadiz: 1812'))
+        
         img_piece_selected_path = xdg.get_data_path('images/piece-selection.png')
         img_possible_move_path = xdg.get_data_path('images/posible-move.png')
         print img_piece_selected_path
         self.piece_selected = pygame.image.load(img_piece_selected_path)
         self.possible_move = pygame.image.load(img_possible_move_path)
-        #pygame.display.set_icon(xdg.get_data_path('images/favicon.png'))
 
     def get_number_of_turns(self):
         return self.turn
+    
+    def _update_layout(self, board):
+        self.xml_layout.change_board(self.srfc_board)
+        self.screen.blit(self.xml_layout.get_surface(),(0,0))
+        pygame.display.flip()
 
     def draw_layers(self, state, collision, offset=(0,0)):
         pos = (collision[1][1] * self.piece_size,
@@ -86,14 +103,14 @@ class DynGame:
                 if not val == 0:
                     if val / abs(val) == team:
                         avaiable[i] = False
-        self.screen.blit(self.piece_selected, pos)
+        self.srfc_board.blit(self.piece_selected, pos)
         for i in range(4):
             if avaiable[i]:
                 new_pos = (adjacents[i][1] * self.piece_size,
                            adjacents[i][0] * self.piece_size)
-                self.screen.blit(self.possible_move, new_pos)
+                self.srfc_board.blit(self.possible_move, new_pos)
             
-        pygame.display.flip()
+        self._update_layout(self.srfc_board)
         
 
     def draw_boards(self, board_list):
@@ -111,8 +128,9 @@ class DynGame:
             print 'vuelta a draw_boards'
             srfc = b.get_surface()
 
-            self.screen.blit(srfc.convert(), (0, 0))
-            pygame.display.flip()
+            self.srfc_board.blit(srfc.convert(), (0, 0))
+            self._update_layout(self.srfc_board)
+            #pygame.display.flip()
             if i != board_list[len(board_list) - 1]:
                 time.sleep(2)
 
@@ -120,6 +138,7 @@ class DynGame:
         band = False
         piece_selected = False
         piece = None
+        band_pos = False
 
         clock = pygame.time.Clock()
         while not band:
@@ -129,21 +148,41 @@ class DynGame:
                     if music:
                         pygame.mixer.music.stop()
                     pygame.display.quit()
+                elif event.type == pygame.MOUSEMOTION:
+                    res = _get_collision(event.pos, self.rects)
+                    if res != '':
+                        if band_pos == False:
+                            surface = self.xml_layout.get_surface((res,2))
+                            self.screen.blit(surface,(0,0))
+                            pygame.display.flip()                        
+                            band_pos = True
+                    else:
+                        if band_pos == True:
+                            surface = self.xml_layout.get_surface()
+                            self.screen.blit(surface,(0,0))
+                            pygame.display.flip()
+                            band_pos = False
                 elif event.type == pygame.MOUSEBUTTONUP:
                     if event.button == 1:
+                        if _get_collision(event.pos, self.rects) == 'button_exit':
+                            if music:
+                                pygame.mixer.music.stop()
+                            pygame.display.quit() 
                         collision = b.check_collision(event.pos)
                         if not piece_selected:
                             if collision[2] == self.player:
-                                self.screen.blit(srfc.convert(), (0, 0))
-                                pygame.display.flip()
+                                self.srfc_board.blit(srfc.convert(), (0, 0))
+                                self._update_layout(self.srfc_board)
+                                #pygame.display.flip()
                                 self.draw_layers(state, collision)
                                 piece = collision
                                 piece_selected = True
                         else: #piece_selected
                             if collision[2] == piece[2]:
                                 piece = collision
-                                self.screen.blit(srfc.convert(), (0, 0))
-                                pygame.display.flip()
+                                self.srfc_board.blit(srfc.convert(), (0, 0))
+                                self._update_layout(self.srfc_board)
+                                #pygame.display.flip()
                                 self.draw_layers(state, collision)                    
                             elif check_valid_movement(collision, piece):
                                 mov = get_movement(piece[1], collision[1], self.player)
@@ -192,7 +231,17 @@ def get_movement(source, dest, team):
                 mov = 2
 
     return mov
-        
+
+
+def _get_collision(point, rects):
+    res = ''
+    for index in rects:
+        rect = rects[index]
+        if rect.collidepoint(point):
+            res = index
+            break
+
+    return res
 
 def _reverse_board(board):
     tmp_board = []

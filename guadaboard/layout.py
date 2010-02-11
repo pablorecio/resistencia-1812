@@ -75,9 +75,10 @@ import main_layout_functions as functions
 #   |- 'exit_button_images'
 
 class Layout(object):
-    def __init__(self, xml_layout_document):
+    def __init__(self, xml_layout_document, interaction=False):
         self._color_key = (255,0,255)
         self.elements = {}
+        self.interaction = interaction
         docxml = minidom.parse(xml_layout_document)
 
         window_board = docxml.firstChild
@@ -216,6 +217,9 @@ class Layout(object):
     def change_board(self, board):
         self.board = board
 
+    def get_board_position(self):
+        return self.elements['board']['board_position']
+
     def get_favicon(self):
         return self.favicon
 
@@ -232,36 +236,40 @@ class Layout(object):
         surface = pygame.Surface(self.window_size)
 
         button_exit = self.buttons['button_exit'][0]
-        button_1 = self.buttons['button_left_2'][0]
-        button_2 = self.buttons['button_left_1'][0]
-        button_3 = self.buttons['button_right_1'][0]
-        button_4 = self.buttons['button_right_2'][0]
+        if not self.interaction:
+            button_1 = self.buttons['button_left_2'][0]
+            button_2 = self.buttons['button_left_1'][0]
+            button_3 = self.buttons['button_right_1'][0]
+            button_4 = self.buttons['button_right_2'][0]
 
         exit_button_pos = self.elements['exit_button']['exit_button_position']
-        action_buttons_pos = self.elements['action_buttons']['action_buttons_position']
 
-        left_2_button_pos = self.elements['action_buttons']['first_button']['first_button_position']
-        left_2_button_pos = self._get_absolute_position(action_buttons_pos,
-                                                        left_2_button_pos)
+        if not self.interaction:
+            action_buttons_pos = self.elements['action_buttons']['action_buttons_position']
+            
+            left_2_button_pos = self.elements['action_buttons']['first_button']['first_button_position']
+            left_2_button_pos = self._get_absolute_position(action_buttons_pos,
+                                                            left_2_button_pos)
 
-        left_1_button_pos = self.elements['action_buttons']['second_button']['second_button_position']
-        left_1_button_pos = self._get_absolute_position(action_buttons_pos,
-                                                        left_1_button_pos)
+            left_1_button_pos = self.elements['action_buttons']['second_button']['second_button_position']
+            left_1_button_pos = self._get_absolute_position(action_buttons_pos,
+                                                            left_1_button_pos)
 
-        right_1_button_pos = self.elements['action_buttons']['third_button']['third_button_position']
-        right_1_button_pos = self._get_absolute_position(action_buttons_pos,
-                                                         right_1_button_pos)
+            right_1_button_pos = self.elements['action_buttons']['third_button']['third_button_position']
+            right_1_button_pos = self._get_absolute_position(action_buttons_pos,
+                                                             right_1_button_pos)
 
-        right_2_button_pos = self.elements['action_buttons']['fourth_button']['fourth_button_position']
-        right_2_button_pos = self._get_absolute_position(action_buttons_pos,
-                                                         right_2_button_pos)
+            right_2_button_pos = self.elements['action_buttons']['fourth_button']['fourth_button_position']
+            right_2_button_pos = self._get_absolute_position(action_buttons_pos,
+                                                             right_2_button_pos)
 
         rects = {}
         rects['button_exit'] = surface.blit(button_exit, exit_button_pos)
-        rects['button_left_2'] = surface.blit(button_1, left_2_button_pos)
-        rects['button_left_1'] = surface.blit(button_2, left_1_button_pos)
-        rects['button_right_1'] = surface.blit(button_3, right_1_button_pos)
-        rects['button_right_2'] = surface.blit(button_4, right_2_button_pos)
+        if not self.interaction:
+            rects['button_left_2'] = surface.blit(button_1, left_2_button_pos)
+            rects['button_left_1'] = surface.blit(button_2, left_1_button_pos)
+            rects['button_right_1'] = surface.blit(button_3, right_1_button_pos)
+            rects['button_right_2'] = surface.blit(button_4, right_2_button_pos)
 
         return rects
 
@@ -294,11 +302,13 @@ class Layout(object):
             for index in self.state:
                 self.state[index] = 0
         exit_button = self._draw_exit_button()
-        buttons = self._draw_buttons()
+        if not self.interaction:
+            buttons = self._draw_buttons()
 
         final_surface.blit(self._static_background,(0,0))
         final_surface.blit(self.board, board_position)
         final_surface.blit(exit_button, exit_position)
-        final_surface.blit(buttons, buttons_position)
+        if not self.interaction:
+            final_surface.blit(buttons, buttons_position)
 
         return final_surface

@@ -21,15 +21,18 @@
 import dyn_game
 
 from libguadalete import file_parser
+from resistencia import xdg
 
 path_file = 'temporal.txt'
 
 class HumanInteraction:
-    def __init__(self, teamA_piece, teamB_piece, default_piece, player,
+    def __init__(self, teamA, teamB, default_piece, player,
                  number_turns):
         self.number_turns = number_turns
-        self.game_interaction = dyn_game.DynGame(teamA_piece, teamB_piece,
-                                                 default_piece, player=player)
+        self.game_interaction = dyn_game.DynGame(teamA, teamB,
+                                                 default_piece,
+                                                 xml_file= xdg.get_data_path('layouts/main-layout.xml'),
+                                                 player=player)
 
     def update_games(self):
         print 'update_games'
