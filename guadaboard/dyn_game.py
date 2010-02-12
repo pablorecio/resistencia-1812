@@ -28,6 +28,16 @@ from resistencia.nls import gettext as _
 import board
 import layout
 
+def _find_element_matrix(board, e):
+    """
+    Check the existence of the element on a matrix.
+    """
+    sum = 0
+    for l in board:
+        sum += l.count(e)
+
+    return not sum == 0
+
 class DynGame:
     def __init__(self, teamA, teamB, default_piece, xml_file,
                  piece_size=60, board_size=8, player=0):
@@ -42,9 +52,9 @@ class DynGame:
         self.srfc_board_size = (self.board_size*self.piece_size,)*2
         self.player = player
         
-        music = False
+        self.music = False
         if configure.load_configuration()['music_active'] == '1':
-            music = True
+            self.music = True
         
         pygame.init()
         self.xml_layout = layout.Layout(xml_file, True)
@@ -62,7 +72,7 @@ class DynGame:
         self.screen.blit(self.xml_layout.get_surface(),(0,0))
         pygame.display.flip()
 
-        if music:
+        if self.music:
             music_path = xdg.get_data_path('music/walking_on_old_stones.ogg')
             pygame.mixer.music.load(music_path)
             pygame.mixer.music.play()
@@ -111,7 +121,11 @@ class DynGame:
                 self.srfc_board.blit(self.possible_move, new_pos)
             
         self._update_layout(self.srfc_board)
-        
+
+    def finish(self):
+        if self.music:
+            pygame.mixer.music.stop()
+            pygame.display.quit()
 
     def draw_boards(self, board_list):
         print 'draw_boards'
@@ -139,13 +153,14 @@ class DynGame:
         piece_selected = False
         piece = None
         band_pos = False
+        game_continue = _find_element_matrix(state,1) and _find_element_matrix(state,-1)
 
         clock = pygame.time.Clock()
-        while not band:
+        while not band and game_continue:
             time_passed = clock.tick(50)
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    if music:
+                    if self.music:
                         pygame.mixer.music.stop()
                     pygame.display.quit()
                 elif event.type == pygame.MOUSEMOTION:
@@ -165,7 +180,7 @@ class DynGame:
                 elif event.type == pygame.MOUSEBUTTONUP:
                     if event.button == 1:
                         if _get_collision(event.pos, self.rects) == 'button_exit':
-                            if music:
+                            if self.music:
                                 pygame.mixer.music.stop()
                             pygame.display.quit() 
                         collision = b.check_collision(event.pos)
