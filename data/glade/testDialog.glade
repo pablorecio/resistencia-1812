@@ -118,58 +118,111 @@
                         <property name="visible">True</property>
                         <property name="left_padding">12</property>
                         <child>
-                          <object class="GtkVButtonBox" id="vbuttonbox1">
+                          <object class="GtkVBox" id="vbox3">
                             <property name="visible">True</property>
                             <property name="orientation">vertical</property>
-                            <property name="layout_style">start</property>
                             <child>
-                              <object class="GtkHBox" id="hbox4">
+                              <object class="GtkVBox" id="vbox4">
                                 <property name="visible">True</property>
+                                <property name="orientation">vertical</property>
                                 <child>
-                                  <object class="GtkSpinButton" id="spin_rounds">
+                                  <object class="GtkTable" id="table2">
                                     <property name="visible">True</property>
-                                    <property name="can_focus">True</property>
-                                    <property name="invisible_char">&#x25CF;</property>
-                                    <signal name="value_changed" handler="on_spin_rounds_value_changed"/>
-                                    <signal name="change_value" handler="on_spin_rounds_change_value"/>
+                                    <property name="n_rows">2</property>
+                                    <property name="n_columns">2</property>
+                                    <child>
+                                      <object class="GtkSpinButton" id="spin_rounds">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">True</property>
+                                        <property name="invisible_char">&#x25CF;</property>
+                                        <signal name="value_changed" handler="on_spin_rounds_value_changed"/>
+                                        <signal name="change_value" handler="on_spin_rounds_change_value"/>
+                                      </object>
+                                      <packing>
+                                        <property name="x_options"></property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <object class="GtkLabel" id="label3">
+                                        <property name="visible">True</property>
+                                        <property name="xalign">0</property>
+                                        <property name="label" translatable="yes">Number of repetitions</property>
+                                      </object>
+                                      <packing>
+                                        <property name="left_attach">1</property>
+                                        <property name="right_attach">2</property>
+                                        <property name="x_options">GTK_FILL</property>
+                                        <property name="x_padding">5</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <object class="GtkSpinButton" id="spin_num_turns">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">True</property>
+                                        <property name="max_length">3</property>
+                                        <property name="invisible_char">&#x25CF;</property>
+                                        <property name="progress_pulse_step">1</property>
+                                        <signal name="value_changed" handler="on_spin_num_turns_value_changed"/>
+                                        <signal name="change_value" handler="on_spin_num_turns_change_value"/>
+                                      </object>
+                                      <packing>
+                                        <property name="top_attach">1</property>
+                                        <property name="bottom_attach">2</property>
+                                        <property name="x_options"></property>
+                                        <property name="y_padding">5</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <object class="GtkLabel" id="label8">
+                                        <property name="visible">True</property>
+                                        <property name="xalign">0</property>
+                                        <property name="label" translatable="yes">Number of turns</property>
+                                      </object>
+                                      <packing>
+                                        <property name="left_attach">1</property>
+                                        <property name="right_attach">2</property>
+                                        <property name="top_attach">1</property>
+                                        <property name="bottom_attach">2</property>
+                                        <property name="x_options">GTK_FILL</property>
+                                        <property name="y_options">GTK_EXPAND</property>
+                                        <property name="x_padding">5</property>
+                                      </packing>
+                                    </child>
                                   </object>
                                   <packing>
-                                    <property name="expand">False</property>
-                                    <property name="fill">False</property>
                                     <property name="position">0</property>
                                   </packing>
                                 </child>
                                 <child>
-                                  <object class="GtkLabel" id="label3">
+                                  <object class="GtkHButtonBox" id="hbuttonbox1">
                                     <property name="visible">True</property>
-                                    <property name="xalign">0.47999998927116394</property>
-                                    <property name="label" translatable="yes">Number of repetitions</property>
+                                    <property name="layout_style">start</property>
+                                    <child>
+                                      <object class="GtkCheckButton" id="check_all_teams">
+                                        <property name="label" translatable="yes">Use all teams installed</property>
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">True</property>
+                                        <property name="receives_default">False</property>
+                                        <property name="xalign">0</property>
+                                        <property name="draw_indicator">True</property>
+                                        <signal name="toggled" handler="on_check_all_teams_toggled"/>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">False</property>
+                                        <property name="fill">False</property>
+                                        <property name="position">0</property>
+                                      </packing>
+                                    </child>
                                   </object>
                                   <packing>
-                                    <property name="padding">7</property>
+                                    <property name="expand">False</property>
+                                    <property name="fill">False</property>
                                     <property name="position">1</property>
                                   </packing>
                                 </child>
                               </object>
                               <packing>
-                                <property name="expand">False</property>
-                                <property name="fill">False</property>
                                 <property name="position">0</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <object class="GtkCheckButton" id="check_all_teams">
-                                <property name="label" translatable="yes">Use all teams installed</property>
-                                <property name="visible">True</property>
-                                <property name="can_focus">True</property>
-                                <property name="receives_default">False</property>
-                                <property name="draw_indicator">True</property>
-                                <signal name="toggled" handler="on_check_all_teams_toggled"/>
-                              </object>
-                              <packing>
-                                <property name="expand">False</property>
-                                <property name="fill">False</property>
-                                <property name="position">1</property>
                               </packing>
                             </child>
                           </object>

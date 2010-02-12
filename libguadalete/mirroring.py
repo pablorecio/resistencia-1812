@@ -21,6 +21,7 @@
 import re
 
 team_path_tmp_file = './equipoTemporal.clp'
+team_inter_path_tmp_file = './equipoIntTemp.clp'
 rule_path_tmp_file = './reglasTemporal.clp'
 
 def _reverse_index(i):
@@ -68,6 +69,26 @@ def mirroring_team(src_file):
 
 # Now functions that reverse the rules
 
+def interactive_formation(src_file):
+    f_team = open(src_file, 'r')
+    f_temp = open(team_inter_path_tmp_file, 'w')
+
+    for l in f_team:
+        i = l.find('(num')
+        if not i == -1:
+            j = l.find(')', i)
+
+            num_old = l[i+5:j]
+            num = _convert_identifier(num_old)
+
+            new_line = l.replace(num_old, num)
+            #print new_line
+        else:
+            new_line = l
+        f_temp.write(new_line)
+
+    return team_inter_path_tmp_file
+
 def mirroring_rules(src_file):
     """Mirror the file for the rules of a team.
     
@@ -90,4 +111,9 @@ def mirroring_rules(src_file):
     return rule_path_tmp_file
 
                      
-            
+def _convert_identifier(old):
+    new_id = ''
+    for i in old:
+        new_id += str(ord(i))
+
+    return new_id

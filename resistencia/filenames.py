@@ -38,10 +38,10 @@ def extract_simple_name_expert_system (team):
         str_error = 'Variable must be a pair '
         raise ValueError(str_error)
 
-    i = team[0].find("/reglas")
-    j = team[0].find(".clp")
+    i = team[1].find("/equipo")
+    j = team[1].find(".clp")
 
-    return (team[0])[i+7:j]
+    return (team[1])[i+7:j]
 
 def extract_name_expert_system(team):
     """Reciving a 2 elements tuple, extract the name of the player
@@ -73,6 +73,35 @@ def extract_names_from_file (filename):
     nameB_j = file_name.find('.txt')
 
     return (file_name[nameA_i:nameA_j], file_name[nameB_i:nameB_j])
+
+def generate_filename_keys (filetype, teams=None):
+    if filetype == 'game':
+        if not (type(teams) == types.TupleType) or not (len(teams) == 2):
+            str_error = 'If you want to generate a filename for a game '
+            str_error += 'an extra argument is needed'
+            raise ValueError(str_error)
+
+    t = datetime.datetime.now()
+
+    iso_date = t.isoformat()
+    iso_date = iso_date.replace('T', '_')
+    iso_date = iso_date[:iso_date.find('.')]
+
+    tail = ''
+    extension = '.txt'
+
+    if filetype == 'game':
+        name_teamA = teams[0]
+        name_teamB = teams[1]
+        tail = '_' + name_teamA + '-vs-' + name_teamB
+    if filetype == 'stats':
+        tail = '_' + extract_name_expert_system(teams)
+        extension = '.csv'
+
+    filename = filetype + '_' + iso_date + tail + extension
+
+    return filename
+
 
 def generate_filename (filetype, teams=None):
     """This function allow to generates files with proper name.

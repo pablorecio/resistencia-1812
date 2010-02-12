@@ -151,26 +151,26 @@ Estas listas son básicamente para no perder una perspectiva sobre lo que
 pretendo con el PFC. Además me sirve de 'rúbrica' del trabajo realizado hasta
 ahora.
 
-** Funcionales [0/8]
-   - [ ] Otorgar una interfaz amigable para las pruebas de los sistemas expertos 
+** Funcionales [6/8]
+   - [X] Otorgar una interfaz amigable para las pruebas de los sistemas expertos 
 	 diseñados e implementados e CLIPS por los usuarios.
-   - [ ] Implementar sistemas de competiciones (configurables)
-   - [ ] Pruebas de sistemas expertos: hacer jugar un sistema experto contra
+   - [X] Implementar sistemas de competiciones (configurables)
+   - [X] Pruebas de sistemas expertos: hacer jugar un sistema experto contra
 	 varios, sacar estadísticas, y mostrar al usuario como de bueno es
 	 el sistema experto que ha implementado.
-   - [ ] Modo rápido de partida (sin mostrar toda la partida).
-   - [ ] Posibilitar la ocultación de los valores de las fichas en el modo juego.
+   - [X] Modo rápido de partida (sin mostrar toda la partida).
+   - [X] Posibilitar la ocultación de los valores de las fichas en el modo juego.
    - [ ] Modo de prueba interactiva, es decir, jugar contra tu sistema experto.
-   - [ ] Sistema de almacenamiento de partidas.
+   - [X] Sistema de almacenamiento de partidas.
    - [ ] [OPCIONAL] Interfaz dinámica de edición de formaciones
 
-** Transversales [0/6]
-   - [ ] Código escrito en inglés.
-   - [ ] Internacionalizable.
-   - [ ] Diseño orientado a objetos.
-   - [ ] Modulable para futuras ampliaciones.
+** Transversales [5/6]
+   - [X] Código escrito en inglés.
+   - [X] Internacionalizable.
+   - [X] Diseño orientado a objetos.
+   - [X] Modulable para futuras ampliaciones.
    - [ ] Documentación al día (preparada para Doxygen).
-   - [ ] Fácil distribución en diversas plataformas (paquetes debian, .exe, etc)
+   - [X] Fácil distribución en diversas plataformas (paquetes debian, .exe, etc)
 
 
 * Estructura del PFC (ficheros)

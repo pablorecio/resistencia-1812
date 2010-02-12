@@ -46,10 +46,11 @@ def _extract_teams_from_pairing(elements):
         teams.append(i[1])
     
 class Tournament(contest.Contest):
-    def __init__(self, teams, pairings_done=False):
+    def __init__(self, teams, num_turns, pairings_done=False):
         self.matchs = []
         self.teams = []
         self.round_winners = []
+        self.num_turns = num_turns
         if pairings_done:
             self.matchs.append(teams)
             self.teams = _extract_teams_from_pairing(self.matchs)
@@ -73,7 +74,8 @@ class Tournament(contest.Contest):
         
         self.rounds.append(round.Round(self.matchs[self.round_number],
                                        self.translator,
-                                       self.tournament_file_name))
+                                       self.tournament_file_name,
+                                       self.num_turns))
 
         self.number_of_rounds = int(math.ceil(math.log(len(self.teams),2)))
         self.tournament_completed = False

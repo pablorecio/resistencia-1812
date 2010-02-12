@@ -111,6 +111,12 @@ class testDialog:
         self.spin_rounds.set_range(2, 100)
         self.spin_rounds.set_increments(2,10)
         self.spin_rounds.set_value(self.num_rounds)
+        
+        self.num_turns = 120
+        self.spin_turns = builder.get_object("spin_num_turns")
+        self.spin_turns.set_range(50,300)
+        self.spin_turns.set_increments(1,10)
+        self.spin_turns.set_value(self.num_turns)
 
         self.all_teams = False
         self.frame_selection_teams = builder.get_object('frame_es_selection')
@@ -171,10 +177,16 @@ class testDialog:
         self.formation_main_team = widget.get_uri().replace('file://','')
 
     def on_spin_rounds_change_value(self, widget, data=None):
-        self.num_rounds = widget.get_value()
+        self.num_rounds = int(widget.get_value())
 
     def on_spin_rounds_value_changed(self, widget, data=None):
-        self.num_rounds = widget.get_value()
+        self.num_rounds = int(widget.get_value())
+
+    def on_spin_num_turns_change_value(self, widget, data=None):
+        self.num_turns = int(widget.get_value())
+
+    def on_spin_num_turns_value_changed(self, widget, data=None):
+        self.num_turns = int(widget.get_value())
 
     def on_check_all_teams_toggled(self, widget, data=None):
         self.all_teams = widget.get_active()
@@ -245,7 +257,7 @@ class testDialog:
 
             self.progress_bar.set_pulse_step(1 /  float(self.num_rounds * len(self.teams)))
             t = tests.TestSuite(main_team, _clean_dictionary(self.teams),
-                                self.num_rounds)
+                                self.num_rounds, self.num_turns)
             self.progress_bar_dialog.show()
             while gtk.events_pending():
                 gtk.main_iteration(False)

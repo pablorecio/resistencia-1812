@@ -32,10 +32,11 @@ import round
 
 class League(contest.Contest):
     
-    def __init__(self, teams, back_round=False):
+    def __init__(self, teams, num_turns, back_round=False):
         self.teams = teams
         self.translator = contest.generate_key_names(teams)
         self.keys = []
+        self.num_turns = num_turns
 
         for t in self.translator:
             self.keys.append(t)
@@ -49,7 +50,8 @@ class League(contest.Contest):
         
         for jorn in self.matchs:
             self.rounds.append(round.Round(jorn, self.translator,
-                                           self.tournament_file_name))
+                                           self.tournament_file_name,
+                                           self.num_turns))
 
         self.puntuations_by_round = []
         self.puntuations = {}

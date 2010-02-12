@@ -29,7 +29,8 @@ class Board(object):
     ubicated on int.
     """
     def __init__(self, state, teamA_piece, teamB_piece, default_piece,
-                 piece_size=60, board_size=8, value_max=6, hidden=False):
+                 piece_size=60, board_size=8, value_max=6, hidden=False,
+                 identifiers=None, player=None):
         """Init method for class Board
 
         Keywords arguments:
@@ -53,17 +54,24 @@ class Board(object):
         for i in range(len(state)):
             assert(len(state[i]) == board_size)
             
-        self.board_state = state
+        self.board_state = _reverse_board(state)
         self.piece_size = piece_size
         self.board_size = board_size
         self.keys = {}
         self.keys[0] = piece.Piece(0,0,60,img_path=default_piece).get_surface().convert()
         self.value_max = value_max
         self.hidden = hidden
+        if not identifiers == None:
+            self.identifiers = _reverse_board(identifiers)
 
         images = {}
         images[1] = teamA_piece
         images[-1] = teamB_piece
+        #if player == 'A':
+        #    self.player_team = 1
+        #else:
+        print player
+        self.player_team = player
 
         # next loop will generate the surfaces of every different piece and store
         # them on a dictionary. This way we can make an easy conversion from the
@@ -74,28 +82,55 @@ class Board(object):
                     value = abs(state[i][j])
                     team = state[i][j] / value
                     covered = 0
+                    rhidde = self.hidden
+                    if not (identifiers == None) and rhidde == True:
+                        if team == self.player_team:
+                            rhidde = False
                     if value > value_max:
                         value = value - value_max
                         covered = 1
                     self.keys[state[i][j]] = piece.Piece(value,
                                                          covered,
                                                          60,
-                                                         self.hidden,
+                                                         rhidde,
                                                          images[team]).get_surface().convert()
+        print 'termina board.Board()'
 
     def get_surface(self):
         """
         Generate a pygame drawdable surface with the entire board.
         """
+        print 'get_surface'
         size = (self.board_size*self.piece_size,)*2
         surface = pygame.surface.Surface(size).convert()
-        aux_board = _reverse_board(self.board_state)
+        #aux_board = _reverse_board(self.board_state)
+        aux_board = self.board_state
+        self.pieces_rects = []
         for i in range(self.board_size):
+            aux = []
             for j in range(self.board_size):
                 point = (j*self.piece_size, i*self.piece_size)
-                surface.blit(self.keys[aux_board[i][j]],point)
+                aux.append(surface.blit(self.keys[aux_board[i][j]],point))
+            self.pieces_rects.append(aux)
 
         return surface
+
+    def check_collision(self, pos, offset=(0,0)):
+        real_pos = (pos[0] - offset[0], pos[1] - offset[1])
+        print pos
+        print real_pos
+        print offset
+
+        for i in range(self.board_size):
+            for j in range(self.board_size):
+                if self.pieces_rects[i][j].collidepoint(real_pos):
+                    print 'seleccionado'
+                    team = 0
+                    if not self.board_state[i][j] == 0:
+                        team = self.board_state[i][j] / abs(self.board_state[i][j])
+                    print (self.identifiers[i][j], (i, j), team)
+                    return (self.identifiers[i][j], (i, j), team)
+        
 
 def _reverse_board(board):
     tmp_board = []

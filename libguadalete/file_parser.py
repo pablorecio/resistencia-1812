@@ -66,6 +66,61 @@ def __define_winner(board):
     else:
         return -1
 
+def parse_temp_file(src_file):
+    f = open(src_file)
+
+    rounds = []
+    keys_rounds = []
+    board = []
+    keys = []
+
+    for line in f:
+        if (line == "tiempo\n"):
+            if len(board) == 0:
+                board = __fill_matrix()
+                keys = __fill_matrix()
+            else:
+                print '----------------------'
+                print board
+                print keys
+                print '----------------------'
+                rounds.append((board, keys)) #include the board on the game
+                #keys_rounds.append(keys)
+                del board
+                del keys
+                board = __fill_matrix() #restart the board from 0
+                keys = __fill_matrix()
+        else:
+            if (line != "\n" and len(line) > 5):
+                pos_e = line.find("e")
+                pos_id = line.find("n")
+                pos_val = line.find("p")
+                pos_x = line.find("x")
+                pos_y = line.find("y")
+                pos_d = line.find("d")
+                    
+                e = line[pos_e+2:pos_id-1]
+                id = line[pos_id+2:pos_val-1]
+                val = line[pos_val+2:pos_x-1]
+                x = line[pos_x+2:pos_y-1]
+                y = line[pos_y+2:pos_d-1]
+                d = line[pos_d+2:]
+                
+                if e == 'A':
+                    board[int(y) - 1][int(x) - 1] = int(val) + (int(d)*max_value)
+                else:
+                    board[int(y) - 1][int(x) - 1] = int(val) - 2*int(val) - (int(d)*max_value)
+                keys[int(y) - 1][int(x) - 1] = id
+
+    print '----------------------'
+    print board
+    print keys
+    print '----------------------'        
+    rounds.append((board, keys))
+    f.close()
+    return rounds
+
+
 def parse_file(src_file):
     """This function allows to parse the file generated on a simulation.
 
@@ -73,9 +128,10 @@ def parse_file(src_file):
     src_file -- Output file of a simulation. This file has to contain all
     the data of every turn.
 
-    The function will return a pair. First element is list of boards. Those boards
-    are turn of the game. Second element is an integer that indicates the result of
-    the game
+    The function will return a pair. First element is list of boards.
+    Those boards
+    are turn of the game. Second element is an integer that indicates the
+    result of the game
     """
     f = open(src_file)
     

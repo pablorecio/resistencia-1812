@@ -18,7 +18,6 @@
 # Copyright (C) 2010, Pablo Recio Quijano, <pablo.recioquijano@alum.uca.es>   #
 ###############################################################################
 
-
 import sys
 
 import gtk
@@ -31,6 +30,7 @@ import settings_dialog
 import quick_game_dialog
 import contest_dialog
 import tests_dialog
+import human_game_dialog
 
 class Resistencia:
     """
@@ -63,6 +63,10 @@ class Resistencia:
     def on_btn_competitions_clicked(self, widget):
         treeview = contest_dialog.contestDialog(self.window)
         treeview.contest_dialog.run()
+
+    def on_btn_human_es_game_clicked(self, widget):
+        human_es_game = human_game_dialog.humanGameDialog(self.window)
+        human_es_game.human_ia_dialog.run()
 
     def on_btn_previous_games_clicked(self, widget):
         self.previous_games_chooser.connect('response', lambda d, r: d.hide())
