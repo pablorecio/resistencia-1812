@@ -68,7 +68,7 @@ def _init_league(teams, fast, num_turns, back_round):
 def _init_tournament(teams, num_turns, fast):
     t = tournament.Tournament(teams, num_turns)
     band = False
-
+    
     while not t.tournament_completed and not band:
         i = t.get_round_number()
         t.play_round(fast)
@@ -89,6 +89,7 @@ def _init_tournament(teams, num_turns, fast):
             
         if button_pressed == -4 or button_pressed == 0:
             band = True
+    print teams
 
 
 def _init_playoff(teams, fast, num_turns, back_round):
@@ -115,11 +116,10 @@ def _init_playoff(teams, fast, num_turns, back_round):
             
         if button_pressed == -4 or button_pressed == 0:
             band = True
-
     if not band:
         band = False
         teams = _get_teams_next_round(teams, _extract_classifications(classifications))
-        _init_tournament(teams, fast, num_turns)
+        _init_tournament(teams, num_turns, fast)
         
 
 
