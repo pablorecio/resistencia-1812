@@ -116,6 +116,7 @@ class contestDialog:
 
         self.back_round = False
         self.fast = False
+        self.all_teams = False
         
         def_path = configure.load_configuration()['se_path']
         self.file_chooser_rules.set_current_folder(def_path + '/rules')
