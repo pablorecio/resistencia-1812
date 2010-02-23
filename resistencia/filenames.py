@@ -22,13 +22,11 @@
 This file provides some functions commonly used in all the application.
 """
 
-import os
 from os import path
 import datetime
-import random
 import types
 
-def extract_simple_name_expert_system (team):
+def extract_simple_name_es (team):
     """Reciving a 2 elements tuple, extract the name of the player.
 
     Keywords arguments:
@@ -54,12 +52,12 @@ def extract_name_expert_system(team):
         str_error = 'Variable must be a pair '
         raise ValueError(str_error)
     
-    i1 = team[0].find("/reglas")
-    j1 = team[0].find(".clp")
-    i2 = team[1].find("/equipo")
-    j2 = team[1].find(".clp")
+    i_1 = team[0].find("/reglas")
+    j_1 = team[0].find(".clp")
+    i_2 = team[1].find("/equipo")
+    j_2 = team[1].find(".clp")
     
-    return (team[0])[i1+7:j1] + (team[1])[i2+7:j2]
+    return (team[0])[i_1+7:j_1] + (team[1])[i_2+7:j_2]
 
 def extract_names_from_file (filename):
     """
@@ -67,23 +65,26 @@ def extract_names_from_file (filename):
     """
     useless, file_name = path.split(filename)
 
-    nameA_i = 25
-    nameA_j = file_name.find('-vs-')
-    nameB_i = nameA_j + 4
-    nameB_j = file_name.find('.txt')
+    name_a_i = 25
+    name_a_j = file_name.find('-vs-')
+    name_b_i = name_a_j + 4
+    name_b_j = file_name.find('.txt')
 
-    return (file_name[nameA_i:nameA_j], file_name[nameB_i:nameB_j])
+    return (file_name[name_a_i:name_a_j], file_name[name_b_i:name_b_j])
 
 def generate_filename_keys (filetype, teams=None):
+    """
+    Generate the name of a log file
+    """
     if filetype == 'game':
         if not (type(teams) == types.TupleType) or not (len(teams) == 2):
             str_error = 'If you want to generate a filename for a game '
             str_error += 'an extra argument is needed'
             raise ValueError(str_error)
 
-    t = datetime.datetime.now()
+    _time = datetime.datetime.now()
 
-    iso_date = t.isoformat()
+    iso_date = _time.isoformat()
     iso_date = iso_date.replace('T', '_')
     iso_date = iso_date[:iso_date.find('.')]
 
@@ -91,9 +92,9 @@ def generate_filename_keys (filetype, teams=None):
     extension = '.txt'
 
     if filetype == 'game':
-        name_teamA = teams[0]
-        name_teamB = teams[1]
-        tail = '_' + name_teamA + '-vs-' + name_teamB
+        name_team_a = teams[0]
+        name_team_b = teams[1]
+        tail = '_' + name_team_a + '-vs-' + name_team_b
     if filetype == 'stats':
         tail = '_' + extract_name_expert_system(teams)
         extension = '.csv'
@@ -118,9 +119,9 @@ def generate_filename (filetype, teams=None):
             str_error += 'an extra argument is needed'
             raise ValueError(str_error)
 
-    t = datetime.datetime.now()
+    _time = datetime.datetime.now()
 
-    iso_date = t.isoformat()
+    iso_date = _time.isoformat()
     iso_date = iso_date.replace('T', '_')
     iso_date = iso_date[:iso_date.find('.')]
 
@@ -128,9 +129,9 @@ def generate_filename (filetype, teams=None):
     extension = '.txt'
 
     if filetype == 'game':
-        name_teamA = extract_name_expert_system(teams[0])
-        name_teamB = extract_name_expert_system(teams[1])
-        tail = '_' + name_teamA + '-vs-' + name_teamB
+        name_team_a = extract_name_expert_system(teams[0])
+        name_team_b = extract_name_expert_system(teams[1])
+        tail = '_' + name_team_a + '-vs-' + name_team_b
     if filetype == 'stats':
         tail = '_' + extract_name_expert_system(teams)
         extension = '.csv'

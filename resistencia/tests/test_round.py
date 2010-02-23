@@ -17,20 +17,31 @@
 
 # Copyright (C) 2010, Pablo Recio Quijano
 #----------------------------------------------------------------------
+"""
+Contains the class that specializes the round class of the competition, to
+be used on the tests.
+"""
 
-import time
 import csv
 
 from guadaboard import guada_board
 #from resistencia import xdg
 
-from resistencia.contest import round
+from resistencia.contest import round as contest_round
 
-class TestRound(round.Round):
-    def __init__ (self, matchs, translator, num_turns = 150,
+class TestRound(contest_round.Round):
+    """
+    This class includes the same values that a contest round.
+
+    On the __init__ method, teams is a tuple with the fist value a list of
+    matchs, and the second has the translator of the keys that contains
+    the real team
+    """
+    def __init__ (self, teams, num_turns = 150,
                   log_file=None, player = 0):
         #player must be 0 or 1
-        round.Round.__init__(self, matchs, translator, log_file, num_turns)
+        contest_round.Round.__init__(self, teams[0], teams[1],
+                                     log_file, num_turns)
         self.player_team = player
 
         self.round_stats = {}
@@ -44,29 +55,37 @@ class TestRound(round.Round):
         self.round_stats['max_death'] = 0
 
     def get_round_stats(self):
+        """
+        Returns a list with the stats of the tests rounds
+        """
         if self.completed:
             return self.round_stats
         else:
-            raise round.RoundError('Not all games played')
+            raise contest_round.RoundError('Not all games played')
 
     def _merge_stats(self, match_stats):
+        """
+        Merge the stats of a match with the general stats.
+        """
         for k in match_stats:
             self.round_stats[k] = self.round_stats[k] + match_stats[k]
 
-    def play_match(self):
-        teamA_key = self.round[self.next_game][0][0]
-        teamB_key = self.round[self.next_game][0][1]
+    def play_match(self, fast=None, cant_draw=None):
+        """
+        Run a simulation of the next game on the round
+        """
+        teams_keys = {}
+        teams_keys['a'] = self.round[self.next_game][0][0]
+        teams_keys['b'] = self.round[self.next_game][0][1]
 
-        teamA = (self.translator[teamA_key],)
-        teamB = (self.translator[teamB_key],)
+        team_a = (self.translator[teams_keys['a']],)
+        team_b = (self.translator[teams_keys['b']],)
 
-        print teamA
-        print teamB
+        result, stats = guada_board.run(team_a, team_b, fast=True,
+                                        get_stats=True,
+                                        number_turns=self.num_turns,
+                                        dont_log=True)
 
-        result, stats = guada_board.run(teamA, teamB, fast=True, get_stats=True,
-                                        number_turns=self.num_turns, dont_log=True)
-
-        print self.log_file
         stats_writer = csv.writer(open(self.log_file, 'a'), delimiter=',')#,
                                   #quotechar='|', quoting=csv.QUOTE_MINIMAL)
         key_result = ''
@@ -76,7 +95,7 @@ class TestRound(round.Round):
         key = ''
         team = ''
         if self.player_team == 0:
-            key = teamB_key
+            key = teams_keys['b']
             team = 'A'
             if result == 1:
                 number_of_turns = player_stats['turns_winning']
@@ -87,7 +106,7 @@ class TestRound(round.Round):
             else:
                 key_result = 'D'
         else:
-            key = teamA_key
+            key = teams_keys['a']
             team = 'B'
             if result == -1:
                 number_of_turns = player_stats['turns_winning']
@@ -105,13 +124,15 @@ class TestRound(round.Round):
 
         stats_writer.writerow(write_results)
                              
-        self.round[self.next_game] = (self.round[self.next_game][0], True, result)
+        self.round[self.next_game] = (self.round[self.next_game][0],
+                                      True, result)
 
         self.next_game = self.next_game + 1
         self.completed = (self.next_game == self.number_games)
 
         self._merge_stats(stats[self.player_team])
 
-        return (self.round[self.next_game-1][0], self.round[self.next_game-1][2])
+        return (self.round[self.next_game-1][0],
+                self.round[self.next_game-1][2])
         
     

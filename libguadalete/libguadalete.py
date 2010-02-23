@@ -65,7 +65,7 @@ class LibGuadalete(object):
         self.max_value = 6
         self.number_turns = number_turns
 
-        if not os.path.exists(configure.file_path):
+        if not os.path.exists(configure.__file_path__):
             configure.generate_configuration_file()
 
     def __startGame(self):

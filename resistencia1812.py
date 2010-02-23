@@ -25,37 +25,38 @@
 # it as base for the construction of this application.
 # To get the original version see <http://www.exaile.org/>
 ###############################################################################
+"""
+This file includes the main execution of the application
+"""
 
-import sys, os, os.path
+import sys
+import os
+import os.path
 
 if sys.platform == 'linux2':
     # Set process name.  Only works on Linux >= 2.1.57.
-    try:
-        import ctypes
-        libc = ctypes.CDLL('libc.so.6')
-        libc.prctl(15, 'resistencia1812', 0, 0, 0)
-    except:
-        try:
-             import dl
-             libc = dl.open('/lib/libc.so.6')
-             libc.call('prctl', 15, 'resistencia1812\0', 0, 0, 0) # 15 is PR_SET_NAME
-        except:
-            pass
+    import ctypes
+    __libc__ = ctypes.CDLL('libc.so.6')
+    __libc__.prctl(15, 'resistencia1812', 0, 0, 0)
 
-# Find out the location of resistencia's working directory, and insert it to sys.path
-basedir = os.path.dirname(os.path.realpath(__file__))
-if not os.path.exists(os.path.join(basedir, "resistencia1812.py")):
-    cwd = os.getcwd()
-    if os.path.exists(os.path.join(cwd, "resistencia1812.py")):
-        basedir = cwd
-sys.path.insert(0, basedir)
+# Find out the location of resistencia's working directory,
+# and insert it to sys.path
+__basedir__ = os.path.dirname(os.path.realpath(__file__))
+if not os.path.exists(os.path.join(__basedir__, "resistencia1812.py")):
+    __cwd__ = os.getcwd()
+    if os.path.exists(os.path.join(__cwd__, "resistencia1812.py")):
+        __basedir__ = __cwd__
+sys.path.insert(0, __basedir__)
 
 
-def main():
+def main_execution():
+    """
+    This function intializes the resistencia1812 evironment
+    """
     from resistencia import main
     main.main()
 
 if __name__ == "__main__":
-    main()
+    main_execution()
 
 # vim: et sts=4 sw=4

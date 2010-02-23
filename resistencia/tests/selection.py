@@ -18,11 +18,20 @@
 # Copyright (C) 2010, Pablo Recio Quijano, <pablo.recioquijano@alum.uca.es>   #
 ###############################################################################
 
+"""
+This file contains a function to get all the installed teams
+"""
+
 import os
 
 from resistencia import configure
 
 def get_installed_teams():
+    """
+    Return a list of the installed teams. We consider a installed team some
+    of the way 'data/teams/formations/equipoXX.clp',
+    'data/teams/rules/reglasYYYY.clp' where XX == YYYY
+    """
     base_path = configure.load_configuration()['se_path']
     rules_path = base_path + '/rules'
     formations_path = base_path + '/formations'
@@ -47,8 +56,8 @@ def get_installed_teams():
     res = []
 
     for i in range(len(list_final)):
-        r = rules_path + '/reglas' + list_final[i] + '.clp'
-        f = formations_path + '/equipo' + list_final[i] + '.clp'
-        res.append((r,f))
+        _rules = rules_path + '/reglas' + list_final[i] + '.clp'
+        _form = formations_path + '/equipo' + list_final[i] + '.clp'
+        res.append((_rules, _form))
 
     return res

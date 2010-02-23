@@ -18,4 +18,8 @@
 # Copyright (C) 2010, Pablo Recio Quijano
 #----------------------------------------------------------------------
 
+"""
+Indicates that test is a python package
+"""
+
 __all__ = []

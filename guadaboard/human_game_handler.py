@@ -86,13 +86,13 @@ def init_human_game(player_formation, computer_team, player_as, number_turns, do
         player_num = 1
         teamA = player_formation
         teamB = computer_team
-        name_teamA = filenames.extract_simple_name_expert_system((None,teamA))
+        name_teamA = filenames.extract_simple_name_es((None,teamA))
         name_teamB = filenames.extract_name_expert_system(teamB)
     else:
         player_num = -1
         teamB = player_formation
         teamA = computer_team
-        name_teamB = filenames.extract_simple_name_expert_system((None,teamB))
+        name_teamB = filenames.extract_simple_name_es((None,teamB))
         name_teamA = filenames.extract_name_expert_system(teamA)
 
     print teamA

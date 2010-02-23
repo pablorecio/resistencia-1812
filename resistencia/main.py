@@ -17,7 +17,13 @@
 # Copyright (C) 2010, Pablo Recio Quijano, <pablo.recioquijano@alum.uca.es>   #
 ###############################################################################
 
-import locale, gettext
+"""
+Main file that indicates how to execute the application, and initialize
+the environment
+"""
+
+import locale
+import gettext
 import gtk
 import gtk.glade
 APP = 'resistencia1812'
@@ -37,11 +43,8 @@ locale.setlocale(locale.LC_ALL, '')
 
 from resistencia.nls import gettext as _
 
-import gtk
-import gtk.glade
-
 from resistencia.gui import main_window
-import configure
+import resistencia.configure as configure
 
 configure.load_configuration()
   

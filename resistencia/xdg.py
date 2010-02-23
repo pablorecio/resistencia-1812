@@ -24,85 +24,112 @@
 # it as base for the construction of this application.
 # To get the original version see <http://www.exaile.org/>
 ###############################################################################
+"""
+File that allows to abstract the ubication of the app. This way, is
+independent if the program is installed or not.
+"""
 
 import os
 
-homedir = os.path.expanduser("~")
-lastdir = homedir
+__homedir__ = os.path.expanduser("~")
+__lastdir__ = __homedir__
 
-data_home = os.getenv("XDG_DATA_HOME")
-if data_home == None:
-    data_home = os.path.join(homedir, ".local", "share")
-data_home = os.path.join(data_home, "resistencia1812")
-if not os.path.exists(data_home):
-    os.makedirs(data_home)
+__data_home__ = os.getenv("XDG_DATA_HOME")
+if __data_home__ == None:
+    __data_home__ = os.path.join(__homedir__, ".local", "share")
+__data_home__ = os.path.join(__data_home__, "resistencia1812")
+if not os.path.exists(__data_home__):
+    os.makedirs(__data_home__)
 
-config_home = os.getenv("XDG_CONFIG_HOME")
-if config_home == None:
-    config_home = os.path.join(homedir, ".resistencia1812")
-if not os.path.exists(config_home):
-    os.makedirs(config_home)
+__config_home__ = os.getenv("XDG_CONFIG_HOME")
+if __config_home__ == None:
+    __config_home__ = os.path.join(__homedir__, ".resistencia1812")
+if not os.path.exists(__config_home__):
+    os.makedirs(__config_home__)
 
-cache_home = os.getenv("XDG_CACHE_HOME")
-if cache_home == None:
-    cache_home = os.path.join(homedir, ".cache")
-cache_home = os.path.join(cache_home, "resistencia1812")
-if not os.path.exists(cache_home):
-    os.makedirs(cache_home)
+__cache_home__ = os.getenv("XDG_CACHE_HOME")
+if __cache_home__ == None:
+    __cache_home__ = os.path.join(__homedir__, ".cache")
+__cache_home__ = os.path.join(__cache_home__, "resistencia1812")
+if not os.path.exists(__cache_home__):
+    os.makedirs(__cache_home__)
 
-data_dirs = os.getenv("XDG_DATA_DIRS")
-if data_dirs == None:
-    data_dirs = "/usr/local/share/:/usr/share/:/opt/share/"
-data_dirs = [os.path.join(d, "resistencia1812/data") for d in data_dirs.split(":")]
+__data_dirs__ = os.getenv("XDG_DATA_DIRS")
+if __data_dirs__ == None:
+    __data_dirs__ = "/usr/local/share/:/usr/share/:/opt/share/"
+__data_dirs__ = [os.path.join(d, "resistencia1812/data")
+             for d in __data_dirs__.split(":")]
 
-config_dirs = os.getenv("XDG_CONFIG_DIRS")
-if config_dirs == None:
-    config_dirs = "/etc/xdg"
-config_dirs = [os.path.join(d, "resistencia1812") for d in config_dirs.split(":")]
+__config_dirs__ = os.getenv("XDG_CONFIG_DIRS")
+if __config_dirs__ == None:
+    __config_dirs__ = "/etc/xdg"
+__config_dirs__ = [os.path.join(d, "resistencia1812")
+               for d in __config_dirs__.split(":")]
 
-resistencia_dir = os.path.split(os.path.dirname(os.path.realpath(__file__)))[0]
+__res_dir__ = os.path.split(os.path.dirname(os.path.realpath(__file__)))[0]
 # Detect if Resistencia is not installed.
-if os.path.exists(os.path.join(resistencia_dir, 'Makefile')):
-    data_dir = os.path.join(resistencia_dir, 'data')
-    data_dirs.insert(0, data_dir)
-    # Insert the "data" directory to data_dirs.
+if os.path.exists(os.path.join(__res_dir__, 'Makefile')):
+    __data_dir__ = os.path.join(__res_dir__, 'data')
+    __data_dirs__.insert(0, __data_dir__)
+    # Insert the "data" directory to __data_dirs__.
     # insert the config dir
-    config_home = os.path.join(resistencia_dir, 'data')
-    config_dir = os.path.join(resistencia_dir, 'data', 'config')
-    config_dirs.insert(0, config_dir)
+    __config_home__ = os.path.join(__res_dir__, 'data')
+    __config_dir__ = os.path.join(__res_dir__, 'data', 'config')
+    __config_dirs__.insert(0, __config_dir__)
 
-data_dirs.insert(0, data_home)
+__data_dirs__.insert(0, __data_home__)
 
 def get_config_dir():
-    return config_home
+    """
+    Get the path to the main config directory
+    """
+    return __config_home__
 
 def get_config_dirs():
-    return config_dirs
+    """
+    Get the path to the config directories
+    """
+    return __config_dirs__
 
 def get_data_dirs():
-    return data_dirs[:]
+    """
+    Get the path to the data directories
+    """
+    return __data_dirs__[:]
 
 def get_cache_dir():
-    return cache_home
+    """
+    Get the path to the cache dirs
+    """
+    return __cache_home__
 
 def get_data_path(*subpath_elements):
+    """
+    Get the path to the element on the data path
+    """
     subpath = os.path.join(*subpath_elements)
-    for dir in data_dirs:
-        path = os.path.join(dir, subpath)
+    for _dir in __data_dirs__:
+        path = os.path.join(_dir, subpath)
         if os.path.exists(path):
             return path
     return None
 
 def get_config_path(*subpath_elements):
+    """
+    Get the path to the element on the config path
+    """
     subpath = os.path.join(*subpath_elements)
-    for dir in config_dirs:
-        path = os.path.join(dir, subpath)
+    for _dir in __config_dirs__:
+        path = os.path.join(_dir, subpath)
         if os.path.exists(path):
             return path
     return None
 
 def get_last_dir():
-    return lastdir
+    """
+    Get the path to the last directory
+    """
+    return __lastdir__
 
 # vim: et sts=4 sw=4
 

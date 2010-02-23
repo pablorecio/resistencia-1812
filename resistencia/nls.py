@@ -34,4 +34,7 @@ try:
 except ImportError:
     # gettext is not available.  Provide a dummy function instead
     def gettext(text):
+        """
+        Function used to internationalize the application
+        """
         return text
