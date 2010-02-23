@@ -18,13 +18,17 @@
 # Copyright (C) 2009, Pablo Recio Quijano
 #----------------------------------------------------------------------
 
-import os
-import sys
-from xml.dom import minidom
+"""
+This module contains the functions that defines the way that the xml-layout
+file should be processed.
+"""
 
 from resistencia import xdg
 
 def _parse_propierty_data_string(node):
+    """
+    Parses an string
+    """
     data = node.firstChild.data
     data = data.replace("\n",'')
     data = data.replace(' ' , '')
@@ -32,6 +36,9 @@ def _parse_propierty_data_string(node):
     return data
 
 def _parse_childs(node):
+    """
+    Parses the childs of a node calling its funciones
+    """
     childs = node.childNodes
 
     erase_childs_end_of_line(childs)
@@ -47,29 +54,50 @@ def _parse_childs(node):
     return propierties
 
 def erase_childs_end_of_line(node):
+    """
+    Removes the childs at end of line
+    """
     for child in node:
         if child.nodeType == 3: #TextType
             node.remove(child)
 
 def parse_propierty_image(node):
+    """
+    Parses an image
+    """
     return xdg.get_data_path(_parse_propierty_data_string(node))
 
 def parse_propierty_font(node):
+    """
+    Parses a font
+    """
     return xdg.get_data_path(_parse_propierty_data_string(node))
 
 def parse_propierty_string(node):
+    """
+    Parses an string
+    """
     return _parse_propierty_data_string(node)
 
 def parse_propierty_title_string(node):
+    """
+    Parses a title 
+    """
     data = node.firstChild.data
     data = data.replace("\n",'')
 
     return data
 
 def parse_propierty_int(node):
+    """
+    Parses an integer
+    """
     return int(_parse_propierty_data_string(node))
 
 def parse_propierty_color(node):
+    """
+    Parses a color
+    """
     childs = node.childNodes
 
     erase_childs_end_of_line(childs)
@@ -81,21 +109,24 @@ def parse_propierty_color(node):
                 aux = child.firstChild.data
                 aux.replace("\n", '')
                 aux.replace(' ', '')
-                r = int(aux)
+                _red = int(aux)
             if attr == 'g':
                 aux = child.firstChild.data
                 aux.replace("\n", '')
                 aux.replace(' ', '')
-                g = int(aux)
+                _green = int(aux)
             if attr == 'b':
                 aux = child.firstChild.data
                 aux.replace("\n", '')
                 aux.replace(' ', '')
-                b = int(aux)
+                _blue = int(aux)
     
-    return (r,g,b)
+    return (_red, _green, _blue)
 
 def parse_propierty_size(node):
+    """
+    Parses a size element
+    """
     childs = node.childNodes
 
     erase_childs_end_of_line(childs)
@@ -114,9 +145,12 @@ def parse_propierty_size(node):
                 aux.replace(' ', '')
                 height = int(aux)
     
-    return (weight,height)
+    return (weight, height)
 
 def parse_propierty_button_images(node):
+    """
+    Parses the button images
+    """
     childs = node.childNodes
 
     erase_childs_end_of_line(childs)
@@ -140,9 +174,12 @@ def parse_propierty_button_images(node):
                 aux.replace(' ', '')
                 pressed = xdg.get_data_path(aux)
     
-    return (default,above,pressed)
+    return (default, above, pressed)
 
 def parse_propierty_position(node):
+    """
+    Parses the position
+    """
     childs = node.childNodes
 
     erase_childs_end_of_line(childs)
@@ -154,30 +191,48 @@ def parse_propierty_position(node):
                 aux = child.firstChild.data
                 aux.replace("\n", '')
                 aux.replace(' ', '')
-                x = int(aux)
+                _x_ = int(aux)
             if attr == 'y':
                 aux = child.firstChild.data
                 aux.replace("\n", '')
                 aux.replace(' ', '')
-                y = int(aux)
+                _y_ = int(aux)
     
-    return (x,y)
+    return (_x_, _y_)
 
 def parse_label_dynamic_surface(node):
+    """
+    Parses a dynamic surface
+    """
     return _parse_childs(node)
 
 def parse_label_names(node):
+    """
+    Parses the names of the players
+    """
     return _parse_childs(node)
 
 def parse_label_buttons(node):
+    """
+    Parses the main buttons
+    """
     return _parse_childs(node)
 
 def parse_label_button(node):
+    """
+    Parses a single button
+    """
     return _parse_childs(node)
 
 def parse_label_child_in_label(node): #labels with the player's name
+    """
+    Parses the childs of a label
+    """
     return _parse_childs(node)
 
 def parse_label_child_button(node):
+    """
+    Parses the childs of a button
+    """
     return _parse_childs(node)
     

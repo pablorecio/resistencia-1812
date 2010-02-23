@@ -63,7 +63,8 @@ def extract_names_from_file (filename):
     """
     Given the name of a game's log, extract names of the players
     """
-    useless, file_name = path.split(filename)
+    _file = path.split(filename)
+    file_name = _file[1]
 
     name_a_i = 25
     name_a_j = file_name.find('-vs-')

@@ -18,29 +18,34 @@
 # Copyright (C) 2010, Pablo Recio Quijano, <pablo.recioquijano@alum.uca.es>   #
 ###############################################################################
 
+"""
+This module is the middle layer between the kernel of a one player game and its
+representation on pygame.
+"""
+
 import os.path
 import time
 
 import gtk
 
-import dyn_game
+from guadaboard import dyn_game
 
 from libguadalete import file_parser
 from resistencia import xdg
 from resistencia.gui import notify_result
 
 #path_file = 'temporal.txt'
+__default_layout__ = xdg.get_data_path('layouts/main-layout.xml')
         
-        
-def _find_element_matrix(board, e):
+def _find_element_matrix(board, element):
     """
     Check the existence of the element on a matrix.
     """
-    sum = 0
-    for l in board:
-        sum += l.count(e)
+    _sum = 0
+    for line in board:
+        _sum += line.count(element)
 
-    return not sum == 0
+    return not _sum == 0
 
 def _define_winner(board):
     """
@@ -48,30 +53,40 @@ def _define_winner(board):
     Will return 0 if it's a draw, 1 if the first team won and
     -1 if the second team won.
     """
-    king_A = _find_element_matrix(board, 1)
-    king_B = _find_element_matrix(board, -1)
-    print king_A
-    print king_B
+    king_a = _find_element_matrix(board, 1)
+    king_b = _find_element_matrix(board, -1)
+    print king_a
+    print king_b
 
-    if (king_A and king_B) or (not king_A and not king_B):
+    if (king_a and king_b) or (not king_a and not king_b):
         return 0
-    elif king_A:
+    elif king_a:
         return 1
     else:
         return -1
 
 class HumanInteraction:
-    def __init__(self, teamA, teamB, default_piece, player,
+    """
+    Class that models...
+    """
+    def __init__(self, team_a, team_b, default_piece, player,
                  number_turns):
-        self.teamA = teamA[0]
-        self.teamB = teamB[0]
+        self.team_a = team_a[0]
+        self.team_b = team_b[0]
         self.number_turns = number_turns
-        self.game_interaction = dyn_game.DynGame(teamA, teamB,
+        self.last_turn = 0
+        self.num_turns_played = 0
+        self.last_movement = 0
+        self.game_interaction = dyn_game.DynGame(team_a, team_b,
                                                  default_piece,
-                                                 xml_file= xdg.get_data_path('layouts/main-layout.xml'),
+                                                 xml_file=__default_layout__,
                                                  player=player)
 
     def update_games(self):
+        """
+        Updates the games. Read the temp file, so we add to the display the
+        newest boards
+        """
         if os.path.exists('temporal.txt'):
             path_file = 'temporal.txt'
         else:
@@ -88,27 +103,42 @@ class HumanInteraction:
         self.last_movement = self.game_interaction.draw_boards(new_turns)
 
     def finish(self):
+        """
+        Close the environment
+        """
         self.update_games()
         time.sleep(3)
         self.game_interaction.finish()
-        show_dialog_result((self.teamA, self.teamB), self.define_winner())
+        show_dialog_result((self.team_a, self.team_b), self.define_winner())
         
 
     def get_identifier_last_move(self):
+        """
+        Get the id of the last move
+        """
         print 'get_identifier_last_move'
         self.update_games()
         return self.last_movement[0]
 
     def get_movement_last_move(self):
+        """
+        Get the movement did on the last move
+        """
         print 'get_movement_last_move'
         return self.last_movement[1]
 
     def define_winner(self):
+        """
+        Function used to define who wons
+        """
         return _define_winner(self.last_turn[0])
 
-def show_dialog_result((name_teamA, name_teamB), winner):
-    n = notify_result.notifyResult((name_teamA, name_teamB), winner)
-    n.dlg_result.run()
+def show_dialog_result((name_team_a, name_team_b), winner):
+    """
+    Simple function that show a dialog with the result of a game
+    """
+    not_dig = notify_result.notifyResult((name_team_a, name_team_b), winner)
+    not_dig.dlg_result.run()
         
     while gtk.events_pending():
         gtk.main_iteration(False)

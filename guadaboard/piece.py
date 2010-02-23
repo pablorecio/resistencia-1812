@@ -17,6 +17,10 @@
 #                                                                             #
 # Copyright (C) 2010, Pablo Recio Quijano, <pablo.recioquijano@alum.uca.es>   #
 ###############################################################################
+"""
+This module provides the class Piece, who draws a piece for the board
+representation.
+"""
 
 import pygame
 import pygame.font
@@ -57,16 +61,17 @@ class Piece(object):
         """
         Getter for the numeric value of the piece.
         """
-        return self.value;
+        return self.value
 
     def get_size(self):
         """
         Getter for the size of the piece
         """
-        return self.size;
+        return self.size
 
     def get_surface(self):
-        """This method generate a surface drawdable with the piece and its value.
+        """This method generate a surface drawdable with the piece and
+        its value.
 
         Return a pygame.surface with the complete piece draw.
         """
@@ -75,7 +80,7 @@ class Piece(object):
 
 
         surface = pygame.Surface(size).convert()
-        surface.blit(image,(0,0))
+        surface.blit(image, (0, 0))
 
         if self.value != 0:
         
@@ -99,8 +104,8 @@ class Piece(object):
                 textpos = insider_text.get_rect(centerx=surface.get_width()/2,
                                                 centery=surface.get_width()/2)
             
-                surface.blit(border_text,textpos)
-                surface.blit(insider_text,textpos)
+                surface.blit(border_text, textpos)
+                surface.blit(insider_text, textpos)
 
         return surface
 

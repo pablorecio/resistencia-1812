@@ -18,4 +18,8 @@
 # Copyright (C) 2010, Pablo Recio Quijano, <pablo.recioquijano@alum.uca.es>   #
 ###############################################################################
 
+"""
+Module that indicates that guadaboard is a python package
+"""
+
 __all__ = ['guada-board']
