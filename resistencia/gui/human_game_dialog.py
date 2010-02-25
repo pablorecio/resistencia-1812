@@ -128,10 +128,10 @@ class humanGameDialog:
         if len(self.formation_player) == 0:
             self.error_team.run()
             correct = False
-        if len(self.rules_computer) == 0:
+        if len(self.rules_computer) == 0 and not self.random_computer:
             self.error_es_ia.run()
             correct = False
-        if len(self.formation_computer) == 0:
+        if len(self.formation_computer) == 0 and not self.random_computer:
             self.error_team_ia.run()
             correct = False
 

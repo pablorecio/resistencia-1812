@@ -162,6 +162,9 @@ class Layout(object):
         self.labels = (label_a, label_b)
 
     def _create_buttons(self):
+        """
+        Create the surfaces for the buttons
+        """
         action_btns = self.elements['action_buttons']
         btn_exit_pth = self.elements['exit_button']['exit_button_images']
         btn_left_2_pth = action_btns['first_button']['first_button_images']
@@ -206,9 +209,16 @@ class Layout(object):
                                           btn_right_2_pressed)
         
     def _draw_background(self):
+        """
+        Load the background image and convert it to pygame surface
+        """
         return pygame.image.load(self.elements['background']).convert()
     
     def _draw_labels(self):
+        """
+        Generates the surfaces containing the names and pieces of
+        the the players
+        """
         players_names = self.elements['players_names']
         labels_size = players_names['names_size']
         label_a_pos = players_names['inside_labels']['label_A_position']
@@ -224,9 +234,15 @@ class Layout(object):
         return labels
     
     def _draw_exit_button(self):
+        """
+        Generate the surface for the exit button
+        """
         return self.buttons['button_exit'][self.state['button_exit']]
 
     def _draw_buttons(self):
+        """
+        Returns the surface for the buttons
+        """
         action_btns = self.elements['action_buttons']
         buttons_size = action_btns['action_buttons_size']
         button_1 = self.buttons['button_left_2'][self.state['button_left_2']]
@@ -255,24 +271,45 @@ class Layout(object):
         return buttons_srfc
         
     def change_board(self, board):
+        """
+        Update the board with a new state
+        """
         self.board = board
 
     def get_board_position(self):
+        """
+        Get the origin of the board on the main surface.
+        """
         return self.elements['board']['board_position']
 
     def get_favicon(self):
+        """
+        Get the surface of the favicon
+        """
         return self.favicon
 
     def get_window_size(self):
+        """
+        Get the windows size
+        """
         return self.window_size
 
     def get_window_title(self):
+        """
+        Get the windows title
+        """
         return self.window_title
 
     def _get_absolute_position(self, pos1, pos2):
+        """
+        Get the position in an absolute way
+        """
         return (pos1[0] + pos2[0], pos1[1] + pos2[1])
 
     def _generate_buttons_rects(self):
+        """
+        Generate the rects of the buttons to check collisions
+        """
         surface = pygame.Surface(self.window_size)
 
         button_exit = self.buttons['button_exit'][0]
@@ -319,9 +356,15 @@ class Layout(object):
         return rects
 
     def get_buttons_rects(self):
+        """
+        Get the buttons rects
+        """
         return self._buttons_rects
         
     def _get_static_surface(self):
+        """
+        Generates and return the static surface.
+        """
         label_position = self.elements['players_names']['names_position']
         
         back_surface = pygame.Surface(self.elements['window_size'])
@@ -335,6 +378,9 @@ class Layout(object):
         return back_surface
 
     def get_surface(self, mouse = None):
+        """
+        Return the entire pygame surface with all the display
+        """
         exit_position = self.elements['exit_button']['exit_button_position']
         action_btns = self.elements['action_buttons']
         buttons_position = action_btns['action_buttons_position']
