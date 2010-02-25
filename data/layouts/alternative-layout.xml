@@ -1,0 +1,156 @@
+<?xml version="1.0" ?>
+<window-board>
+  <propierty name="window_title" type="title_string">Resistencia en Cadiz: 1812</propierty>
+  <propierty name="background" type="image">
+    ./images/background-001.png
+  </propierty>
+  <propierty name="favicon" type="image">./images/favicon.png</propierty>
+  <propierty name="font_type" type="font">./fonts/zektonbi.ttf</propierty>
+  <propierty name="font_size" type="int">22</propierty>
+  <propierty name="font_color" type="color">
+    <value id="r">0</value>
+    <value id="g">0</value>
+    <value id="b">0</value>
+  </propierty>
+  <propierty name="window_size" type="size">
+    <value id="weight">760</value>
+    <value id="height">560</value>
+  </propierty>
+
+  <label name="board" type="dynamic_surface">
+    <propierty name="board_size" type="size">
+      <value id="weight">480</value>
+      <value id="height">480</value>
+    </propierty>
+    <propierty name="board_position" type="position">
+      <value id="x">270</value>
+      <value id="y">10</value>
+    </propierty>
+  </label>
+
+  <label name="players_names" type="names">
+    <propierty name="names_background" type="image">./images/marco.png</propierty>
+    <propierty name="names_size" type="size">
+      <value id="weight">480</value>
+      <value id="height">47</value>
+    </propierty>
+    <propierty name="names_position" type="position">
+      <value id="x">270</value>
+      <value id="y">506</value>
+    </propierty>
+
+    <label_child name="inside_labels" type="in_label">
+      <propierty name="piece_position" type="position">
+	<value id="x">6</value>
+	<value id="y">6</value>
+      </propierty>
+      <propierty name="piece_size" type="size">
+	<value id="height">35</value>
+	<value id="weight">35</value>
+      </propierty>
+      <propierty name="name_position" type="position">
+	<value id="x">45</value>
+	<value id="y">6</value>
+      </propierty>
+      <propierty name="label_A_position" type="position">
+	<value id="x">0</value>
+	<value id="y">0</value>
+      </propierty>
+      <propierty name="label_B_position" type="position">
+	<value id="x">250</value>
+	<value id="y">0</value>
+      </propierty>
+    </label_child>
+  </label>
+
+  <label name="action_buttons" type="buttons">
+    <propierty name="action_buttons_size" type="size">
+      <value id="weight">170</value>
+      <value id="height">170</value>
+    </propierty>
+    <propierty name="action_buttons_position" type="position">
+      <value id="x">50</value>
+      <value id="y">165</value>
+    </propierty>
+
+    <label_child name="first_button" type="button">
+      <propierty name="first_button_size" type="size">
+	<value id="weight">50</value>
+	<value id="height">50</value>
+      </propierty>
+      <propierty name="first_button_position" type="position">
+	<value id="x">60</value>
+	<value id="y">0</value>
+      </propierty>
+      <propierty name="first_button_images" type="button_images">
+	<value id="default">./images/flecha_izquierda2.png</value>
+	<value id="above">./images/flecha_izquierda2_sobre.png</value>
+	<value id="pressed">./images/flecha_izquierda2_pulsada.png</value>
+      </propierty>
+    </label_child>
+
+    <label_child name="second_button" type="button">
+      <propierty name="second_button_size" type="size">
+	<value id="weight">50</value>
+	<value id="height">50</value>
+      </propierty>
+      <propierty name="second_button_position" type="position">
+	<value id="x">0</value>
+	<value id="y">60</value>
+      </propierty>
+      <propierty name="second_button_images" type="button_images">
+	<value id="default">./images/flecha_izquierda1.png</value>
+	<value id="above">./images/flecha_izquierda1_sobre.png</value>
+	<value id="pressed">./images/flecha_izquierda1_pulsada.png</value>
+      </propierty>
+    </label_child>
+
+    <label_child name="third_button" type="button">
+      <propierty name="third_button_size" type="size">
+	<value id="weight">50</value>
+	<value id="height">50</value>
+      </propierty>
+      <propierty name="third_button_position" type="position">
+	<value id="x">120</value>
+	<value id="y">60</value>
+      </propierty>
+      <propierty name="third_button_images" type="button_images">
+	<value id="default">./images/flecha_derecha1.png</value>
+	<value id="above">./images/flecha_derecha1_sobre.png</value>
+	<value id="pressed">./images/flecha_derecha1_pulsada.png</value>
+      </propierty>
+    </label_child>
+
+    <label_child name="fourth_button" type="button">
+      <propierty name="fourth_button_size" type="size">
+	<value id="weight">50</value>
+	<value id="height">50</value>
+      </propierty>
+      <propierty name="fourth_button_position" type="position">
+	<value id="x">60</value>
+	<value id="y">120</value>
+      </propierty>
+      <propierty name="fourth_button_images" type="button_images">
+	<value id="default">./images/flecha_derecha2.png</value>
+	<value id="above">./images/flecha_derecha2_sobre.png</value>
+	<value id="pressed">./images/flecha_derecha2_pulsada.png</value>
+      </propierty>
+    </label_child>
+  </label>
+
+  <label name="exit_button" type="button">
+      <propierty name="exit_button_size" type="size">
+	<value id="weight">50</value>
+	<value id="height">50</value>
+      </propierty>
+      <propierty name="exit_button_position" type="position">
+	<value id="x">10</value>
+	<value id="y">506</value>
+      </propierty>
+      <propierty name="exit_button_images" type="button_images">
+	<value id="default">./images/salir.png</value>
+	<value id="above">./images/salir_sobre.png</value>
+	<value id="pressed">./images/salir_pulsada.png</value>
+      </propierty>    
+  </label>
+</window-board>

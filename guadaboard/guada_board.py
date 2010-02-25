@@ -275,7 +275,7 @@ def run_from_file(src_file,
                   team_b=('equipoB',
                          xdg.get_data_path('images/piece-violete.png')),
                   path_piece_def=xdg.get_data_path('images/piece-default.png'),
-                  xml_file= xdg.get_data_path('layouts/main-layout.xml')):
+                  xml_file=xdg.get_data_path('layouts/alternative-layout.xml')):
     """
     Run a game directly from a file, not simulating a game.
     """
