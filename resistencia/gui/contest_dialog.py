@@ -128,7 +128,7 @@ class contestDialog:
         self.num_turns = 120
         self.spin_turns = builder.get_object("spin_num_turns")
         self.spin_turns.set_range(50,300)
-        self.spin_turns.set_increments(1,10)
+        self.spin_turns.set_increments(2,10)
         self.spin_turns.set_value(self.num_turns)
         
         builder.connect_signals(self)
