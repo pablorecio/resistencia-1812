@@ -18,10 +18,5 @@
 # Copyright (C) 2010, Pablo Recio Quijano, <pablo.recioquijano@alum.uca.es>   #
 ###############################################################################
 
-"""
-File that indicates that this folder is a python package
-"""
+import clips
 
-__all__ = ['main']
-
-log_filename = '/tmp/resistencia1812.log'
