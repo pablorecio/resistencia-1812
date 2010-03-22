@@ -25,6 +25,9 @@ import gtk
 
 from resistencia import configure, filenames, xdg
 from resistencia.gui import round_results
+from resistencia.gui import progress_bar_dialog as pbs
+
+from resistencia.nls import gettext as _
 
 import league
 import contest
@@ -48,7 +51,16 @@ def _init_league(teams, fast, num_turns, back_round):
     
     while not l.league_completed and not band:
         i = l.get_round_number()
-        l.play_round(fast)
+        progress_bar = None
+        if fast:
+            progress_bar = pbs.ProgressBarDialog(None,
+                                                 _('Running the contest'))
+            progress_bar_dialog = progress_bar.progress_bar_dialog
+            progress_bar.set_num_elements(l.get_round(i).number_games)
+            progress_bar_dialog.show()
+            while gtk.events_pending():
+                gtk.main_iteration(False)
+        l.play_round(progress_bar, fast)
         r = l.get_round(i)
         
         classifications = l.get_actual_puntuations()
@@ -57,6 +69,8 @@ def _init_league(teams, fast, num_turns, back_round):
         R = round_results.roundResults(classifications, results,
                                        l.get_prev_round_number() + 1,
                                        l.get_number_of_rounds())
+        if fast:
+            progress_bar_dialog.hide()
         button_pressed = R.result_dialog.run()
         
         while gtk.events_pending():
@@ -71,7 +85,16 @@ def _init_tournament(teams, num_turns, fast):
     
     while not t.tournament_completed and not band:
         i = t.get_round_number()
-        t.play_round(fast)
+        progress_bar = None
+        if fast:
+            progress_bar = pbs.ProgressBarDialog(None,
+                                                 _('Running the contest'))
+            progress_bar_dialog = progress_bar.progress_bar_dialog
+            progress_bar.set_num_elements(t.get_round(i).number_games)
+            progress_bar_dialog.show()
+            while gtk.events_pending():
+                gtk.main_iteration(False)
+        t.play_round(progress_bar, fast)
         r = t.get_round(i)
 
         classifications = []
@@ -81,7 +104,8 @@ def _init_tournament(teams, num_turns, fast):
                                        t.get_prev_round_number() + 1,
                                        t.get_number_of_rounds(),
                                        show_classifications=False)
-
+        if fast:
+            progress_bar_dialog.hide()
         button_pressed = R.result_dialog.run()
         
         while gtk.events_pending():
@@ -99,7 +123,16 @@ def _init_playoff(teams, fast, num_turns, back_round):
     
     while not l.league_completed and not band:
         i = l.get_round_number()
-        l.play_round(fast)
+        progress_bar = None
+        if fast:
+            progress_bar = pbs.ProgressBarDialog(None,
+                                                 _('Running the contest'))
+            progress_bar_dialog = progress_bar.progress_bar_dialog
+            progress_bar.set_num_elements(l.get_round(i).number_games)
+            progress_bar_dialog.show()
+            while gtk.events_pending():
+                gtk.main_iteration(False)
+        l.play_round(progress_bar, fast)
         r = l.get_round(i)
         
         classifications = l.get_actual_puntuations()
@@ -109,6 +142,8 @@ def _init_playoff(teams, fast, num_turns, back_round):
                                        l.get_prev_round_number() + 1,
                                        l.get_number_of_rounds(),
                                        show_top_teams=True)
+        if fast:
+            progress_bar_dialog.hide()
         button_pressed = R.result_dialog.run()
         
         while gtk.events_pending():

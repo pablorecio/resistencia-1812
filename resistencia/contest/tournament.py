@@ -21,6 +21,8 @@
 import math
 import random
 
+import gtk
+
 from resistencia import configure, filenames
 
 import contest
@@ -92,12 +94,16 @@ class Tournament(contest.Contest):
     def get_round(self, round_number):
         return self.rounds[round_number]
 
-    def play_round(self, fast=False):
+    def play_round(self, progress_bar, fast=False):
         if not self.tournament_completed:
             r = self.rounds[self.round_number]
             n = r.get_number_of_games()
             
             for i in range(n):
+                if fast:
+                    progress_bar.pulse()
+                    while gtk.events_pending():
+                        gtk.main_iteration(False)
                 r.play_match(fast, True)
 
             winners = r.get_winners()

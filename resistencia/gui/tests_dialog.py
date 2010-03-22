@@ -28,8 +28,8 @@ import types
 from guadaboard import guada_board
 from resistencia import configure, xdg, filenames
 from resistencia.tests import tests, selection
-
 from resistencia.nls import gettext as _
+from resistencia.gui import progress_bar_dialog as pbs
 
 import tests_result
 
@@ -156,11 +156,9 @@ class testDialog:
         self.error_team.connect('response', lambda d, r: d.hide())
         self.error_team.set_transient_for(self.tests_dialog)
 
-        self.progress_bar_dialog = builder.get_object('progress_dialog')
-        self.progress_bar_dialog.connect('response', lambda d, r: d.hide())
-        self.progress_bar_dialog.set_transient_for(self.tests_dialog)
-        
-        self.progress_bar = builder.get_object('progress_bar_test')        
+        self.progress_bar = pbs.ProgressBarDialog(self.tests_dialog,
+                                                  _('Running the test'))
+        self.progress_bar_dialog = self.progress_bar.progress_bar_dialog
         
         builder.connect_signals(self)
     
@@ -255,7 +253,7 @@ class testDialog:
             if self.all_teams:
                 self.teams = selection.get_installed_teams()
 
-            self.progress_bar.set_pulse_step(1 /  float(self.num_rounds * len(self.teams)))
+            self.progress_bar.set_num_elements(self.num_rounds * len(self.teams))
             t = tests.TestSuite(main_team, _clean_dictionary(self.teams),
                                 self.num_rounds, self.num_turns)
             self.progress_bar_dialog.show()
