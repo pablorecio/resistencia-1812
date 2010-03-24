@@ -132,7 +132,7 @@ def _clips_rule_limpia(module):
     module.BuildRule(rule_name, rule_prec, rule_body)
     
 
-class ClipsSubModuleMover(ClipsSubModule):
+class ClipsSubModuleMover(clips_submodule.ClipsSubModule):
     
     def _define_submodule(self):
         submod_name = 'MOVER'
