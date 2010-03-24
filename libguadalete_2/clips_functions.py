@@ -19,7 +19,7 @@
 ###############################################################################
 
 """
-This file contains the definition of functions used on the clips environment
+This file contains the definition of functions used on the clips environment.
 """
 
 import clips
@@ -30,6 +30,12 @@ __log__ = logger.getlog('libguadalete.clips_functions', log_filename)
 
 
 def _file_new_turn (filename, turn):
+    """Writes the turn number on a given file.
+
+    Keyword arguments:
+    filename -- System path to the file into we want to write
+    turn -- Integer with the turn number
+    """
     f = open(filename, 'a')
     f.write('tiempo ' + str(turn))
     __log__.debug('Init turn number ' + str(turn) + ' on "' + filename + '"')
@@ -37,6 +43,17 @@ def _file_new_turn (filename, turn):
 
 
 def _file_new_piece (filename, team, nid, value, x, y, covered):
+    """ Writes a line on the given file with the piece's values
+
+    Keyword arguments:
+    filename -- System path to the file into we want to write
+    team -- Team identificator. Must be 'A' or 'B'
+    nid -- Piece identificator. It deppends of each system expert developer
+    value -- Numeric value of the piece.
+    x - Position on the X axis.
+    y - Position on the Y axis.
+    covered - Identifies if the piece is covered for the rival or not.
+    """
     line = 'e:' + team + ' n:' + nid + ' p:' + value \
            + ' x:' + x + ' y:' + y + ' d:' + covered + "\n"
     f = open(filename, 'a')
@@ -46,6 +63,11 @@ def _file_new_piece (filename, team, nid, value, x, y, covered):
 
 
 def _clips_distancia():
+    """Clips distance function definition.
+
+    Allows to load on the CLIPS environment a function to calculate the distance
+    between two positions on the board.
+    """
     # First function name
     fun_name = 'distancia'
     # Parameters for the function
@@ -145,29 +167,45 @@ def _clips_turno():
     clips.BuildFunction(fun_name, fun_param, fun_body)
 
 # This list contains all the functions that initializes something on clips
-__functions__ = [_clips_distancia, _clips_dentro, _clips_minimo,
-                 _clips_mov_x,  _clips_mov_y, _clips_mov_valido,
-                 _clips_valor,  _clips_simetrico, _clips_sim, _clips_turno]
+__functions__ = {'distancia': _clips_distancia,
+                 'dentro': _clips_dentro,
+                 'minimo': _clips_minimo,
+                 'mov-x': _clips_mov_x,
+                 'mov-y': _clips_mov_y,
+                 'mov-valido': _clips_mov_valido,
+                 'valor': _clips_valor,
+                 'simetrico': _clips_simetrico,
+                 'sim': _clips_sim,
+                 'turno': _clips_turno}
 
 def init_module():
-    """
-    This function initialize the clips function of this module. You shouldn't
+    """This function initialize the clips function of this module. You shouldn't
     add functions to the module after init it.
     """
     clips.RegisterPythonFunction(_file_new_turn, 'a-fichero-tiempo')
     clips.RegisterPythonFunction(_file_new_piece, 'a-fichero-jugador')
 
-    for f in __functions__:
+    for k, f in __functions__:
         f()
 
 def add_clips_function(function):
-    """
-    Add some user-defined function to this module, so it will be loaded on the
-    clips environment once the module is initialize.
+    """Add some user-defined function to this module, so it will be loaded on
+    the clips environment once the module is initialize.
 
-    function - Must be a function that build a function on PyCLIPS as
+    Keywords arguments:
+    function -- Must be a function that build a function on PyCLIPS as
     clips.BuildFunction(fun_name, fun_param, fun_body)
     """
-    #TODO - Do some checks that 'function' is an initialization of a
-    #       clips function.
-    __functions__.append(function)
+    # TODO - Do some checks that 'function' is an initialization of a
+    #        clips function.
+
+    key = function[0]
+    f = function[1]
+    
+    __functions__[key] = f
+
+def remove_clips_function(function_key):
+    """Remove a function of this module.
+    """
+    # TODO - Catch exception if the function is not on the list
+    del __functions__[function_key]
