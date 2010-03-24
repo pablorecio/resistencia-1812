@@ -120,9 +120,6 @@ class TestSuite:
             for j in range(_ng):
                 _round.play_match()
                 progress_bar.pulse()
-                pulse_step = progress_bar.get_pulse_step()
-                frac = progress_bar.get_fraction() + pulse_step
-                progress_bar.set_fraction(frac)
                 while gtk.events_pending():
                     gtk.main_iteration(False)
             
