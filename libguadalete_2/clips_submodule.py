@@ -22,10 +22,12 @@
 
 class ClipsSubModule(object):
     def __init__(self, parent):
+        print 'Reciving {0} module as parent'.format(parent)
         self.rules = {}
         self.module = None
         self.parent = parent
-        self._define_submodule()
+        #self._define_submodule()
+        #print 'Defined {0} module'.format(repr(self.module))
     
     def _define_submodule(self, parent):
         raise NotImplementedError('Base class. Method not implemented here')
@@ -42,6 +44,8 @@ class ClipsSubModule(object):
         del self.rules[function_key]
 
     def clips_load_submodule(self):
+        self._define_submodule()
+        print 'Defined {0} module'.format(repr(self.module))
         for k in self.rules:
             rule = self.rules[k]
             rule(self.module)

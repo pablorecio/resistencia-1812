@@ -21,26 +21,27 @@
 import clips_submodule
 
 def _clips_rule_movimiento(module):
-    # TODO - printout
+    # TODO - printout'
     rule_name = 'movimiento'
     rule_prec = '(declare (salience 90))' \
                 '(tiempo ?t)' \
-                'h1 <- (mueve (num ?n) (mov ?m) (tiempo ?t))' \
-                '?h2 <- (ficha-r (equipo ?e) (num ?n) (puntos ?p) (pos-x ?x)' \
-                '(pos-y ?y) (descubierta ?d))' \
+                '?h1 <- (mueve (num ?n) (mov ?m) (tiempo ?t))' \
+                '?h2 <- (ficha-r (equipo ?e) (num ?n) (puntos ?p) ' \
+                '(pos-x ?x) (pos-y ?y) (descubierta ?d))' \
                 '(dimension ?dim)' \
                 '(tiempo-inicial ?ti)' \
                 '(test (= 0 (str-compare (turno ?ti ?t) ?e)))' \
                 '(test (mov-valido ?dim ?m ?x ?y))' \
-                '(not (ficha-r (pos-x ?x2&:(= (+ ?x (mov-x ?m)) ?x2))' \
+                '(not (ficha-r (pos-x ?x2&:(= (+ ?x (mov-x ?m)) ?x2)) '\
                 '(pos-y ?y2&:(= (+ ?y (mov-y ?m)) ?y2))))' \
                 '(not (movido ?e ?t))'
     rule_body = '(retract ?h1 ?h2)' \
-                '(printout t "Movimiento de "?e", ' \
-                '"?n"(puntos "?p") :mov "?m crlf)' \
+                '(printout t "Movimiento de "?e", "?n"(puntos "?p") ' \
+                ':mov "?m crlf)' \
                 '(assert (movido ?e ?t))' \
                 '(assert (ficha-r (equipo ?e) (num ?n) (puntos ?p) (pos-x ' \
-                '(+ ?x (mov-x ?m))) (pos-y (+ ?y (mov-y ?m)))(descubierta ?d)))'
+                '(+ ?x (mov-x ?m))) (pos-y (+ ?y (mov-y ?m))) ' \
+                '(descubierta ?d)))'
 
     module.BuildRule(rule_name, rule_prec, rule_body)
 
@@ -137,6 +138,9 @@ class ClipsSubModuleMover(clips_submodule.ClipsSubModule):
         submod_body = '(import MAIN deftemplate initial-fact ficha-r ' \
                       'dimension tiempo mueve turno tiempo-inicial)' \
                       '(import MAIN deffunction ?ALL)'
+        print submod_name
+        print submod_body
+        print repr(self.parent)
 
         self.module = self.parent.BuildModule(submod_name, submod_body)
         

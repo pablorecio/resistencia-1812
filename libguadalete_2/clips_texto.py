@@ -21,21 +21,20 @@
 import clips_submodule
 
 def _clips_rule_informacion(module):
-    # TODO - probably abstract the filename
+    # TODO - probably abstract the filename    
     rule_name = 'informacion'
     rule_prec = '(ficha-r (equipo ?e) (num ?n) (puntos ?p) (pos-x ?x) ' \
                 '(pos-y ?y) (descubierta ?d))' \
                 '(tiempo ?t)' \
                 '(not (impresa ?e ?n ?t ?p))'
-    rule_body = '(assert (impresa (?e ?n ?t ?p))' \
+    rule_body = '(assert (impresa ?e ?n ?t ?p))' \
                 '(open "temporal.txt" fich "a")' \
                 '(a-fichero-jugador ?e ?n ?p ?x ?y ?d)' \
                 '(close fich)'
-                #'(python-call a-fichero-jugador ?e ?n ?p ?x ?y ?d)' \
-
+                
     module.BuildRule(rule_name, rule_prec, rule_body)
 
-
+ 
 def _clips_rule_inicial(module):
     # TODO - probably abstract the filename
     rule_name = 'inicial'
@@ -161,7 +160,7 @@ class ClipsSubModuleTexto(clips_submodule.ClipsSubModule):
     def _define_submodule(self):
         submod_name = 'INFORMAR'
         submod_body = '(import MAIN deftemplate initial-fact ficha-r ' \
-                      'tiempo tiempo-inicial)' \
+                      'dimension tiempo tiempo-inicial)' \
                       '(import MAIN deffunction ?ALL)'
 
         self.module = self.parent.BuildModule(submod_name, submod_body)
