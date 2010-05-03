@@ -18,8 +18,6 @@
 # Copyright (C) 2010, Pablo Recio Quijano, <pablo.recioquijano@alum.uca.es>   #
 ###############################################################################
 
-import clips
-
 import clips_submodule
 
 def _clips_rule_informacion(module):
@@ -30,9 +28,10 @@ def _clips_rule_informacion(module):
                 '(tiempo ?t)' \
                 '(not (impresa ?e ?n ?t ?p))'
     rule_body = '(assert (impresa (?e ?n ?t ?p))' \
-                #'(open "temporal.txt" fich "a")' \
-                '(python-call a-fichero-jugador ?e ?n ?p ?x ?y ?d)' \
-                #'(close fich)'
+                '(open "temporal.txt" fich "a")' \
+                '(a-fichero-jugador ?e ?n ?p ?x ?y ?d)' \
+                '(close fich)'
+                #'(python-call a-fichero-jugador ?e ?n ?p ?x ?y ?d)' \
 
     module.BuildRule(rule_name, rule_prec, rule_body)
 
@@ -44,10 +43,9 @@ def _clips_rule_inicial(module):
                 '(tiempo ?t)' \
                 '(not (iniciado ?t))' \
                 '(dimension ?dim)'
-    rule_body = '(python-call a-fichero-tiempo ?t)' \
-                #'(open "temporal.txt" fich "a")' \
-                #'(python-call a-fichero-tiempo ?t)' \
-                #'(close fich)' \
+    rule_body = '(open "temporal.txt" fich "a")' \
+                '(a-fichero-tiempo ?t)' \
+                '(close fich)' \
                 '(assert (iniciado ?t))' \
                 '(assert (fila (+ 1 ?dim)))' \
                 '(assert (columna (+ 1 ?dim)))'
@@ -166,10 +164,10 @@ class ClipsSubModuleTexto(clips_submodule.ClipsSubModule):
                       'tiempo tiempo-inicial)' \
                       '(import MAIN deffunction ?ALL)'
 
-        self.module = clips.BuildModule(submod_name, submod_body)
+        self.module = self.parent.BuildModule(submod_name, submod_body)
 
-    def __init__(self):
-        super(ClipsSubModuleTexto, self).__init__()
+    def __init__(self, parent):
+        super(ClipsSubModuleTexto, self).__init__(parent)
         self.rules = {'informacion': _clips_rule_informacion,
                       'inicial': _clips_rule_inicial,
                       'vacia': _clips_rule_vacia,

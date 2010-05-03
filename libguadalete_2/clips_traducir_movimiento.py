@@ -18,30 +18,38 @@
 # Copyright (C) 2010, Pablo Recio Quijano, <pablo.recioquijano@alum.uca.es>   #
 ###############################################################################
 
-#from resistencia.nls import gettext as _
+import clips_submodule
 
-class ClipsSubModule(object):
+
+def _clips_rule_traducir(module):
+    # TODO - printout
+    rule_name = 'traducir'
+    rule_prec = '(declare (salience 10))' \
+                '(tiempo ?t)' \
+                '?h1 <- (mueve (num ?n) (mov ?m) (tiempo ?t))' \
+                '(tiempo-inicial ?ti)' \
+                '(test (= 0 (str-compare (turno ?ti ?t) "B")))' \
+                '(ficha-r (equipo "B") (num ?n))' \
+                '(not (traducido ?n ?t))'
+    rule_body = '(retract ?h1)' \
+                '(printout t "Traducido mov ficha-r n" ?n "de  "?m" a " ' \
+                '(simetrico ?m) crlf)' \
+                '(assert (traducido ?n ?t))' \
+                '(assert (mueve (num ?n) (mov (simetrico ?m)) (tiempo ?t)))'
+
+    module.BuildRule(rule_name, rule_prec, rule_body)
+
+
+class ClipsSubModuleTraducirMovimiento(clips_submodule.ClipsSubModule):
+
+    def _define_submodule(self):
+        submod_name = 'TRADUCIRM'
+        submod_body = '(import MAIN deftemplate initial-fact ficha ficha-r ' \
+                      'dimension tiempo mueve tiempo-inicial)' \
+                      '(import MAIN deffunction ?ALL)'
+
+        self.module = self.parent.BuildModule(submod_name, submod_body)
+
     def __init__(self, parent):
-        self.rules = {}
-        self.module = None
-        self.parent = parent
-        self._define_submodule()
-    
-    def _define_submodule(self, parent):
-        raise NotImplementedError('Base class. Method not implemented here')
-
-    def clips_add_rule(self, function):
-        # TODO - Checks the validation of the clips rule
-        key = function[0]
-        f = function[1]
-        
-        self.rules[key] = f
-
-    def clips_remove_rule(self, function_key):
-        # TODO - Catch exception
-        del self.rules[function_key]
-
-    def clips_load_submodule(self):
-        for k in self.rules:
-            rule = self.rules[k]
-            rule(self.module)
+        super(ClipsSubModuleTraducirMovimiento, self).__init__(parent)
+        self.rules = {'traducir': _clips_rule_traducir}
