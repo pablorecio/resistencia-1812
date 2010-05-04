@@ -18,7 +18,9 @@
 # Copyright (C) 2010, Pablo Recio Quijano, <pablo.recioquijano@alum.uca.es>   #
 ###############################################################################
 
-def _clips_main_templates(parent):
+import clips
+
+def _clips_main_templates():
     template_name = 'ficha-r'
     template_body = '(slot equipo)' \
                     '(slot num)' \
@@ -26,7 +28,7 @@ def _clips_main_templates(parent):
                     '(slot pos-x)' \
                     '(slot pos-y)' \
                     '(slot descubierta)'
-    parent.BuildTemplate(template_name, template_body)
+    clips.BuildTemplate(template_name, template_body)
 
     template_name = 'ficha'
     template_body = '(slot equipo)' \
@@ -35,18 +37,18 @@ def _clips_main_templates(parent):
                     '(slot pos-x)' \
                     '(slot pos-y)' \
                     '(slot descubierta)'
-    parent.BuildTemplate(template_name, template_body)
+    clips.BuildTemplate(template_name, template_body)
 
     template_name = 'mueve'
     template_body = '(slot num)' \
                     '(slot mov)' \
                     '(slot tiempo)'
-    parent.BuildTemplate(template_name, template_body)
+    clips.BuildTemplate(template_name, template_body)
 
 class GuadaleteMainEnvironment:
 
-    def __init__(self, parent, num_turns=120, dimension=8, first_turn='A'):
-        self.parent = parent
+    def __init__(self, num_turns=120, dimension=8, first_turn='A'):
+        # self.parent = parent
         self.num_turns = num_turns
         self.dimension = dimension
         self.first_turn = first_turn
@@ -73,8 +75,8 @@ class GuadaleteMainEnvironment:
                                             self.first_turn,
                                             self.base_a,
                                             self.base_b) 
-            self.parent.BuildDeffacts(deffacts_name, deffacts_body)
-            _clips_main_templates(self.parent)
+            clips.BuildDeffacts(deffacts_name, deffacts_body)
+            _clips_main_templates()
 
             self.init = True
         else: #check and throw exception

@@ -21,15 +21,15 @@
 #from resistencia.nls import gettext as _
 
 class ClipsSubModule(object):
-    def __init__(self, parent):
-        print 'Reciving {0} module as parent'.format(parent)
+    def __init__(self):
+        #print 'Reciving {0} module as parent'.format(parent)
         self.rules = {}
         self.module = None
-        self.parent = parent
+        #self.parent = parent
         #self._define_submodule()
         #print 'Defined {0} module'.format(repr(self.module))
     
-    def _define_submodule(self, parent):
+    def _define_submodule(self):
         raise NotImplementedError('Base class. Method not implemented here')
 
     def clips_add_rule(self, function):
@@ -45,7 +45,7 @@ class ClipsSubModule(object):
 
     def clips_load_submodule(self):
         self._define_submodule()
-        print 'Defined {0} module'.format(repr(self.module))
+        #print 'Defined {0} module'.format(repr(self.module))
         for k in self.rules:
             rule = self.rules[k]
             rule(self.module)

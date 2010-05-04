@@ -18,6 +18,8 @@
 # Copyright (C) 2010, Pablo Recio Quijano, <pablo.recioquijano@alum.uca.es>   #
 ###############################################################################
 
+import clips
+
 import clips_submodule
 
 def _clips_rule_basica_1(module):
@@ -103,10 +105,10 @@ class ClipsSubModuleBaseATeam(clips_submodule.ClipsSubModule):
                       'dimension tiempo mueve tiempo-inicial)' \
                       '(import MAIN deffunction ?ALL)'
 
-        self.module = self.parent.BuildModule(submod_name, submod_body)
+        self.module = clips.BuildModule(submod_name, submod_body)
 
-    def __init__(self, parent):
-        super(ClipsSubModuleBaseATeam, self).__init__(parent)
+    def __init__(self):
+        super(ClipsSubModuleBaseATeam, self).__init__()
         self.rules = {'basica1': _clips_rule_basica_1,
                       'basica2': _clips_rule_basica_2,
                       'basica3': _clips_rule_basica_3,

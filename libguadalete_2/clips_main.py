@@ -18,8 +18,9 @@
 # Copyright (C) 2010, Pablo Recio Quijano, <pablo.recioquijano@alum.uca.es>   #
 ###############################################################################
 
-import clips_submodule
+import clips
 
+import clips_submodule
 
 def _clips_rule_inicia_tiempo(module):
     rule_name = 'inicia-tiempo'
@@ -83,10 +84,10 @@ class ClipsSubModuleMain(clips_submodule.ClipsSubModule):
                       'dimension tiempo mueve turno tiempo-inicial)' \
                       '(export deffunction ?ALL)'
 
-        self.module = self.parent.BuildModule(submod_name, submod_body)
+        self.module = clips.BuildModule(submod_name, submod_body)
 
-    def __init__(self, parent):
-        super(ClipsSubModuleMain, self).__init__(parent)
+    def __init__(self):
+        super(ClipsSubModuleMain, self).__init__()
         self.rules = {'inicia-tiempo': _clips_rule_inicia_tiempo,
                       'borra-fich': _clips_rule_borra_fich,
                       'control_y_tiempo': _clips_rule_control_y_tiempo,

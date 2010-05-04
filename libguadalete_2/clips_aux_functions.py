@@ -22,7 +22,7 @@
 This file contains the definition of functions used on the clips environment.
 """
 
-__clips__ = None
+import clips
 
 def _clips_function_a_fichero_tiempo():
     # TODO - printout
@@ -30,7 +30,7 @@ def _clips_function_a_fichero_tiempo():
     fun_para = '?t'
     fun_body = '(printout fich "tiempo" crlf ?t crlf)'
 
-    __clips__.BuildFunction(fun_name, fun_para, fun_body)
+    clips.BuildFunction(fun_name, fun_para, fun_body)
 
 
 def _clips_function_a_fichero_jugador():
@@ -44,7 +44,7 @@ def _clips_function_a_fichero_jugador():
                '(printout fich " d:" ?d)' \
                '(printout fich crlf)'
 
-    __clips__.BuildFunction(fun_name, fun_para, fun_body)
+    clips.BuildFunction(fun_name, fun_para, fun_body)
 
 
 def _clips_function_por_pantalla_jugador():
@@ -67,7 +67,7 @@ def _clips_function_por_pantalla_jugador():
                ' (printout t "0"))' \
                '(printout t ?y crlf)'
 
-    __clips__.BuildFunction(fun_name, fun_para, fun_body)
+    clips.BuildFunction(fun_name, fun_para, fun_body)
 
 
 def _clips_function_distancia():
@@ -75,7 +75,7 @@ def _clips_function_distancia():
     fun_para = '?x ?y ?x2 ?y2'
     fun_body = '(sqrt (+ (* (- ?x ?x2) (- ?x ?x2)) (* (- ?y ?y2) (- ?y ?y2))))'
 
-    __clips__.BuildFunction(fun_name, fun_para, fun_body)
+    clips.BuildFunction(fun_name, fun_para, fun_body)
 
 
 def _clips_function_dentro():
@@ -84,7 +84,7 @@ def _clips_function_dentro():
     fun_body = '(and (or (<= ?x1 ?x ?x2) (>= ?x1 ?x ?x2))' \
                '(or (<= ?y1 ?y ?y2) (>= ?y1 ?y ?y2)))'
 
-    __clips__.BuildFunction(fun_name, fun_para, fun_body)
+    clips.BuildFunction(fun_name, fun_para, fun_body)
 
 
 def _clips_function_minimo():
@@ -95,7 +95,7 @@ def _clips_function_minimo():
                'else ' \
                '?n2)'
 
-    __clips__.BuildFunction(fun_name, fun_para, fun_body)
+    clips.BuildFunction(fun_name, fun_para, fun_body)
 
 
 def _clips_function_mov_x():
@@ -106,7 +106,7 @@ def _clips_function_mov_x():
                '(case 2 then -1)' \
                '(default 0))'
 
-    __clips__.BuildFunction(fun_name, fun_para, fun_body)
+    clips.BuildFunction(fun_name, fun_para, fun_body)
 
 
 def _clips_function_mov_y():
@@ -117,7 +117,7 @@ def _clips_function_mov_y():
                '(case 4 then -1)' \
                '(default 0))'
 
-    __clips__.BuildFunction(fun_name, fun_para, fun_body)
+    clips.BuildFunction(fun_name, fun_para, fun_body)
 
 
 def _clips_function_mov_valido():
@@ -126,7 +126,7 @@ def _clips_function_mov_valido():
     fun_body = '(and (> (+ ?x (mov-x ?m)) 0) (<= (+ ?x (mov-x ?m)) ?dim)' \
                     '(> (+ ?y (mov-y ?m)) 0) (<= (+ ?y (mov-y ?m)) ?dim))'
 
-    __clips__.BuildFunction(fun_name, fun_para, fun_body)
+    clips.BuildFunction(fun_name, fun_para, fun_body)
 
 
 def _clips_function_valor():
@@ -137,7 +137,7 @@ def _clips_function_valor():
                'else ' \
                '" ")'
 
-    __clips__.BuildFunction(fun_name, fun_para, fun_body)
+    clips.BuildFunction(fun_name, fun_para, fun_body)
 
 
 def _clips_function_simetrico():
@@ -150,7 +150,7 @@ def _clips_function_simetrico():
                 '(case 4 then 3)' \
                 '(default 0))'
 
-    __clips__.BuildFunction(fun_name, fun_para, fun_body)
+    clips.BuildFunction(fun_name, fun_para, fun_body)
 
 
 def _clips_function_sim():
@@ -158,7 +158,7 @@ def _clips_function_sim():
     fun_para = '?p'
     fun_body  = '(- 9 ?p)'
 
-    __clips__.BuildFunction(fun_name, fun_para, fun_body)
+    clips.BuildFunction(fun_name, fun_para, fun_body)
 
 
 def _clips_function_turno():
@@ -169,7 +169,7 @@ def _clips_function_turno():
                'else ' \
                '"B") '
 
-    __clips__.BuildFunction(fun_name, fun_para, fun_body)
+    clips.BuildFunction(fun_name, fun_para, fun_body)
 
 
 __functions__ = {'a-fichero-tiempo': _clips_function_a_fichero_tiempo,
@@ -187,9 +187,9 @@ __functions__ = {'a-fichero-tiempo': _clips_function_a_fichero_tiempo,
                  'mov-valido': _clips_function_mov_valido}
 
 
-def register_clips_functions(parent):
-    global __clips__
-    __clips__ = parent
+def register_clips_functions():
+    #global __clips__
+    #__clips__ = parent
     for k in __functions__:
         print 'Registring {0} function'.format(k)
         function = __functions__[k]
