@@ -47,7 +47,7 @@ def _clips_rule_basica_2(module):
                 '(not (ficha (equipo "A") (pos-x ?x2&:(= ?x2 ' \
                 '(- ?x 1))) (pos-y ?y)))'
     rule_body = '(printout t "EQUIPO-A mueve a" ?n " hacia 2 en t " ?t crlf)' \
-                '(assert (mueve (num ?n) (mov 1) (tiempo ?t)))'
+                '(assert (mueve (num ?n) (mov 2) (tiempo ?t)))'
 
     module.BuildRule(rule_name, rule_prec, rule_body)
 

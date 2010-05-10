@@ -67,7 +67,7 @@ def _clips_rule_elimina_1(module):
 def _clips_rule_elimina_2(module):
     # TODO - printout
     rule_name = 'elimina2'
-    rule_prec = '(declare (salience 20))' \
+    rule_prec = '(declare (salience 19))' \
                 '(tiempo ?t)'
     rule_body = '(printout t "*Limpiado" ?t  crlf)' \
                 '(assert (limpia ?t))'
@@ -160,7 +160,7 @@ def _clips_rule_indirecto_1B(module):
                 '(equipoA ?t "B")' \
                 '(ficha-r (num ?n) (equipo "B") (pos-x ?x) (pos-y ?y) ' \
                 '(puntos ?v) (descubierta 1))'
-    rule_body = '(assert (ficha (num ?n) (equipo "X") (pos-x (sim ?x)) ' \
+    rule_body = '(assert (ficha (num ?n) (equipo "A") (pos-x (sim ?x)) ' \
                 '(pos-y (sim ?y)) (puntos ?v) (descubierta 1)))'
 
     module.BuildRule(rule_name, rule_prec, rule_body)
