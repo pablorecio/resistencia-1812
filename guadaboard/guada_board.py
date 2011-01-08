@@ -61,7 +61,7 @@ def _handle_draw(output_file):
         num_a = 0
         num_b = 0
         _sum = 0
-        final_board = entire_game[len(entire_game) - 1]
+        final_board = entire_game[:-1]
         _num = len(final_board)
         for i in range(_num):
             for j in range(_num):
@@ -95,11 +95,11 @@ def _load_game_from_file(src_file, team_a, team_b, path_piece_def, xml_file,
         winner = _handle_draw(src_file)
 
     if winner == 0:
-        print 'Empate'
+        print u'Empate'
     elif winner == 1:
-        print 'Ganó ' + team_a[0]
+        print u'Ganó %s' % team_a[0]
     else:
-        print 'Ganó ' + team_b[0]
+        print u'Ganó %s' % team_b[0]
 
     music = False
     if configure.load_configuration()['music_active'] == '1':
