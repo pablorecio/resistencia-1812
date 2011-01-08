@@ -25,15 +25,17 @@ file should be processed.
 
 from resistencia import xdg
 
+
 def _parse_propierty_data_string(node):
     """
     Parses an string
     """
     data = node.firstChild.data
-    data = data.replace("\n",'')
-    data = data.replace(' ' , '')
+    data = data.replace("\n", '')
+    data = data.replace(' ', '')
 
     return data
+
 
 def _parse_childs(node):
     """
@@ -53,13 +55,15 @@ def _parse_childs(node):
 
     return propierties
 
+
 def erase_childs_end_of_line(node):
     """
     Removes the childs at end of line
     """
     for child in node:
-        if child.nodeType == 3: #TextType
+        if child.nodeType == 3:  # TextType
             node.remove(child)
+
 
 def parse_propierty_image(node):
     """
@@ -67,11 +71,13 @@ def parse_propierty_image(node):
     """
     return xdg.get_data_path(_parse_propierty_data_string(node))
 
+
 def parse_propierty_font(node):
     """
     Parses a font
     """
     return xdg.get_data_path(_parse_propierty_data_string(node))
+
 
 def parse_propierty_string(node):
     """
@@ -79,20 +85,23 @@ def parse_propierty_string(node):
     """
     return _parse_propierty_data_string(node)
 
+
 def parse_propierty_title_string(node):
     """
-    Parses a title 
+    Parses a title
     """
     data = node.firstChild.data
-    data = data.replace("\n",'')
+    data = data.replace("\n", '')
 
     return data
+
 
 def parse_propierty_int(node):
     """
     Parses an integer
     """
     return int(_parse_propierty_data_string(node))
+
 
 def parse_propierty_color(node):
     """
@@ -101,7 +110,7 @@ def parse_propierty_color(node):
     childs = node.childNodes
 
     erase_childs_end_of_line(childs)
-    
+
     for child in childs:
         if child.hasAttribute('id'):
             attr = child.getAttribute('id')
@@ -120,8 +129,9 @@ def parse_propierty_color(node):
                 aux.replace("\n", '')
                 aux.replace(' ', '')
                 _blue = int(aux)
-    
+
     return (_red, _green, _blue)
+
 
 def parse_propierty_size(node):
     """
@@ -144,8 +154,9 @@ def parse_propierty_size(node):
                 aux.replace("\n", '')
                 aux.replace(' ', '')
                 height = int(aux)
-    
+
     return (weight, height)
+
 
 def parse_propierty_button_images(node):
     """
@@ -154,7 +165,7 @@ def parse_propierty_button_images(node):
     childs = node.childNodes
 
     erase_childs_end_of_line(childs)
-    
+
     for child in childs:
         if child.hasAttribute('id'):
             attr = child.getAttribute('id')
@@ -167,14 +178,16 @@ def parse_propierty_button_images(node):
                 aux = child.firstChild.data
                 aux.replace("\n", '')
                 aux.replace(' ', '')
+
                 above = xdg.get_data_path(aux)
             if attr == 'pressed':
                 aux = child.firstChild.data
                 aux.replace("\n", '')
                 aux.replace(' ', '')
                 pressed = xdg.get_data_path(aux)
-    
+
     return (default, above, pressed)
+
 
 def parse_propierty_position(node):
     """
@@ -197,8 +210,9 @@ def parse_propierty_position(node):
                 aux.replace("\n", '')
                 aux.replace(' ', '')
                 _y_ = int(aux)
-    
+
     return (_x_, _y_)
+
 
 def parse_label_dynamic_surface(node):
     """
@@ -206,11 +220,13 @@ def parse_label_dynamic_surface(node):
     """
     return _parse_childs(node)
 
+
 def parse_label_names(node):
     """
     Parses the names of the players
     """
     return _parse_childs(node)
+
 
 def parse_label_buttons(node):
     """
@@ -218,21 +234,23 @@ def parse_label_buttons(node):
     """
     return _parse_childs(node)
 
+
 def parse_label_button(node):
     """
     Parses a single button
     """
     return _parse_childs(node)
 
-def parse_label_child_in_label(node): #labels with the player's name
+
+def parse_label_child_in_label(node):  # labels with the player's name
     """
     Parses the childs of a label
     """
     return _parse_childs(node)
+
 
 def parse_label_child_button(node):
     """
     Parses the childs of a button
     """
     return _parse_childs(node)
-    
