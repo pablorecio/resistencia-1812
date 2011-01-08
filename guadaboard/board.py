@@ -27,6 +27,7 @@ import pygame
 
 import guadaboard.piece as piece
 
+
 class Board(object):
     """This class represents a complete board of the game.
 
@@ -40,11 +41,11 @@ class Board(object):
 
         Keywords arguments:
         state -- Matrix that represents the actual state of the board, with
-        the values of all its pieces.         
+        the values of all its pieces.
         team_a_piece -- Path to the image that represents the pieces of the
         team A
         team_b_piece -- Path to the image that represents the pieces of
-        the team 
+        the team
         default_piece -- Path to the image that represents an empty tile
         piece_size --
         board_size --
@@ -60,7 +61,7 @@ class Board(object):
         assert(len(state) == board_size)
         for i in range(len(state)):
             assert(len(state[i]) == board_size)
-            
+
         self.board_state = _reverse_board(state)
         self.piece_size = piece_size
         self.board_size = board_size
@@ -82,12 +83,12 @@ class Board(object):
         print player
         self.player_team = player
 
-        # next loop will generate the surfaces of every different piece and 
+        # next loop will generate the surfaces of every different piece and
         # store them on a dictionary. This way we can make an easy conversion
         # from the piece value to its proper surface.
         for i in range(board_size):
             for j in range(board_size):
-                if (self.keys.has_key(state[i][j]) == False):
+                if not state[i][j] in self.keys:
                     value = abs(state[i][j])
                     team = state[i][j] / value
                     covered = 0
@@ -98,8 +99,8 @@ class Board(object):
                     if value > value_max:
                         value = value - value_max
                         covered = 1
-                    _piece = piece.Piece(value, covered, 60,
-                                         rhidde, images[team])
+                    _piece = piece.Piece(
+                        value, covered, 60, rhidde, images[team])
                     self.keys[state[i][j]] = _piece.get_surface().convert()
         print 'termina board.Board()'
 
@@ -108,7 +109,7 @@ class Board(object):
         Generate a pygame drawdable surface with the entire board.
         """
         print 'get_surface'
-        size = (self.board_size*self.piece_size,)*2
+        size = (self.board_size * self.piece_size, ) * 2
         surface = pygame.surface.Surface(size).convert()
         #aux_board = _reverse_board(self.board_state)
         aux_board = self.board_state
@@ -116,7 +117,7 @@ class Board(object):
         for i in range(self.board_size):
             aux = []
             for j in range(self.board_size):
-                point = (j*self.piece_size, i*self.piece_size)
+                point = (j * self.piece_size, i * self.piece_size)
                 aux.append(surface.blit(self.keys[aux_board[i][j]], point))
             self.pieces_rects.append(aux)
 
@@ -141,7 +142,7 @@ class Board(object):
                         team = self.board_state[i][j] / _abs_state
                     print (self.identifiers[i][j], (i, j), team)
                     return (self.identifiers[i][j], (i, j), team)
-        
+
 
 def _reverse_board(board):
     """
@@ -150,7 +151,7 @@ def _reverse_board(board):
     """
     tmp_board = []
     _number = len(board)
-    
+
     for i in range(_number):
         aux = []
         for j in range(_number):
@@ -159,6 +160,6 @@ def _reverse_board(board):
 
     for i in range(_number):
         for j in range(_number):
-            tmp_board[_number-(i+1)][j] = board[i][j]
+            tmp_board[_number - (i + 1)][j] = board[i][j]
 
     return tmp_board
