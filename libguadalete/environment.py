@@ -20,6 +20,9 @@
 
 import clips
 
+from functions import utils
+
+
 def _clips_main_templates():
     template_name = 'ficha-r'
     template_body = '(slot equipo)' \
@@ -45,10 +48,15 @@ def _clips_main_templates():
                     '(slot tiempo)'
     clips.BuildTemplate(template_name, template_body)
 
+
+def _register_functions():
+    for fun_name, fun_params, fun_body in utils.functions:
+        clips.BuildFunction(fun_name, fun_params, fun_body)
+
+
 class GuadaleteMainEnvironment:
 
     def __init__(self, num_turns=120, dimension=8, first_turn='A'):
-        # self.parent = parent
         self.num_turns = num_turns
         self.dimension = dimension
         self.first_turn = first_turn
@@ -58,12 +66,8 @@ class GuadaleteMainEnvironment:
         self.init = False
 
     def init_environment(self):
-        # deffacts_body = '(tiempo-inicial {0})'.format(self.num_turns) \
-        #                '(dimension {0})'.format(self.dimension) \
-        #                '(turno "{0}")'.format(self.first_turn) \
-        #                '(base "A" {0})'.format(self.base_a) \
-        #                '(base "B" {0})'.format(self.base_b) \
         if not self.init:
+            _register_functions()
             deffacts_name = 'opciones-juego'
             deffacts_body = '(tiempo-inicial {0})(dimension {1})(turno "{2}")' \
                             '(base "A" {3})' \
@@ -74,11 +78,10 @@ class GuadaleteMainEnvironment:
                                             self.dimension,
                                             self.first_turn,
                                             self.base_a,
-                                            self.base_b) 
+                                            self.base_b)
             clips.BuildDeffacts(deffacts_name, deffacts_body)
             _clips_main_templates()
 
             self.init = True
-        else: #check and throw exception
+        else:  # check and throw exception
             pass
-        

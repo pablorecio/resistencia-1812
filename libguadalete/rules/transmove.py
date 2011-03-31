@@ -15,37 +15,28 @@
 # You should have received a copy of the GNU General Public License           #
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.       #
 #                                                                             #
-# Copyright (C) 2010, Pablo Recio Quijano, <pablo.recioquijano@alum.uca.es>   #
+# Copyright (C) 2011, Pablo Recio Quijano, <pablo.recioquijano@gmail.com>     #
 ###############################################################################
 
-#from resistencia.nls import gettext as _
 
-class ClipsSubModule(object):
-    def __init__(self):
-        #print 'Reciving {0} module as parent'.format(parent)
-        self.rules = {}
-        self.module = None
-        #self.parent = parent
-        #self._define_submodule()
-        #print 'Defined {0} module'.format(repr(self.module))
-    
-    def _define_submodule(self):
-        raise NotImplementedError('Base class. Method not implemented here')
+rules = {'translate': ('traducir',
+                       '(declare (salience 10))' \
+                           '(tiempo ?t)' \
+                           '?h1 <- (mueve (num ?n) (mov ?m) (tiempo ?t))' \
+                           '(tiempo-inicial ?ti)' \
+                           '(test (= 0 (str-compare (turno ?ti ?t) "B")))' \
+                           '(ficha-r (equipo "B") (num ?n))' \
+                           '(not (traducido ?n ?t))',
+                       '(retract ?h1)' \
+                           '(printout t "Traducido mov ficha-r n" ?n "de  "?m" a " ' \
+                           '(simetrico ?m) crlf)' \
+                           '(assert (traducido ?n ?t))' \
+                           '(assert (mueve (num ?n) (mov (simetrico ?m)) (tiempo ?t)))')}
 
-    def clips_add_rule(self, function):
-        # TODO - Checks the validation of the clips rule
-        key = function[0]
-        f = function[1]
-        
-        self.rules[key] = f
 
-    def clips_remove_rule(self, function_key):
-        # TODO - Catch exception
-        del self.rules[function_key]
+module_name = 'TRADUCIRM'
 
-    def clips_load_submodule(self):
-        self._define_submodule()
-        #print 'Defined {0} module'.format(repr(self.module))
-        for k in self.rules:
-            rule = self.rules[k]
-            rule(self.module)
+
+module_body = '(import MAIN deftemplate initial-fact ficha ficha-r ' \
+    'dimension tiempo mueve tiempo-inicial)' \
+    '(import MAIN deffunction ?ALL)'

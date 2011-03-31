@@ -15,39 +15,39 @@
 # You should have received a copy of the GNU General Public License           #
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.       #
 #                                                                             #
-# Copyright (C) 2010, Pablo Recio Quijano, <pablo.recioquijano@alum.uca.es>   #
-#               2007, Manuel Palomo Duarte, <manuel.palomo@uca.es>            #
+# Copyright (C) 2010-2011, Pablo Recio Quijano,                               #
+#                          <pablo.recioquijano@gmail.com>                     #
 ###############################################################################
-
-"""
-This file contains the definition of the class LibGuadalete, main class that
-wraps the behaviour of the game 'La Batalla del Guadalete' using Clips as a
-programming language.
-"""
-
-import os
 
 import clips
 
-from resistencia import configure, filenames, logger
-from resistencia import log_filename
-log = logger.getlog('libguadalete', log_filename)
 
-class LibGuadalete:
-    """
-    Main class that manages the environment and the execution of the game.
-    TODO - Complete this documentation after the class is written
-    """
-    def __init__(self, teams, number_turns=120, piece_max_value=6):
-        self.team_a = teams['team_a']
-        self.team_b = teams['team_b']
+class ClipsModule(object):
+    def __init__(self, rules, module_name, module_body):
+        self.rules = rules
+        self.module = None
+        self.module_name = module_name
+        self.module_body = module_body
 
-        self.number_turns = number_turns
-        self.piece_max_value = piece_max_value
+    def _define_submodule(self):
+        # TODO - Extra validations
+        self.module = clips.BuildModule(self.module_name, self.module_body)
 
-        config_file_path = configure.__file_path__
-        if not os.path.exists(config_file_path):
-            log.debug('Starting configuration file on ' + config_file_path)
-            configure.generate_configuration_file()
+    def clips_add_rule(self, function):
+        # TODO - Checks the validation of the clips rule
+        key, f = function
 
-        log.debug('Created object of LibGuadalete')
+        if callable(f):
+            self.rules[key] = f
+        else:
+            # TODO - Raise exception
+            pass
+
+    def clips_remove_rule(self, function_key):
+        if function_key in self.rules:
+            del self.rules[function_key]
+
+    def clips_load_submodule(self):
+        self._define_submodule()
+        for key, (rule_name, rule_prec, rule_body) in self.rules.items():
+            self.module.BuildRule(rule_name, rule_prec, rule_body)
