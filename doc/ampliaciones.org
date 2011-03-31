@@ -1,0 +1,7 @@
+* Ampliaciones propuestas por Manuel
+  - Barra de progreso en las competiciones
+  - Modo reproducción
+  - Cambiar Equipo A - Equipo B por algo más intuitivo
+  - Descripción de los ficheros CLIPS
+  - Mirar los metadatos
+  - Mirar un deshacer en el modo un jugador [chungo]

@@ -19,8 +19,8 @@ pyclips:
 	find . -name "pyclips" -exec rm -rf {} \;
 
 compile:
-	python -m compileall -q $(PACKAGES)
-	-python -O -m compileall -q $(PACKAGES)
+	python2.6 -m compileall -q $(PACKAGES)
+	-python2.6 -O -m compileall -q $(PACKAGES)
 
 make-install-dirs:
 	mkdir -p $(DESTDIR)$(PREFIX)/bin

@@ -34,9 +34,9 @@ from libguadalete import file_parser
 from resistencia import xdg
 from resistencia.gui import notify_result
 
-#path_file = 'temporal.txt'
 __default_layout__ = xdg.get_data_path('layouts/main-layout.xml')
-        
+
+
 def _find_element_matrix(board, element):
     """
     Check the existence of the element on a matrix.
@@ -46,6 +46,7 @@ def _find_element_matrix(board, element):
         _sum += line.count(element)
 
     return not _sum == 0
+
 
 def _define_winner(board):
     """
@@ -65,6 +66,7 @@ def _define_winner(board):
     else:
         return -1
 
+
 class HumanInteraction:
     """
     Class that models...
@@ -77,10 +79,10 @@ class HumanInteraction:
         self.last_turn = 0
         self.num_turns_played = 0
         self.last_movement = 0
-        self.game_interaction = dyn_game.DynGame(team_a, team_b,
-                                                 default_piece,
-                                                 xml_file=__default_layout__,
-                                                 player=player)
+        self.game_interaction = dyn_game.DynGame(
+            team_a, team_b, default_piece,
+            xml_file=__default_layout__,
+            player=player)
 
     def update_games(self):
         """
@@ -96,7 +98,7 @@ class HumanInteraction:
         turns_parsed = len(games)
         turns_played = self.game_interaction.get_number_of_turns()
         diff = turns_parsed - turns_played
-        
+
         new_turns = games[len(games) - diff:]
         self.last_turn = games[len(games) - 1]
         self.num_turns_played = turns_played
@@ -110,7 +112,6 @@ class HumanInteraction:
         time.sleep(3)
         self.game_interaction.finish()
         show_dialog_result((self.team_a, self.team_b), self.define_winner())
-        
 
     def get_identifier_last_move(self):
         """
@@ -133,12 +134,13 @@ class HumanInteraction:
         """
         return _define_winner(self.last_turn[0])
 
+
 def show_dialog_result((name_team_a, name_team_b), winner):
     """
     Simple function that show a dialog with the result of a game
     """
     not_dig = notify_result.notifyResult((name_team_a, name_team_b), winner)
     not_dig.dlg_result.run()
-        
+
     while gtk.events_pending():
         gtk.main_iteration(False)

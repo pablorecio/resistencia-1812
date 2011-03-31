@@ -24,6 +24,7 @@ game, showing the differents boards.
 
 import guadaboard.board as board
 
+
 class Game(object):
     """
     This class provides the funcionalities to iterate turns on a game.
@@ -41,10 +42,11 @@ class Game(object):
         self.board_size = board_size
         self.hidden = hidden
 
-        self.state =  board.Board(self.entire_game[self.turn],
-                                  self.team_a_piece, self.team_b_piece, 
-                                  self.default_piece, self.piece_size,
-                                  self.board_size, hidden=self.hidden)
+        self.state = board.Board(
+            self.entire_game[self.turn],
+            self.team_a_piece, self.team_b_piece,
+            self.default_piece, self.piece_size,
+            self.board_size, hidden=self.hidden)
 
     def draw_board(self):
         """
@@ -59,10 +61,11 @@ class Game(object):
         if self.turn != self.num_turn - 1:
             self.turn = self.turn + 1
 
-            self.state =  board.Board(self.entire_game[self.turn],
-                                      self.team_a_piece, self.team_b_piece, 
-                                      self.default_piece, self.piece_size,
-                                      self.board_size, hidden=self.hidden)
+            self.state = board.Board(
+                self.entire_game[self.turn],
+                self.team_a_piece, self.team_b_piece,
+                self.default_piece, self.piece_size,
+                self.board_size, hidden=self.hidden)
 
     def previous_turn(self):
         """
@@ -71,10 +74,11 @@ class Game(object):
         if self.turn != 0:
             self.turn = self.turn - 1
 
-            self.state =  board.Board(self.entire_game[self.turn],
-                                      self.team_a_piece, self.team_b_piece, 
-                                      self.default_piece, self.piece_size,
-                                      self.board_size, hidden=self.hidden)
+            self.state = board.Board(
+                self.entire_game[self.turn],
+                self.team_a_piece, self.team_b_piece,
+                self.default_piece, self.piece_size,
+                self.board_size, hidden=self.hidden)
 
     def first_turn(self):
         """
@@ -82,10 +86,11 @@ class Game(object):
         """
         self.turn = 0
 
-        self.state =  board.Board(self.entire_game[self.turn],
-                                  self.team_a_piece, self.team_b_piece, 
-                                  self.default_piece, self.piece_size,
-                                  self.board_size, hidden=self.hidden)
+        self.state = board.Board(
+            self.entire_game[self.turn],
+            self.team_a_piece, self.team_b_piece,
+            self.default_piece, self.piece_size,
+            self.board_size, hidden=self.hidden)
 
     def last_turn(self):
         """
@@ -93,7 +98,8 @@ class Game(object):
         """
         self.turn = self.num_turn - 1
 
-        self.state =  board.Board(self.entire_game[self.turn],
-                                  self.team_a_piece, self.team_b_piece, 
-                                  self.default_piece, self.piece_size,
-                                  self.board_size, hidden=self.hidden)
+        self.state = board.Board(
+            self.entire_game[self.turn],
+            self.team_a_piece, self.team_b_piece,
+            self.default_piece, self.piece_size,
+            self.board_size, hidden=self.hidden)
